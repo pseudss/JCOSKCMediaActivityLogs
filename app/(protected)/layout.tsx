@@ -88,9 +88,7 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
     if (status === 'authenticated') {
         return (
             <SidebarProvider>
-                <SideBar
-                    user={session.user}
-                />
+                <SideBar user={session.user as { id: string; username: string; firstName: string; lastName: string; roles: string[]; }} />
                 <SidebarInset>
                     <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
                         <div className="flex items-center gap-2 px-4">
@@ -103,11 +101,6 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
                             )}
                         </div>
                         <div className="flex items-center gap-4 px-4">
-                            <div className="flex items-center gap-2">
-                                {session?.user?.firstName && (
-                                    <span className="text-sm font-medium">Welcome, {session.user.firstName}</span>
-                                )}
-                            </div>
                             <ModeToggle />
                         </div>
                     </header>

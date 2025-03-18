@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { useSidebar } from "@/components/ui/sidebar"
-
 import { Main } from "@/components/LayoutComponents/SidebarComponents/main"
 import { Config } from "@/components/LayoutComponents/SidebarComponents/config"
 import { User } from "@/components/LayoutComponents/SidebarComponents/user"
@@ -37,28 +36,24 @@ export const SideBar: React.FC<AppSidebarProps> = ({ user }) => {
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton
-                            size="lg"
-                            className="w-full"
-                        >
+                        <SidebarMenuButton size="lg" className="w-full">
                             {open ? (
                                 <div className="flex items-center justify-center w-full gap-2">
                                     <img
                                         src="/logo.png"
                                         alt="Logo"
-                                        width={16}
-                                        height={16}
+                                        width={32}
+                                        height={32}
                                         className="object-contain"
                                     />
-                                    <span className="text-sm font-medium">{process.env.NEXT_PUBLIC_APP_NAME}</span>
+                                    <span className="text-lg font-medium">{process.env.NEXT_PUBLIC_APP_NAME}</span>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-3 pl-2">
-                                <img
-                                        src="/logo.png"
+                                <img src="/logo.png"
                                         alt="Logo"
-                                        width={16}
-                                        height={16}
+                                        width={32}
+                                        height={32}
                                         className="object-contain"
                                     />
                                 </div>
