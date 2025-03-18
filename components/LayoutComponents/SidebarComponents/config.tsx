@@ -11,9 +11,7 @@ import {
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
 
-export function Config({
-                              systems,
-                          }: {
+export function Config({systems}: {
     systems: {
         name: string
         url: string

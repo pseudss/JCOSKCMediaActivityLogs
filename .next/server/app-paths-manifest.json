@@ -1,6 +1,0 @@
-{
-  "/(auth)/login/page": "app/(auth)/login/page.js",
-  "/(protected)/library/page": "app/(protected)/library/page.js",
-  "/(protected)/index/page": "app/(protected)/index/page.js",
-  "/(protected)/access-management/page": "app/(protected)/access-management/page.js"
-}

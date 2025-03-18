@@ -27,9 +27,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useRouter } from "next/navigation"
 
-export function User({
-                            user,
-                        }: {
+export function User({user}: {
     user?: {
         firstName?: string
         lastName?: string
@@ -41,12 +39,10 @@ export function User({
     const { isMobile } = useSidebar()
     const router = useRouter()
 
-    // Check if user is defined
     if (!user || !user.firstName) {
-        return null; // or return a placeholder component
+        return null;
     }
 
-    // Get first letter of the first name
     const nameInitial = user.firstName.charAt(0).toUpperCase()
 
     const handleLogout = () => {
@@ -60,8 +56,7 @@ export function User({
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                        >
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarFallback className="rounded-lg">{nameInitial}</AvatarFallback>
                             </Avatar>
@@ -76,8 +71,7 @@ export function User({
                         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
                         side={isMobile ? "bottom" : "right"}
                         align="end"
-                        sideOffset={4}
-                    >
+                        sideOffset={4}>
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">

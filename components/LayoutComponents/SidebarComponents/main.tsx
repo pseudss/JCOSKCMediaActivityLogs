@@ -11,9 +11,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-export function Main({
-                            items,
-                        }: {
+export function Main({items}: {
     items: {
         name: string
         url: string

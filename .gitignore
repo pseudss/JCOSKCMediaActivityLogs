@@ -36,6 +36,8 @@ docs/api/
 # DotEnv
 .env.local
 .idea/
+.next/
+.env
 
 # build
 /build
