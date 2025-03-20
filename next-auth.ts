@@ -1,69 +1,90 @@
+import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { prisma } from "@/lib/prisma"
+import bcrypt from "bcryptjs"
 
-interface User {
-    id: string
-    username: string
-    firstName: string
-    lastName: string
-    roles: string[]
-}
 
-export const authOptions = {
-    providers: [
-        CredentialsProvider({
-            name: 'Credentials',
-            credentials: {
-                username: { label: "Username", type: "text", placeholder: "jsmith" },
-                password: { label: "Password", type: "password" }  
-            },
-            async authorize(credentials) {
-                const res = await fetch(`${process.env.APP_PUBLIC_API}/users/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: credentials?.username,
-                        password: credentials?.password,
-                    }),
-                });
-
-                const user = await res.json();
-
-                console.log('API Response:', user);
-
-                if (res.ok && user.success) {
-                    return user.data;
-                } else {
-                    return null;
-                }
-            }
-        })
-    ],
-    pages: {
-        signIn: '/login'
-    },
-    session: { strategy: "jwt" },
-    secret: process.env.NEXTAUTH_SECRET,
-    debug: process.env.NODE_ENV === 'development',
-    callbacks: {
-        async jwt({ token, user }: { token: any, user: User }) {
-            if (user) {
-                token.id = user.id;
-                token.username = user.username;
-                token.firstName = user.firstName;
-                token.lastName = user.lastName;
-                token.roles = user.roles;
-            }
-            return token;
-        },
-        async session({ session, token }: { session: any, token: any }) {
-            if (token) {
-                session.user.id = token.id as string;
-                session.user.username = token.username as string;
-                session.user.firstName = token.firstName as string;
-                session.user.lastName = token.lastName as string;
-                session.user.roles = token.roles as string[];
-            }
-            return session;
+export const authOptions: NextAuthOptions = {
+  providers: [
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        console.log('Authorize function called');
+        if (!credentials?.username || !credentials?.password) {
+          console.error('Missing username or password');
+          return null;
         }
+        
+        try {
+          const user = await prisma.user.findUnique({
+            where: { username: credentials.username },
+            include: {
+              UserRole: {
+                include: {
+                  role: true
+                }
+              }
+            }
+          })
+          console.log('Fetched User:', user);
+          
+          if (!user) {
+            console.error('User not found:', credentials.username);
+            return null;
+          }
+
+          const isValidPassword = await bcrypt.compare(credentials.password, user.password);
+          if (!isValidPassword) {
+            console.error('Invalid password for user:', credentials.username);
+            return null;
+          }
+
+          const roles = user.UserRole.map((userRole: { role: { name: any } }) => userRole.role.name);
+          console.log('User Roles:', roles);
+          return {
+            id: user.id,
+            username: user.username,
+            firstName: user.firstName || '',
+            lastName: user.lastName || '',
+            roles: roles
+          }
+        } catch (error) {
+          console.error('Auth error:', error)
+          return null
+        }
+      }
+    })
+  ],
+  pages: {
+    signIn: '/login'
+  },
+  session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === 'development',
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.username = user.username;
+        token.firstName = user.firstName;
+        token.lastName = user.lastName;
+        token.roles = user.roles;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string;
+        session.user.username = token.username as string;
+        session.user.firstName = token.firstName as string;
+        session.user.lastName = token.lastName as string;
+        session.user.roles = token.roles as string[];
+      }
+      return session;
     }
+  }
 }

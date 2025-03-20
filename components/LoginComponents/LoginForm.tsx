@@ -31,7 +31,7 @@ export default function LoginForm() {
         if (result?.error) {
             setError(result.error);
         } else {
-            router.push('/blank');
+            router.push('/employees');
         }
     };
 
@@ -40,8 +40,9 @@ export default function LoginForm() {
             <form onSubmit={handleSubmit}>
                 <CardHeader>
                     <div className="grid gap-2 text-center">
-                        <h1 className="text-3xl font-bold">DOJ Skeleton App</h1>
-                        <p className="text-balance text-muted-foreground">
+                        <h1 className="text-3xl font-bold">{process.env.NEXT_PUBLIC_APP_NAME}</h1>
+                        <div className="divide-dashed"></div>
+                        <p className="text-balance text-muted-foreground text-sm">
                             Enter your username below to login to your account
                         </p>
                     </div>
