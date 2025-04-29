@@ -1,4 +1,3 @@
-// @ts-ignore
 import LoginForm from '@/components/LoginComponents/LoginForm';
 
 export default function Page() {

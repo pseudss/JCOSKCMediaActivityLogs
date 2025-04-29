@@ -1,6 +1,8 @@
-import NextAuth from "next-auth"
-import { authOptions } from "@/next-auth"
+// Import the handlers object from your auth config
+import { handlers } from "@/auth";
 
-const handler = NextAuth(authOptions)
+// Export GET and POST methods from handlers
+export const { GET, POST } = handlers;
 
-export { handler as GET, handler as POST }
+// Explicitly set the runtime to Node.js to support bcryptjs
+export const runtime = "nodejs";
