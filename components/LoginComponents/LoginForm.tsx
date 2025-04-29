@@ -9,9 +9,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
-// @ts-ignore
 import { useRouter } from 'next/navigation'
-import { SetStateAction, useState } from "react";
+import React, { SetStateAction, useState } from "react";
 
 export default function LoginForm() {
     const [username, setUsername] = useState('');
@@ -21,15 +20,20 @@ export default function LoginForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+    
         const result = await signIn('credentials', {
             username,
             password,
             redirect: false,
         });
-
+    
         if (result?.error) {
-            setError(result.error);
+            try {
+                const errorResponse = JSON.parse(result.error);
+                setError(errorResponse.message || 'Invalid credentials');
+            } catch {
+                setError(result.error);
+            }
         } else {
             router.push('/blank');
         }

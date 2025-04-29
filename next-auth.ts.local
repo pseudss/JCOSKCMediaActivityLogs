@@ -1,3 +1,5 @@
+// Page fol local repo, to use local login
+
 import CredentialsProvider from "next-auth/providers/credentials"
 
 interface User {
@@ -14,10 +16,10 @@ export const authOptions = {
             name: 'Credentials',
             credentials: {
                 username: { label: "Username", type: "text", placeholder: "jsmith" },
-                password: { label: "Password", type: "password" }  
+                password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
-                const res = await fetch(`${process.env.APP_PUBLIC_API}/users/login`, {
+                const res = await fetch(`${process.env.APP_PUBLIC_API}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -28,7 +30,9 @@ export const authOptions = {
 
                 const user = await res.json();
 
-                console.log('API Response:', user);
+                if (!res.ok) {
+                    throw new Error(JSON.stringify(user));
+                  }
 
                 if (res.ok && user.success) {
                     return user.data;
