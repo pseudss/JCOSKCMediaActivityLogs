@@ -23,7 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     disableTransitionOnChange>
                     {children}
                 </ThemeProvider>
-            </AuthRedirect>
+                </AuthRedirect>
         </SessionProvider>
         </body>
         </html>
