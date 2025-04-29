@@ -38,7 +38,7 @@ export const SideBar: React.FC<AppSidebarProps> = ({ user }) => {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" className="w-full">
                             {open ? (
-                                <div className="flex items-center justify-center w-full gap-2">
+                                <div className="flex items-center justify-between w-full gap-2">
                                     <img
                                         src="/logo.png"
                                         alt="Logo"
@@ -46,7 +46,9 @@ export const SideBar: React.FC<AppSidebarProps> = ({ user }) => {
                                         height={32}
                                         className="object-contain"
                                     />
-                                    <span className="text-lg font-medium">{process.env.NEXT_PUBLIC_APP_NAME}</span>
+                                    <span className="flex-grow text-center text-sm font-medium">
+                                        {process.env.NEXT_PUBLIC_APP_NAME ? process.env.NEXT_PUBLIC_APP_NAME.split(' ').map(word => word.charAt(0)).join('') : ''}
+                                    </span>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-3 pl-2">
