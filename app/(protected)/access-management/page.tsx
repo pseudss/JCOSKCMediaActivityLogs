@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { UserPlus, Search, Users, Key, Plus, UserCog } from "lucide-react"
+import { UserPlus, Search, Users, Key, Plus, UserCog, MoreHorizontal } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 import { ManageUserDialog } from "@/components/AccessManagementComponents/UsersComponent/ManageUserDialog";
@@ -19,15 +19,14 @@ export default function AccessManagementPage() {
     const [roles, setRoles] = useState<Role[]>([]);
     const [permissions, setPermissions] = useState<Permission[]>([]);
     const [manageUserDialogOpen, setManageUserDialogOpen] = useState(false);
-
     const [userFormData, setUserFormData] = useState<EditUserData | undefined>(undefined);
-
     const [isLoadingUserAction, setIsLoadingUserAction] = useState(false);
-    
     const [manageRoleDialogOpen, setManageRoleDialogOpen] = useState(false);
     const [roleFormData, setRoleFormData] = useState<EditRoleData | undefined>(undefined);
     const [isLoadingRoleAction, setIsLoadingRoleAction] = useState(false);
-    
+    const [expandedRoleId, setExpandedRoleId] = useState<string | null>(null); // <-- Add this state
+    const [searchQuery, setSearchQuery] = useState('');
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -38,7 +37,6 @@ export default function AccessManagementPage() {
                 ]);
     
                 if (!usersRes.ok || !rolesRes.ok || !permissionsRes.ok) {
-                    // Attempt to read JSON error if available, fallback to status text
                     const usersError = !usersRes.ok ? await usersRes.json().catch(() => ({ message: `Failed to fetch users (${usersRes.status})` })) : null;
                     const rolesError = !rolesRes.ok ? await rolesRes.json().catch(() => ({ message: `Failed to fetch roles (${rolesRes.status})` })) : null;
                     const permissionsError = !permissionsRes.ok ? await permissionsRes.json().catch(() => ({ message: `Failed to fetch permissions (${permissionsRes.status})` })) : null;    
@@ -159,7 +157,7 @@ export default function AccessManagementPage() {
                     username: data.username,
                     first_name: data.firstName,
                     last_name: data.lastName,
-                    roles: data.roleIds, // Send role IDs for creation
+                    roles: data.roleIds,
                     active: data.active,
                     password: data.password,
                 };
@@ -176,8 +174,7 @@ export default function AccessManagementPage() {
     
                 const createdUser = await response.json();
                 console.log("API Create User Response:", createdUser);
-
-                    // Add the new user to the local state
+                
                 const assignedRoles = roles.filter(role => (createdUser.roles || []).includes(role.id)); // Assuming API returns role IDs on creation
                 setUsers(prevUsers => [...prevUsers, {
                     ...createdUser,
@@ -186,17 +183,16 @@ export default function AccessManagementPage() {
                     first_name: createdUser.first_name,
                     last_name: createdUser.last_name,
                     active: createdUser.active,
-                    roles: assignedRoles, // Attach the full role objects
+                    roles: assignedRoles,
                 }]);
             }
-    
-                // Close the dialog and clear the form state
+            
             setManageUserDialogOpen(false);
             setUserFormData(undefined);
     
         } catch (error: any) {
             console.error("Error saving user:", error);
-            alert(`Error: ${error.message}`); // Basic error display
+            alert(`Error: ${error.message}`);
         } finally {
             setIsLoadingUserAction(false);
         }
@@ -211,7 +207,6 @@ export default function AccessManagementPage() {
                 permissionIds: role.permissions ? role.permissions.map(p => p.id) : [],
             });
         } else {
-                // Create mode: Set form data to initial empty state
             setRoleFormData({
                 name: "",
                 description: "",
@@ -225,7 +220,6 @@ export default function AccessManagementPage() {
          setIsLoadingRoleAction(true);
          try {
              if (data.id) {
-                 // It's an update operation (editing)
                  console.log("Submitting update for role:", data);
                  const response = await fetch(`/api/access-management/roles/${data.id}`, {
                      method: "PATCH",
@@ -247,21 +241,25 @@ export default function AccessManagementPage() {
                  }
     
                  const updatedRoleFromApi = await response.json();
+                 console.log("API Update Response:", updatedRoleFromApi);
+                 
+                 const permissionIdsToMap = updatedRoleFromApi.permissionIds ?? data.permissionIds;
+
                  const finalUpdatedRole: Role = {
                      id: updatedRoleFromApi.id,
                      name: updatedRoleFromApi.name,
                      description: updatedRoleFromApi.description,
-                     // When updating local state, use the full permissions list to find the permission objects
-                     // based on the permissionIds returned or sent.
-                     permissions: permissions.filter(p => (updatedRoleFromApi.permissionIds || []).includes(p.id)),
+                     permissions: permissions.filter(p => permissionIdsToMap.includes(p.id)),
                  };
+                 console.log("Final Updated Role object for state:", finalUpdatedRole);
     
-                 setRoles(prevRoles =>
-                     prevRoles.map(r => (r.id === finalUpdatedRole.id ? finalUpdatedRole : r))
-                 );
+                 setRoles(prevRoles => {
+                     const newRoles = prevRoles.map(r => (r.id === finalUpdatedRole.id ? finalUpdatedRole : r));
+                     console.log("Roles state after update:", newRoles);
+                     return newRoles;
+                 });
     
              } else {
-                 // It's a create operation
                  console.log("Submitting new role:", data);
                   const response = await fetch("/api/access-management/roles", {
                      method: "POST",
@@ -282,32 +280,44 @@ export default function AccessManagementPage() {
                      throw new Error(errorData.error || errorData.message || "Failed to create role");
                  }
     
-                 const createdRole = await response.json();
-                 console.log("API Create Response:", createdRole);
+                 const createdRoleFromApi = await response.json();
+                 console.log("API Create Response:", createdRoleFromApi);
+                 
+                 const permissionIdsToMap = createdRoleFromApi.permissionIds ?? data.permissionIds;
+
                  const finalCreatedRole: Role = {
-                      id: createdRole.id,
-                      name: createdRole.name,
-                      description: createdRole.description,
-                      permissions: permissions.filter(p => (createdRole.permissionIds || []).includes(p.id)),
+                      id: createdRoleFromApi.id,
+                      name: createdRoleFromApi.name,
+                      description: createdRoleFromApi.description,
+                      permissions: permissions.filter(p => permissionIdsToMap.includes(p.id)),
                  };
+                 console.log("Final Created Role object for state:", finalCreatedRole);
     
-    
-                 setRoles(prevRoles => [...prevRoles, finalCreatedRole]);
+                 setRoles(prevRoles => {
+                     const newRoles = [...prevRoles, finalCreatedRole];
+                     console.log("Roles state after create:", newRoles);
+                     return newRoles;
+                 });
              }
     
              setManageRoleDialogOpen(false);
-             setRoleFormData(undefined); // Clear form state
+             setRoleFormData(undefined);
     
          } catch (error: any) {
              console.error("Error saving role:", error);
-             alert(`Error: ${error.message}`); // Basic error display
+             alert(`Error: ${error.message}`);
          } finally {
              setIsLoadingRoleAction(false);
          }
        };
     
-    const [searchQuery, setSearchQuery] = useState('');
-    
+    const handleTogglePermissions = (roleId: string, event: React.MouseEvent) => {
+        event.stopPropagation();
+        setExpandedRoleId(prevExpandedRoleId => 
+            prevExpandedRoleId === roleId ? null : roleId
+        );
+    };
+
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
     };
@@ -359,8 +369,8 @@ export default function AccessManagementPage() {
                      <h1 className="text-3xl font-bold">Access Management</h1>
                  </div>
 
-                 <div className="flex gap-6"> {/* Main flex container */}
-                     <div className="w-1/4"> {/* Side navigation */}
+                 <div className="flex gap-6">
+                     <div className="w-1/4">
                          <Card className="sticky top-4">
                              <CardHeader>
                                  <CardTitle>Categories</CardTitle>
@@ -399,7 +409,7 @@ export default function AccessManagementPage() {
                          </Card>
                      </div>
 
-                     <div className="w-3/4"> {/* Main content area */}
+                     <div className="w-3/4">
                          <Card>
                              <CardHeader className="flex flex-row items-center justify-between">
                                  <div>
@@ -429,7 +439,6 @@ export default function AccessManagementPage() {
                                              <Plus className="mr-2 h-4 w-4" /> Add Role
                                          </Button>
                                      )}
-                                     {/* Add Permission button can be added here if needed */}
                                  </div>
                              </CardHeader>
                              <CardContent>
@@ -441,13 +450,16 @@ export default function AccessManagementPage() {
                                                  <TableHead>Name</TableHead>
                                                  <TableHead>Roles</TableHead>
                                                  <TableHead>Status</TableHead>
-                                                 <TableHead className="text-right">Actions</TableHead>
                                              </TableRow>
                                          </TableHeader>
                                          <TableBody>
                                              {filteredUsers.length > 0 ? (
                                                  filteredUsers.map((user) => (
-                                                     <TableRow key={user.id}>
+                                                     <TableRow 
+                                                        key={user.id} 
+                                                        onClick={() => handleOpenManageUserDialog(user)}
+                                                        className="cursor-pointer hover:bg-muted/50"
+                                                     >
                                                          <TableCell>{user.username}</TableCell>
                                                          <TableCell>{user.first_name} {user.last_name}</TableCell>
                                                          <TableCell>
@@ -466,11 +478,6 @@ export default function AccessManagementPage() {
                                                                  {user.active ? "Active" : "Inactive"}
                                                              </Badge>
                                                          </TableCell>
-                                                         <TableCell className="text-right">
-                                                             <Button variant="ghost" size="sm" onClick={() => handleOpenManageUserDialog(user)}>
-                                                                 Edit
-                                                             </Button>
-                                                         </TableCell>
                                                      </TableRow>
                                                  ))
                                              ) : (
@@ -488,39 +495,52 @@ export default function AccessManagementPage() {
                                      <Table>
                                          <TableHeader>
                                              <TableRow>
-                                                 <TableHead>Role Name</TableHead>
-                                                 <TableHead>Description</TableHead>
-                                                 <TableHead>Permissions</TableHead>
-                                                 <TableHead className="text-right">Actions</TableHead>
+                                                 <TableHead style={{ width: '30%' }}>Role Name</TableHead>
+                                                 <TableHead style={{ width: '30%' }}>Description</TableHead>
+                                                 <TableHead style={{ width: '40%' }}>Permissions</TableHead>
                                              </TableRow>
                                          </TableHeader>
                                          <TableBody>
                                              {filteredRoles.length > 0 ? (
                                                  filteredRoles.map((role) => (
-                                                     <TableRow key={role.id}>
-                                                         <TableCell>{role.name}</TableCell>
-                                                         <TableCell className="text-muted-foreground">{role.description || "-"}</TableCell>
-                                                         <TableCell>
+                                                     <TableRow
+                                                         key={role.id}
+                                                         onClick={() => handleOpenManageRoleDialog(role)}
+                                                         className="cursor-pointer hover:bg-muted/50"
+                                                     >
+                                                         <TableCell style={{ width: '30%' }} className="align-top">{role.name}</TableCell> {/* Added align-top */}
+                                                         <TableCell style={{ width: '30%' }} className="text-muted-foreground align-top">{role.description || "-"}</TableCell> {/* Added align-top */}
+                                                         <TableCell style={{ width: '40%' }} className="align-top"> {/* Added align-top */}
                                                              {role.permissions && role.permissions.length > 0 ? (
-                                                                 role.permissions.map((permission) => (
-                                                                     <Badge key={permission.id} variant="outline" className="mr-1 mb-1">
-                                                                         {permission.name}
-                                                                     </Badge>
-                                                                 ))
+                                                                 <div className="flex flex-col items-start">
+                                                                     {(expandedRoleId === role.id ? role.permissions : role.permissions.slice(0, 4)).map((permission) => (
+                                                                         <Badge
+                                                                             key={permission.id}
+                                                                             variant="outline"
+                                                                             className="mb-1"
+                                                                         >
+                                                                             {permission.name}
+                                                                         </Badge>
+                                                                     ))}
+                                                                     {role.permissions.length > 4 && (
+                                                                         <Badge
+                                                                             variant="secondary"
+                                                                             className="cursor-pointer mt-1"
+                                                                             onClick={(e) => handleTogglePermissions(role.id, e)}
+                                                                         >
+                                                                             {expandedRoleId === role.id ? "Show Less" : <MoreHorizontal className="h-4 w-4" />}
+                                                                         </Badge>
+                                                                     )}
+                                                                 </div>
                                                              ) : (
                                                                  <span className="text-muted-foreground">No permissions</span>
                                                              )}
-                                                         </TableCell>
-                                                         <TableCell className="text-right">
-                                                             <Button variant="ghost" size="sm" onClick={() => handleOpenManageRoleDialog(role)}>
-                                                                 Edit
-                                                             </Button>
                                                          </TableCell>
                                                      </TableRow>
                                                  ))
                                              ) : (
                                                  <TableRow>
-                                                     <TableCell colSpan={4} className="text-center text-muted-foreground">
+                                                     <TableCell colSpan={3} className="text-center text-muted-foreground">
                                                          No roles found.
                                                      </TableCell>
                                                  </TableRow>
@@ -535,7 +555,6 @@ export default function AccessManagementPage() {
                                              <TableRow>
                                                  <TableHead>Permission Name</TableHead>
                                                  <TableHead>Description</TableHead>
-                                                 {/* <TableHead className="text-right">Actions</TableHead> */}
                                              </TableRow>
                                          </TableHeader>
                                          <TableBody>
@@ -544,9 +563,6 @@ export default function AccessManagementPage() {
                                                      <TableRow key={permission.id}>
                                                          <TableCell>{permission.name}</TableCell>
                                                          <TableCell className="text-muted-foreground">{permission.description || "-"}</TableCell>
-                                                         {/* <TableCell className="text-right">
-                                                             <Button variant="ghost" size="sm">Edit</Button> 
-                                                         </TableCell> */}
                                                      </TableRow>
                                                  ))
                                              ) : (
@@ -565,22 +581,22 @@ export default function AccessManagementPage() {
                  </div>
              </div>
 
-            {/* Manage User Dialog */}
-            {manageUserDialogOpen && userFormData && (
+            {/* User Management Dialog */} 
+            {manageUserDialogOpen && (
                 <ManageUserDialog
-                    open={manageUserDialogOpen}
+                    isOpen={manageUserDialogOpen}
                     onOpenChange={() => {
                         setManageUserDialogOpen(false);
-                        setUserFormData(undefined); // Clear form data on close
+                        setUserFormData(undefined);
                     }}
                     onSubmit={handleUserSubmit}
-                    newData={userFormData}
-                    roles={roles} // Pass the full list of roles
+                    userData={userFormData}
+                    roles={roles}
                     isLoading={isLoadingUserAction}
                 />
             )}
 
-            {/* Manage Role Dialog */}
+            {/* Role Management Dialog */}
             {manageRoleDialogOpen && roleFormData && (
                 <ManageRoleDialog
                     open={manageRoleDialogOpen}
@@ -595,5 +611,4 @@ export default function AccessManagementPage() {
                 />
             )}
         </div>
-    );
-}
+    );}
