@@ -10,15 +10,17 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useContext } from "react"; // Import useContext
+import { AbilityContext } from "@/components/ThemeProvider/AbilityContext"; // Import AbilityContext
+import { MenuItem } from "@/lib/menuItems"; // Import MenuItem type
 
 export function Main({items}: {
-    items: {
-        name: string
-        url: string
-        icon?: LucideIcon
-    }[]
+    // Use the imported MenuItem type which includes the ability property
+    items: MenuItem[]
 }) {
     const pathname = usePathname();
+    const ability = useContext(AbilityContext); // Get ability from context
+
     const isActiveRoute = (url: string) => {
         if (url === "/" && pathname === "/") return true;
         if (url !== "/") return pathname.startsWith(url);
@@ -30,14 +32,17 @@ export function Main({items}: {
             <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
-                    <SidebarMenuItem key={item.name}>
-                        <SidebarMenuButton asChild isActive={isActiveRoute(item.url)}>
-                            <Link href={item.url}>
-                                {item.icon && <item.icon />}
-                                {item.name}
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    // Check ability before rendering the item
+                    ability.can(item.ability.action, item.ability.subject) && (
+                        <SidebarMenuItem key={item.name}>
+                            <SidebarMenuButton asChild isActive={isActiveRoute(item.url)}>
+                                <Link href={item.url}>
+                                    {item.icon && <item.icon />}
+                                    {item.name}
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    )
                 ))}
             </SidebarMenu>
         </SidebarGroup>

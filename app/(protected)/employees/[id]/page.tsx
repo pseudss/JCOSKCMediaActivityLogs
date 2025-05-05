@@ -1,13 +1,37 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { EmployeeDetail } from "@/components/EmployeeComponents/employee-details"
 import { getEmployeeById } from "@/lib/employee_records"
+import { ReactElement } from "react";
+import { auth } from "@/auth";
+import { defineAbilityFor, UserForAbility } from "@/lib/ability";
+import { Forbidden } from "@/components/Forbidden";
 
-export default function EmployeeDetailPage({ params }: { params: { id: string } }) {
-  const employee = getEmployeeById(params.id)
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
 
-  if (!employee) {
-    notFound()
+export default async function EmployeeDetailPage({
+  params,
+}: PageProps): Promise<ReactElement> {
+
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+  const userForAbilityCheck = session.user as UserForAbility;
+  const ability = defineAbilityFor(userForAbilityCheck);
+
+  if (!ability.can('read', 'EmployeeDetails')) {
+    return <Forbidden />;
   }
 
-  return <EmployeeDetail employee={employee} />
+  const employee = await getEmployeeById(params.id);
+
+  if (!employee) {
+    notFound();
+  }
+
+  return <EmployeeDetail employee={employee} />;
 }

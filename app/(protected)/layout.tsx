@@ -2,12 +2,17 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
-import { JSX, ReactNode, useEffect } from 'react';
+import { JSX, ReactNode, useEffect, useMemo } from 'react';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { SideBar } from "@/components/LayoutComponents/sidebar";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { Separator } from '@radix-ui/react-separator';
 import { ModeToggle } from '@/components/ModeToggle';
+import Loading from './loading';
+import { defineAbilityFor, AppAbility, UserForAbility } from '@/lib/ability'; // Import UserForAbility
+import { AbilityContext } from '@/components/ThemeProvider/AbilityContext';
+import { prismaQuery } from '@casl/prisma/runtime';
+import { ConditionsMatcher } from '@casl/ability';
 
 export default function ProtectedLayout({ children }: { children?: ReactNode }) {
     const { data: session, status } = useSession();
@@ -15,19 +20,9 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
     const pathname = usePathname();
 
     useEffect(() => {
-        if (status === 'loading') return;
         if (status === 'unauthenticated') {
             router.push('/login');
-        } else if (status === 'authenticated') {
-            // @ts-ignore
-            const userRoles = session.user.roles;
-            const requiredRoles = ['Admin', 'User'];
-
-            const hasAccess = Array.isArray(userRoles) ? userRoles.some((role: string) => requiredRoles.includes(role)) : false;
-            if (!hasAccess) {
-                router.push('/unauthorized');
-            }
-        }
+        } 
     }, [status, router]);
 
     const capitalizeFirstLetter = (str: string) => {
@@ -85,31 +80,60 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
         return breadcrumbs;
     };
 
-    if (status === 'authenticated') {
-        return (
-            <SidebarProvider>
-                <SideBar user={session.user as { id: string; username: string; firstName: string; lastName: string; roles: string[]; }} />
-                <SidebarInset>
-                    <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-                        <div className="flex items-center gap-2 px-4">
-                            <SidebarTrigger className="-ml-1" />
-                            <Separator orientation="vertical" className="mr-2 h-4" />
-                            {pathname !== '/' && (
-                                <Breadcrumb>
-                                    <BreadcrumbList>{generateBreadcrumbs()}</BreadcrumbList>
-                                </Breadcrumb>
-                            )}
-                        </div>
-                        <div className="flex items-center gap-4 px-4">
-                            <ModeToggle />
-                        </div>
-                    </header>
+    const ability = useMemo(() => {
+                if (session?.user) {
+                    console.log('Session user object passed to defineAbilityFor:', JSON.stringify(session.user, null, 2));
+        
+                    const userForAbilityCheck = session.user as UserForAbility;
+        
+                    if (!userForAbilityCheck.UserRole || !Array.isArray(userForAbilityCheck.UserRole)) {
+                        console.error('User object has invalid or missing UserRole structure:', userForAbilityCheck);
+                        return new AppAbility([], { conditionsMatcher: prismaQuery as unknown as ConditionsMatcher<unknown> });
+                    }
+        
+                    return defineAbilityFor(userForAbilityCheck);
+                }
+                 console.log('No session user found, returning default ability.');
+                return new AppAbility([], { conditionsMatcher: prismaQuery as unknown as ConditionsMatcher<unknown> });
+            }, [session]);
 
-                    <main className="flex flex-1 flex-col gap-4 p-4">
-                        {children}
-                    </main>
-                </SidebarInset>
-            </SidebarProvider>
+    if (status === 'loading') {
+        return <Loading />;
+    }
+
+    if (status === 'authenticated' && session?.user) {
+        return (
+            <AbilityContext.Provider value={ability}>
+                <SidebarProvider>
+                    <SideBar user={{
+                        id: session?.user?.id as string, // Assuming 'id' exists
+                        username: (session?.user as any)?.username as string || '',
+                        firstName: (session?.user as any)?.firstName as string || '',
+                        lastName: (session?.user as any)?.lastName as string || '',
+                        roles: ((session?.user as UserForAbility)?.UserRole || []).map(ur => ur.role?.name).filter(Boolean) as string[],
+                    }} />
+                    <SidebarInset>
+                        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                            <div className="flex items-center gap-2 px-4">
+                                <SidebarTrigger className="-ml-1" />
+                                <Separator orientation="vertical" className="mr-2 h-4" />
+                                {pathname !== '/' && (
+                                    <Breadcrumb>
+                                        <BreadcrumbList>{generateBreadcrumbs()}</BreadcrumbList>
+                                    </Breadcrumb>
+                                )}
+                            </div>
+                            <div className="flex items-center gap-4 px-4">
+                                <ModeToggle />
+                            </div>
+                        </header>
+
+                        <main className="flex flex-1 flex-col gap-4 p-4">
+                            {children}
+                        </main>
+                    </SidebarInset>
+                </SidebarProvider>
+            </AbilityContext.Provider>
         );
     }
     return null;

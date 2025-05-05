@@ -16,6 +16,8 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar"
 import { menuItems } from "@/lib/menuItems"
+import { useContext } from "react";
+import { AbilityContext } from "@/components/ThemeProvider/AbilityContext";
 
 interface AppSidebarProps {
     user: {
@@ -29,8 +31,11 @@ interface AppSidebarProps {
 
 export const SideBar: React.FC<AppSidebarProps> = ({ user }) => {
     const { open } = useSidebar()
+    const ability = useContext(AbilityContext);
+    const canAccessSystemConfig = menuItems.system.some(item =>
+        ability.can(item.ability.action, item.ability.subject)
+    );
 
-    const isAdmin = user.roles.includes('Admin');
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -66,7 +71,7 @@ export const SideBar: React.FC<AppSidebarProps> = ({ user }) => {
             </SidebarHeader>
             <SidebarContent>
                 <Main items={menuItems.main} />
-                {isAdmin && <Config systems={menuItems.system} />}
+                {canAccessSystemConfig && <Config systems={menuItems.system} />}
             </SidebarContent>
             <SidebarFooter>
                 <User user={user} />

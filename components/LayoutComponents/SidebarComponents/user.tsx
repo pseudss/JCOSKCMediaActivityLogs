@@ -84,14 +84,14 @@ export function User({user}: {
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <BadgeCheck />
+                            <DropdownMenuItem onClick={() => router.push('/profile')}> {/* Add onClick handler here */}
+                                <BadgeCheck className="mr-2 h-4 w-4" /> {/* Added margin for spacing */}
                                 Account
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={handleLogout}>
-                            <LogOut />
+                            <LogOut className="mr-2 h-4 w-4" /> {/* Added margin for spacing */}
                             Log out
                         </DropdownMenuItem>
                     </DropdownMenuContent>

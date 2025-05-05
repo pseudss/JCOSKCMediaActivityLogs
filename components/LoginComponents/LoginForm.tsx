@@ -10,7 +10,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation'
-import React, { SetStateAction, useState } from "react";
+import React, { useState } from "react";
+import { getSession } from "next-auth/react";
+import { defineAbilityFor, UserForAbility, AppSubjects } from "@/lib/ability";
+import { Session } from "next-auth";
+
+type SessionWithUserRole = Omit<Session, 'user'> & {
+    user?: Session['user'] & {
+        UserRole?: UserForAbility['UserRole'];
+        isTemporaryPassword?: boolean;
+    }
+}
 
 export default function LoginForm() {
     const [username, setUsername] = useState('');
@@ -20,22 +30,65 @@ export default function LoginForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    
-        const result = await signIn('credentials', {
+
+        const result = await signIn("credentials", {
             username,
             password,
             redirect: false,
         });
-    
+
         if (result?.error) {
             try {
                 const errorResponse = JSON.parse(result.error);
-                setError(errorResponse.message || 'Invalid credentials');
+                setError(errorResponse.message || "Invalid credentials or user inactive.");
             } catch {
-                setError(result.error);
+                setError(result.error || "An unknown login error occurred.");
             }
-        } else {
-            router.push('/employees');
+        } else if (result?.ok) {
+            try {
+                await new Promise(resolve => setTimeout(resolve, 300));
+                const session = await getSession() as SessionWithUserRole | null;
+
+                if (!session?.user) {
+                    setError("Failed to retrieve user session after login.");
+                    return;
+                }
+
+                let targetPath = "/profile";
+
+                if (session.user.isTemporaryPassword) {
+                    targetPath = "/profile";
+                } else {
+                    if (session.user.UserRole) {
+                        const userForAbility = {
+                            id: session.user.id ?? '',
+                            UserRole: session.user.UserRole
+                        } as UserForAbility;
+
+                        const ability = defineAbilityFor(userForAbility);
+                        const prioritizedRoutes: { path: string; subject: AppSubjects }[] = [
+                            { path: "/employees", subject: "Employees" },
+                            { path: "/leave-administration", subject: "Leave" },
+                            { path: "/access-management", subject: "AccessManagement" },
+                            { path: "/profile", subject: "Profile" }
+                        ];
+
+                        for (const route of prioritizedRoutes) {
+                            if (ability.can('read', route.subject)) {
+                                targetPath = route.path;
+                                break; 
+                            }
+                        }
+                    } else {
+                        console.error("UserRole data missing in session. Defaulting redirect.");
+                    }
+                }
+                router.push(targetPath);
+
+            } catch (err) {
+                console.error("Error during post-login redirection:", err);
+                setError("An error occurred after login.");
+            }
         }
     };
 
@@ -59,7 +112,7 @@ export default function LoginForm() {
                             type="text"
                             placeholder="Enter your username"
                             value={username}
-                            onChange={(e: { target: { value: SetStateAction<string>; }; }) => setUsername(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value)}
                             required
                         />
                     </div>
@@ -69,11 +122,11 @@ export default function LoginForm() {
                             id="password"
                             type="password"
                             value={password}
-                            onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
-                    {error && <p className="text-red-600">{error}</p>}
+                    {error && <p className="text-red-600 text-sm text-center">{error}</p>} {/* Added text-sm/center */}
                     <Button type="submit">Sign In</Button>
                 </CardContent>
             </form>

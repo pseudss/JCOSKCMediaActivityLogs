@@ -5,24 +5,29 @@ import { Role, Permission } from "@/interface/access-management"
 export async function GET() {
   try {
     const roles = await prisma.role.findMany({
-            select: {
-                id: true,
-                name: true,
-                description: true,
-                RolePermission: {
-                  include: {
-                    permission: true,
-                },
-              },
-            },
-          });
+      where: {
+        name: {
+          not: 'SuperAdmin' // Exclude the SuperAdmin role
+        }
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        RolePermission: {
+          include: {
+            permission: true,
+          },
+        },
+      },
+    });
 
-      const formattedRoles: Role[] = roles.map(role => ({
-                id: role.id,
-                name: role.name,
-                description: role.description,
-              permissions: role.RolePermission.map(rp => rp.permission as Permission)
-            }));
+    const formattedRoles: Role[] = roles.map(role => ({
+      id: role.id,
+      name: role.name,
+      description: role.description,
+      permissions: role.RolePermission.map(rp => rp.permission as Permission)
+    }));
 
     return NextResponse.json(formattedRoles);
   } catch (error) {

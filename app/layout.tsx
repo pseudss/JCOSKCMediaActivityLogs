@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { AuthRedirect } from "@/components/LayoutComponents/auth-redirect";
 import React from "react";
+import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS
 
 interface RootLayoutProps {
     children: React.ReactNode;
@@ -22,6 +24,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     enableSystem
                     disableTransitionOnChange>
                     {children}
+                    {/* Add ToastContainer here, inside ThemeProvider is fine */}
+                    <ToastContainer 
+                        position="top-right" 
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="colored" // Or "light", "dark"
+                    /> 
                 </ThemeProvider>
                 </AuthRedirect>
         </SessionProvider>

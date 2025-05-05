@@ -7,6 +7,9 @@ const SALT_ROUNDS = 10;
 export async function GET() {
   try {
     const users = await prisma.user.findMany({
+      where: {
+        isSystemUser: false, // Exclude system users
+      },
       include: {
         UserRole: {
           include: {

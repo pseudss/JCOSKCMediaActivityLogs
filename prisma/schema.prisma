@@ -21,6 +21,8 @@ model User {
   last_name  String @map("lastName")
   active    Boolean    @default(true)
   createdAt DateTime   @default(now())
+  isTemporaryPassword Boolean    @default(false) @map("is_temporary_password")
+  isSystemUser Boolean    @default(false) @map("is_system_user")
   UserRole  UserRole[]
 }
 
