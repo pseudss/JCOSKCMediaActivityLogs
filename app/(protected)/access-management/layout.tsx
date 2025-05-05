@@ -18,17 +18,34 @@ interface Session {
     user: User;
 }
 
+// Extend the Session type to include roles
+interface User {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    roles?: string[]; // Add roles property
+}
+
+interface Session {
+    user: User;
+}
+
 interface AccessManagementLayoutProps {
     children: ReactNode;
 }
 
 export default function AccessManagementLayout({ children }: AccessManagementLayoutProps) {
+<<<<<<< HEAD
     const { status } = useSession();
+=======
+    const { data: session, status } = useSession() as { data: Session; status: string }; // Cast session type
+>>>>>>> f97a68764c29344a2c4ee239789c2809c8e60d8d
     const router = useRouter();
     const ability = useContext(AbilityContext); // Get ability from context
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
     useEffect(() => {
+<<<<<<< HEAD
         if (status === "loading") {
             return; // Wait until session status is determined
         }
@@ -36,6 +53,14 @@ export default function AccessManagementLayout({ children }: AccessManagementLay
         if (status === "unauthenticated") {
             router.push("/login"); // Redirect unauthenticated users to login
             return;
+=======
+        if (status === "loading") return;
+
+        if (status === "unauthenticated" || !session || !session.user?.roles?.includes("Admin")) {
+            router.push("/unauthorized");
+        } else {
+            setIsLoading(false);
+>>>>>>> f97a68764c29344a2c4ee239789c2809c8e60d8d
         }
 
         // Check ability once authenticated

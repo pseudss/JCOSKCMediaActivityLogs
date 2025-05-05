@@ -19,6 +19,8 @@ model User {
   password  String
   first_name String @map("firstName")
   last_name  String @map("lastName")
+  first_name String @map("firstName")
+  last_name  String @map("lastName")
   active    Boolean    @default(true)
   createdAt DateTime   @default(now())
   isTemporaryPassword Boolean    @default(false) @map("is_temporary_password")
@@ -49,6 +51,7 @@ model UserRole {
 
   @@id([userId, roleId])
   @@map("user_roles")
+  @@map("user_roles")
 }
 
 model RolePermission {
@@ -59,4 +62,6 @@ model RolePermission {
 
   @@id([roleId, permissionId])
   @@map("role_permissions")
+  @@map("role_permissions")
 }
+

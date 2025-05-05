@@ -36,7 +36,7 @@ export default function LoginForm() {
             password,
             redirect: false,
         });
-
+    
         if (result?.error) {
             try {
                 const errorResponse = JSON.parse(result.error);
