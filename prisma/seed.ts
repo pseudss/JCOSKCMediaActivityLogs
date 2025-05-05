@@ -3,6 +3,12 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+// --- IMPORTANT FOR FIRST-TIME USERS --- 
+// This script seeds the database with initial data like permissions, roles, and default users.
+// It's crucial for setting up the application's access control.
+// Run this script using 'npx prisma db seed' after setting up your database connection.
+// Make sure to change the default passwords for the seeded users for security!
+
 // Define your application's permissions here
 const permissionsToSeed = [
   // User Management
@@ -79,7 +85,7 @@ async function main() {
 
   // --- Upsert SuperAdmin Role ---
   const superAdminRole = await prisma.role.upsert({
-    where: { name: 'SuperAdmin' }, // Use a distinct name
+    where: { name: 'SuperAdmin' }, 
     update: {},
     create: {
       name: 'SuperAdmin',
@@ -101,7 +107,7 @@ async function main() {
 
   // --- Upsert SuperAdmin User ---
   const superAdminUser = await prisma.user.upsert({
-    where: { username: 'asd_admin' }, // Choose a secure username
+    where: { username: 'asd_admin' }, 
     update: {},
     create: {
       username: 'asd_admin',
@@ -110,7 +116,7 @@ async function main() {
       last_name: 'Admin',
       active: true,
       isTemporaryPassword: false,
-      isSystemUser: true, // <-- Set the flag here
+      isSystemUser: true, // Flag for system-level admin
     },
   });
   console.log(`Upserted user: ${superAdminUser.username}`);
@@ -123,6 +129,7 @@ async function main() {
   });
   console.log(`Linked user ${superAdminUser.username} to role ${superAdminRole.name}`);
 
+  // --- Upsert Admin Role ---
   const adminRole = await prisma.role.upsert({
     where: { name: 'Admin' },
     update: {},
@@ -135,7 +142,8 @@ async function main() {
 
   console.log(`Assigning permissions to ${adminRole.name} role...`);
   for (const permission of createdPermissionsMap.values()) {
-    if (permission.name !== 'manage_permissions') { // Example: Exclude one permission
+    // Exclude specific high-level permissions if needed for the regular Admin
+    if (permission.name !== 'manage_permissions') { 
       await prisma.rolePermission.upsert({
         where: { roleId_permissionId: { roleId: adminRole.id, permissionId: permission.id } },
         update: {},
@@ -145,22 +153,23 @@ async function main() {
   }
   console.log(`Finished assigning permissions to ${adminRole.name} role.`);
 
+  // --- Upsert Admin User ---
   const adminUser = await prisma.user.upsert({
-    where: { username: 'admin_user' }, // Different username
+    where: { username: 'admin_user' }, 
     update: {},
     create: {
       username: 'admin_user',
-      password: await bcrypt.hash('admin123', 10),
+      password: await bcrypt.hash('admin123', 10), // <<< SET A STRONG, UNIQUE PASSWORD HERE
       first_name: 'Regular',
       last_name: 'Admin',
       active: true,
       isTemporaryPassword: false,
-      isSystemUser: false, // <-- Regular user
+      isSystemUser: false, // Regular user
     },
   });
   console.log(`Upserted user: ${adminUser.username}`);
 
-  // Link regular Admin User to Admin Role
+  // --- Link Admin User to Admin Role ---
   await prisma.userRole.upsert({
     where: { userId_roleId: { userId: adminUser.id, roleId: adminRole.id } },
     update: {},
@@ -180,7 +189,7 @@ async function main() {
   });
   console.log(`Upserted role: ${userRole.name}`);
 
-  // Assign specific permissions to 'User' role (example)
+  // --- Assign specific permissions to 'User' role ---
   const userPermissions = ['read_employees', 'read_plantilla', 'read_leave', 'read_training', 'manage_profile'];
   console.log(`Assigning permissions to ${userRole.name} role...`);
   for (const permName of userPermissions) {

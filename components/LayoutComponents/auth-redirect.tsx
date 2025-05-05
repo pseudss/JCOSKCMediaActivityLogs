@@ -7,25 +7,22 @@ import { useRouter, usePathname } from "next/navigation"; // Import usePathname
 export function AuthRedirect({ children }: { children: React.ReactNode }) {
     const { data: session, status } = useSession();
     const router = useRouter();
-    const pathname = usePathname(); // Get current path
+    const pathname = usePathname();
 
     useEffect(() => {
-        // Skip checks if already on login/blank or during loading
+        
         if (status === 'loading' || pathname === '/login' || pathname === '/blank') return;
 
         if (status === 'unauthenticated') {
             router.push('/login');
         } else if (status === 'authenticated') {
-            // Only redirect to /blank if currently at the root or another non-protected, non-login path
-            // Adjust this condition based on your specific needs
+            
             if (pathname === '/') {
                  router.push('/blank');
             }
         }
-    }, [session, status, router, pathname]); // Add pathname to dependency array
-
-    // Show loading state only if status is loading AND not already showing children
-    // This prevents layout shifts if session loads quickly
+    }, [session, status, router, pathname]);
+    
     if (status === 'loading' && !session) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -36,13 +33,10 @@ export function AuthRedirect({ children }: { children: React.ReactNode }) {
             </div>
         );
     }
-
-    // Render children if authenticated or if unauthenticated but on the login page
+    
     if (status === 'authenticated' || (status === 'unauthenticated' && pathname === '/login')) {
         return <>{children}</>;
     }
-
-    // Fallback for unauthenticated users not on the login page (should be redirected, but as a safeguard)
-    // Or handle other potential states if necessary
-    return null; // Or return a minimal layout/loader if preferred
+    
+    return null;
 }

@@ -1,20 +1,14 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// Remove Input, Table components if no longer used directly here
-// import { Input } from "@/components/ui/input"
-// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { UserPlus } from "lucide-react" // Remove Search, Filter if moved
+import { UserPlus } from "lucide-react"
 import { getEmployeeSummaries } from "@/lib/employee_records"
 import { auth } from "@/auth";
 import { defineAbilityFor, UserForAbility } from "@/lib/ability";
 import { redirect } from "next/navigation";
-// Import the new client component
 import { EmployeeTableClient } from "@/components/EmployeeComponents/EmployeeTableClient";
 
 export default async function EmployeesPage() {
-  // Fetch session and define ability
   const session = await auth();
   if (!session?.user) {
     redirect("/login");
@@ -25,7 +19,6 @@ export default async function EmployeesPage() {
   const canEditEmployees = ability.can('update', 'Employees');
   const canCreateEmployees = ability.can('create', 'Employees');
 
-  // Fetch employee data
   const employees = await getEmployeeSummaries();
 
   return (
@@ -34,7 +27,6 @@ export default async function EmployeesPage() {
         <h1 className="text-3xl font-bold">Employee Management</h1>
         {canCreateEmployees && (
             <Button asChild>
-                {/* Link to the add employee page (you'll need to create this route) */}
                 <Link href="/employees/add">
                     <UserPlus className="mr-2 h-4 w-4" />
                     Add New Employee
@@ -43,9 +35,7 @@ export default async function EmployeesPage() {
         )}
       </div>
 
-      {/* Keep the summary cards */}
       <div className="grid gap-6 mb-6 md:grid-cols-3">
-        {/* ... Card components ... */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle>Total Employees</CardTitle>
@@ -74,7 +64,7 @@ export default async function EmployeesPage() {
             <CardDescription>Employees currently on leave</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">0</p> {/* Replace with actual data if available */}
+            <p className="text-3xl font-bold">0</p>
           </CardContent>
         </Card>
       </div>
@@ -85,7 +75,6 @@ export default async function EmployeesPage() {
           <CardDescription>View and manage employee information</CardDescription>
         </CardHeader>
         <CardContent>
-          {/* Render the Client Component here */}
           <EmployeeTableClient
             initialEmployees={employees}
             canViewDetails={canViewDetails}

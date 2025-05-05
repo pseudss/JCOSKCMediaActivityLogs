@@ -10,16 +10,15 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { useContext } from "react"; // Import useContext
-import { AbilityContext } from "@/components/ThemeProvider/AbilityContext"; // Import AbilityContext
-import { MenuItem } from "@/lib/menuItems"; // Import MenuItem type
+import { useContext } from "react";
+import { AbilityContext } from "@/components/ThemeProvider/AbilityContext";
+import { MenuItem } from "@/lib/menuItems";
 
 export function Main({items}: {
-    // Use the imported MenuItem type which includes the ability property
     items: MenuItem[]
 }) {
     const pathname = usePathname();
-    const ability = useContext(AbilityContext); // Get ability from context
+    const ability = useContext(AbilityContext);
 
     const isActiveRoute = (url: string) => {
         if (url === "/" && pathname === "/") return true;
@@ -32,7 +31,6 @@ export function Main({items}: {
             <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
-                    // Check ability before rendering the item
                     ability.can(item.ability.action, item.ability.subject) && (
                         <SidebarMenuItem key={item.name}>
                             <SidebarMenuButton asChild isActive={isActiveRoute(item.url)}>

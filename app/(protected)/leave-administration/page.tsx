@@ -105,7 +105,7 @@ export default function LeaveAdministrationPage() {
                       <TableCell>{request.end_date}</TableCell>
                       <TableCell>
                         <Badge
-                          variant={ request.status === "Approved" ? "success"
+                          variant={ request.status === "Approved" ? "secondary"
                               : request.status === "Rejected"
                                 ? "destructive"
                                 : "outline"

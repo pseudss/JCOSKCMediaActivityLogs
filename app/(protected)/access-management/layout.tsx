@@ -2,85 +2,44 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, ReactNode, useContext } from 'react'; // Import useContext
-import { AbilityContext } from '@/components/ThemeProvider/AbilityContext'; // Import AbilityContext
-import Loading from '../loading'; // Assuming a loading component exists
-
-// Keep Session/User interfaces if needed elsewhere, but AbilityContext is primary now
-interface User {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    roles?: string[]; 
-}
-
-interface Session {
-    user: User;
-}
-
-// Extend the Session type to include roles
-interface User {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    roles?: string[]; // Add roles property
-}
-
-interface Session {
-    user: User;
-}
+import { useEffect, useState, ReactNode, useContext } from 'react';
+import { AbilityContext } from '@/components/ThemeProvider/AbilityContext';
+import Loading from '../loading';
 
 interface AccessManagementLayoutProps {
     children: ReactNode;
 }
 
 export default function AccessManagementLayout({ children }: AccessManagementLayoutProps) {
-<<<<<<< HEAD
     const { status } = useSession();
-=======
-    const { data: session, status } = useSession() as { data: Session; status: string }; // Cast session type
->>>>>>> f97a68764c29344a2c4ee239789c2809c8e60d8d
     const router = useRouter();
-    const ability = useContext(AbilityContext); // Get ability from context
+    const ability = useContext(AbilityContext);
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
     useEffect(() => {
-<<<<<<< HEAD
         if (status === "loading") {
-            return; // Wait until session status is determined
+            return;
         }
 
         if (status === "unauthenticated") {
-            router.push("/login"); // Redirect unauthenticated users to login
+            router.push("/login");
             return;
-=======
-        if (status === "loading") return;
 
-        if (status === "unauthenticated" || !session || !session.user?.roles?.includes("Admin")) {
-            router.push("/unauthorized");
-        } else {
-            setIsLoading(false);
->>>>>>> f97a68764c29344a2c4ee239789c2809c8e60d8d
         }
 
-        // Check ability once authenticated
         if (status === "authenticated") {
-            // Use ability.can() to check permission
             if (!ability.can('manage', 'AccessManagement')) {
-                router.push("/unauthorized"); // Redirect if user lacks permission
+                router.push("/unauthorized");
             } else {
-                setIsCheckingAuth(false); // Allow rendering if user has permission
+                setIsCheckingAuth(false);
             }
         }
 
-    }, [status, router, ability]); // Add ability to dependency array
-
-    // Show loading state while checking session and ability
+    }, [status, router, ability]);
     if (status === "loading" || isCheckingAuth) {
         return <Loading />;
     }
 
-    // Render children only if authenticated and authorized
     return (
         <div className="min-h-screen">
             {children}

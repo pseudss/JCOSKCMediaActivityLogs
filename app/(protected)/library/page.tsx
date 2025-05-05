@@ -26,7 +26,6 @@ export default function LibraryPage() {
   const [activeCategory, setActiveCategory] = useState("plantilla")
   const [selectedYear, setSelectedYear] = useState("2024")
 
-  // Add the years array for the dropdown
   const availableYears = Object.keys(salaryGrades).sort().reverse()
 
   return (
@@ -36,7 +35,6 @@ export default function LibraryPage() {
       </div>
 
       <div className="flex gap-6">
-        {/* Left sidebar */}
         <div className="w-1/4">
           <Card className="sticky top-4">
             <CardHeader>
@@ -70,7 +68,6 @@ export default function LibraryPage() {
           </Card>
         </div>
 
-        {/* Right content area */}
         <div className="w-3/4">
           {activeCategory === "plantilla" && (
             <Card>
@@ -481,4 +478,3 @@ export default function LibraryPage() {
     </div>
   )
 }
-

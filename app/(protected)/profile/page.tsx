@@ -24,7 +24,6 @@ export default function ProfilePage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Use useMemo to calculate roles and permissions only when session changes
     const { userRoles, userPermissions } = useMemo(() => {
         const user = session?.user as SessionUserWithRoles | undefined;
         const roles: string[] = [];
@@ -98,7 +97,6 @@ export default function ProfilePage() {
         return <p>Access Denied.</p>;
     }
 
-    // Use the specific type here
     const user = session.user as SessionUserWithRoles;
 
     return (

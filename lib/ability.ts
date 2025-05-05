@@ -5,10 +5,9 @@ import { prismaQuery } from '@casl/prisma/runtime';
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete';
 
 export type AppSubjects =
-    |
-'Applicants'
+    | 'Applicants'
     | 'Employees'
-    | 'EmployeeDetails' // <-- Add new subject
+    | 'EmployeeDetails'
     | 'Library'
     | 'AccessManagement'
     | 'Payroll'
@@ -34,7 +33,7 @@ export type UserForAbility = User & {
 const permissionNameToSubjectMap: Record<string, AppSubjects> = {
     applicants: 'Applicants',
     employees: 'Employees',
-    employeedetails: 'EmployeeDetails', // <-- Add mapping for new permission
+    employeedetails: 'EmployeeDetails',
     library: 'Library',
     accessmanagement: 'AccessManagement',
     payroll: 'Payroll',
@@ -59,12 +58,10 @@ export function defineAbilityFor(user: UserForAbility) {
         rolePermissions.forEach(({ permission }) => {
             const parts = permission.name.split('_');
             const action = parts[0].toLowerCase() as Actions;
-            // Ensure subject key handles multi-part names correctly (like employeedetails)
             const subjectKey = parts.slice(1).join('').toLowerCase();
             const subject = permissionNameToSubjectMap[subjectKey];
 
             if (action && subject && ['create', 'read', 'update', 'delete', 'manage'].includes(action)) {
-                // Grant permission based on mapped action and subject
                 can(action, subject);
                 console.log(`[Ability] Granted: ${action} on ${subject} from permission ${permission.name}`); // Optional: Add logging
             } else {

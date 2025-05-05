@@ -73,12 +73,10 @@ export const ManageRoleDialog: React.FC<ManageRoleDialogProps> = ({
                     };
                 }
             }
-            // No change needed
             return prevData;
         });
     };
 
-    // Handle form submission
     const handleSubmit = () => {
         onSubmit(formData);
     };
