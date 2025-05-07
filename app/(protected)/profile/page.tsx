@@ -30,7 +30,7 @@ export default function ProfilePage() {
         const permissions = new Set<string>();
 
         if (user?.UserRole) {
-            user.UserRole.forEach(userRole => {
+            user.UserRole.forEach((userRole: { role?: { name: string; RolePermission?: { permission?: { name: string } }[] } }) => {
                 if (userRole.role) {
                     roles.push(userRole.role.name);
                     userRole.role.RolePermission?.forEach(rp => {

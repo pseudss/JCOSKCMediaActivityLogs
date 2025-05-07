@@ -39,6 +39,7 @@ export interface EditRoleData {
 }
 
 export interface NewUserData {
+    [x: string]: any;
     firstName: string;
     lastName: string;
     username: string;

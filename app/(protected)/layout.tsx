@@ -110,7 +110,7 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
                         username: (session?.user as any)?.username as string || '',
                         firstName: (session?.user as any)?.firstName as string || '',
                         lastName: (session?.user as any)?.lastName as string || '',
-                        roles: ((session?.user as UserForAbility)?.UserRole || []).map(ur => ur.role?.name).filter(Boolean) as string[],
+                        roles: ((session?.user as UserForAbility)?.UserRole || []).map((ur: { role?: { name: string } }) => ur.role?.name).filter(Boolean) as string[],
                     }} />
                     <SidebarInset>
                         <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">

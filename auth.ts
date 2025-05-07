@@ -2,26 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
-import { Prisma } from "@prisma/client";
 import { JWT } from "next-auth/jwt";
-
-type UserForAbility = Prisma.UserGetPayload<{
-    include: {
-        UserRole: {
-            include: {
-                role: {
-                    include: {
-                        RolePermission: {
-                            include: {
-                                permission: true;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-}>;
 
 interface AuthUser {
   id: string;
@@ -29,24 +10,25 @@ interface AuthUser {
   firstName: string;
   lastName: string;
   isTemporaryPassword: boolean;
-  UserRole: UserForAbility['UserRole'];
+  UserRole: any;
 }
 
 interface ExtendedJWT extends JWT {
-    id: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    isTemporaryPassword: boolean;
-    UserRole?: UserForAbility['UserRole'];
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  isTemporaryPassword: boolean;
+  UserRole?: any;
 }
+
 interface ExtendedSessionUser {
-    id: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    isTemporaryPassword: boolean;
-    UserRole: UserForAbility['UserRole'];
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  isTemporaryPassword: boolean;
+  UserRole: any;
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -67,20 +49,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const user = await prisma.user.findUnique({
             where: { username: String(credentials.username) },
             include: {
-              UserRole: { 
+              UserRole: {
                 include: {
-                  role: { 
+                  role: {
                     include: {
-                      RolePermission: { 
+                      RolePermission: {
                         include: {
-                          permission: true 
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+                          permission: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           });
 
           if (!user) {
@@ -102,16 +84,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return null;
           }
 
-          console.log('[Auth] UserRole structure in authorize:', JSON.stringify(user.UserRole, null, 2));
-
           return {
             id: user.id.toString(),
             username: user.username,
             firstName: user.first_name || '',
             lastName: user.last_name || '',
             isTemporaryPassword: user.isTemporaryPassword,
-            UserRole: user.UserRole as UserForAbility['UserRole'],
-
+            UserRole: user.UserRole,
           };
 
         } catch (error) {
@@ -125,10 +104,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   session: {
-    strategy: "jwt", 
+    strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET, 
-  debug: process.env.NODE_ENV === "development", 
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
   callbacks: {
     async jwt({ token, user }) {
       const extendedToken = token as ExtendedJWT;
@@ -140,14 +119,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         extendedToken.lastName = authUser.lastName;
         extendedToken.isTemporaryPassword = authUser.isTemporaryPassword;
         extendedToken.UserRole = authUser.UserRole;
-
-        console.log('[Auth] Token structure in jwt callback:', JSON.stringify(extendedToken, null, 2));
       }
       return extendedToken;
     },
     async session({ session, token }) {
       const extendedToken = token as ExtendedJWT;
-      console.log('[Auth] Received token in session callback:', JSON.stringify(extendedToken, null, 2));
 
       if (extendedToken && session.user) {
         const sessionUser = session.user as unknown as ExtendedSessionUser;
@@ -159,18 +135,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         sessionUser.isTemporaryPassword = extendedToken.isTemporaryPassword;
 
         if (extendedToken.UserRole) {
-            sessionUser.UserRole = extendedToken.UserRole;
-            console.log('[Auth] Assigned UserRole to session user.');
+          sessionUser.UserRole = extendedToken.UserRole;
         } else {
-            console.error('[Auth] UserRole missing on token in session callback!');
+          console.error('[Auth] UserRole missing on token in session callback!');
         }
-
-        console.log('[Auth] Final session object in session callback:', JSON.stringify(session, null, 2));
-
       } else {
-         console.error("[Auth] Token or session.user missing in session callback");
+        console.error("[Auth] Token or session.user missing in session callback");
       }
       return session;
     },
   },
+  trustHost: true
 });

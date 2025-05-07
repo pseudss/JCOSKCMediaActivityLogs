@@ -31,14 +31,25 @@ export async function GET() {
       }
     });
 
-    const formattedUsers = users.map(user => {
+    const formattedUsers = users.map((user: {
+      password: string;
+      UserRole: Array<{
+        role: {
+          id: string;
+          name: string;
+          RolePermission: Array<{
+            permission: any;
+          }>;
+        };
+      }>;
+    }) => {
       const { password, ...userWithoutPassword } = user;
       return {
         ...userWithoutPassword,
-        roles: user.UserRole.map(ur => ({
+        roles: user.UserRole.map((ur: { role: { id: string; name: string; RolePermission: Array<{ permission: any }> } }) => ({
           id: ur.role.id,
           name: ur.role.name,
-          permissions: ur.role.RolePermission.map(rp => rp.permission)
+          permissions: ur.role.RolePermission.map((rp: { permission: any }) => rp.permission)
         }))
       };
     });
