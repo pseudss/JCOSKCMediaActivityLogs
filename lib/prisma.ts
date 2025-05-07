@@ -11,13 +11,13 @@ if (globalForPrisma.prisma) {
         log: ['query'],
     });
 
-    prisma.$connect().catch((error) => {
-        if (error) {
-            console.error('Failed to connect to the database:', error instanceof Error ? error.message : error);
+    prisma.$connect().catch((error: unknown) => {
+        if (error instanceof Error) {
+          console.error('Failed to connect to the database:', error.message);
         } else {
-            console.error('Failed to connect to the database: Unknown error');
+          console.error('Failed to connect to the database:', String(error));
         }
-    });
+      });
 
     if (process.env.NODE_ENV !== 'production') {
         globalForPrisma.prisma = prisma;

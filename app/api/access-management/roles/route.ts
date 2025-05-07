@@ -22,11 +22,11 @@ export async function GET() {
       },
     });
 
-    const formattedRoles: Role[] = roles.map(role => ({
+    const formattedRoles: Role[] = roles.map((role: any) => ({
       id: role.id,
       name: role.name,
       description: role.description,
-      permissions: role.RolePermission.map(rp => rp.permission as Permission)
+      permissions: role.RolePermission.map((rp: { permission: Permission }) => rp.permission)
     }));
 
     return NextResponse.json(formattedRoles);
@@ -47,7 +47,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Create the role and potentially link permissions in a transaction
-    const newRole = await prisma.$transaction(async (tx) => {
+    const newRole = await prisma.$transaction(async (tx: { 
+      role: { 
+        create: (arg0: { data: { name: any; description: any; }; }) => any; 
+        findUnique: (arg0: { where: { id: any; }; include: { RolePermission: { include: { permission: boolean; }; }; }; }) => any; 
+      }; 
+      rolePermission: { 
+        createMany: (arg0: { data: { roleId: any; permissionId: string; }[]; }) => any; 
+      }; }) => {
       const role = await tx.role.create({
         data: {
           name,
@@ -77,7 +84,7 @@ export async function POST(request: NextRequest) {
 
       return {
         ...roleWithPermissions,
-        permissions: roleWithPermissions?.RolePermission.map(rp => rp.permission) || []
+        permissions: roleWithPermissions?.RolePermission.map((rp: { permission: Permission }) => rp.permission) || []
       };
     });
 

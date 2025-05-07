@@ -6,15 +6,16 @@ import { auth } from "@/auth";
 import { defineAbilityFor, UserForAbility } from "@/lib/ability";
 import { Forbidden } from "@/components/Forbidden";
 
-type PageProps = {
-  params: {
+interface EmployeePageProps {
+  params: Promise<{
     id: string;
-  };
-};
+  }>;
+}
 
 export default async function EmployeeDetailPage({
   params,
-}: PageProps): Promise<ReactElement> {
+}: EmployeePageProps): Promise<ReactElement> {
+  const { id } = await params;
 
   const session = await auth();
   if (!session?.user) {
@@ -27,7 +28,7 @@ export default async function EmployeeDetailPage({
     return <Forbidden />;
   }
 
-  const employee = await getEmployeeById(params.id);
+  const employee = await getEmployeeById(id);
 
   if (!employee) {
     notFound();

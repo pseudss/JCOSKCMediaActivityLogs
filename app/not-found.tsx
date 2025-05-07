@@ -12,7 +12,7 @@ export default function NotFound() {
                     The page you're looking for doesn't exist or has been removed.
                 </p>
                 <Link
-                    href="/blank"
+                    href="/employees"
                     className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                 >
                     Go back home

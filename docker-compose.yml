@@ -1,0 +1,56 @@
+version: '3'
+services:
+  db:
+    # ... (db service configuration remains the same)
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=sample_db
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - db_data:/var/lib/mysql
+
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    # Integrated environment variables for development
+    environment:
+      - NODE_ENV=development
+      # Corrected DATABASE_URL to include the password
+      - DATABASE_URL=mysql://root:password@db:3306/sample_db
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=9VZLiB/KrKCKCFQxFUdLy7ziFdWMTNib/bnIeyeXarg=
+    depends_on:
+      db:
+        condition: service_healthy
+    command: /bin/sh -c "npx prisma db push --skip-generate && npx prisma db seed && npm run dev"
+
+  prod: # Production service
+    build:
+      context: .
+      dockerfile: Dockerfile # Using the standard Dockerfile for production
+    ports:
+      - "3000:3000" # Exposing on host port 3000
+    # Use env_file to load production environment variables
+    env_file:
+      - .env.prod
+    depends_on:
+      db:
+        condition: service_healthy
+    # For production, build first, then start
+    command: /bin/sh -c "npx prisma db push --skip-generate && npm run start"
+
+# Define the volume for database persistence
+volumes:
+  db_data:
