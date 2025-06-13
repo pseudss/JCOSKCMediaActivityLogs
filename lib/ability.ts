@@ -4,16 +4,11 @@ import { prismaQuery } from '@casl/prisma/runtime';
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete';
 
 export type AppSubjects =
-  | 'Applicants'
   | 'Employees'
   | 'EmployeeDetails'
   | 'Library'
   | 'AccessManagement'
-  | 'Payroll'
-  | 'Training'
-  | 'Plantilla'
   | 'Reports'
-  | 'Leave'
   | 'Profile'
   | 'SystemSettings'
   | 'all';
@@ -25,10 +20,10 @@ export const AppAbility = PureAbility as AbilityClass<AppAbility>;
 
 export type UserForAbility = {
     id: string;
-    UserRole: {
+    userRoles: {
       role: {
         name: string;
-        RolePermission: {
+        rolePermissions: {
           permission: {
             name: string;
           };
@@ -38,18 +33,12 @@ export type UserForAbility = {
   };
 
 const permissionNameToSubjectMap: Record<string, AppSubjects> = {
-  applicants: 'Applicants',
   employees: 'Employees',
   employeedetails: 'EmployeeDetails',
   library: 'Library',
   accessmanagement: 'AccessManagement',
-  payroll: 'Payroll',
-  training: 'Training',
-  plantilla: 'Plantilla',
   reports: 'Reports',
-  leave: 'Leave',
   profile: 'Profile',
-  systemsettings: 'SystemSettings',
   user: 'AccessManagement',
   role: 'AccessManagement',
   permission: 'AccessManagement',
@@ -59,7 +48,7 @@ export function defineAbilityFor(user: UserForAbility) {
   const abilityBuilder = new AbilityBuilder(AppAbility);
   const { can, cannot, build } = abilityBuilder;
 
-  const userRoles = Array.isArray(user?.UserRole) ? user.UserRole : [];
+  const userRoles = Array.isArray(user?.userRoles) ? user.userRoles : [];
 
   const grantPermissionsFromDb = (role: any) => {
     const rolePermissions = Array.isArray(role?.RolePermission) ? role.RolePermission : [];

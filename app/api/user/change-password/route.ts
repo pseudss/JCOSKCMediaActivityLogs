@@ -1,11 +1,7 @@
 import { NextResponse } from 'next/server';
-// Import getServerSession from your auth configuration file
-import { auth } from '@/auth'; // Assuming auth.ts exports 'auth' which includes getServerSession
+import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-
-// Remove the reconstructedAuthOptions, it's not needed here
-// const reconstructedAuthOptions: NextAuthOptions = { ... };
 
 export async function POST(req: Request) {
   // Use the imported auth function to get the session

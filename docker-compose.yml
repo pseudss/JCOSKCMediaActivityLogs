@@ -1,7 +1,6 @@
 version: '3'
 services:
   db:
-    # ... (db service configuration remains the same)
     image: mysql:latest
     ports:
       - "3307:3306"
@@ -14,6 +13,7 @@ services:
       retries: 10
     volumes:
       - db_data:/var/lib/mysql
+    restart: unless-stopped
 
   dev:
     build:
@@ -25,15 +25,8 @@ services:
     ports:
       - "3000:3000"
     # Integrated environment variables for development
-    environment:
-      - NODE_ENV=development
-      # Corrected DATABASE_URL to include the password
-      - DATABASE_URL=mysql://root:password@db:3306/sample_db
-      - NEXTAUTH_URL=http://localhost:3000
-      - NEXTAUTH_SECRET=9VZLiB/KrKCKCFQxFUdLy7ziFdWMTNib/bnIeyeXarg=
-    depends_on:
-      db:
-        condition: service_healthy
+    env_file:
+      - .env
     command: /bin/sh -c "npx prisma db push --skip-generate && npx prisma db seed && npm run dev"
 
   prod: # Production service

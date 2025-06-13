@@ -17,7 +17,7 @@ import { Session } from "next-auth";
 
 type SessionWithUserRole = Omit<Session, 'user'> & {
     user?: Session['user'] & {
-        UserRole?: UserForAbility['UserRole'];
+        userRoles?: UserForAbility['userRoles'];
         isTemporaryPassword?: boolean;
     }
 }
@@ -59,16 +59,15 @@ export default function LoginForm() {
                 if (session.user.isTemporaryPassword) {
                     targetPath = "/profile";
                 } else {
-                    if (session.user.UserRole) {
+                    if (session.user.userRoles) {
                         const userForAbility = {
                             id: session.user.id ?? '',
-                            UserRole: session.user.UserRole
+                            userRoles: session.user.userRoles
                         } as UserForAbility;
 
                         const ability = defineAbilityFor(userForAbility);
                         const prioritizedRoutes: { path: string; subject: AppSubjects }[] = [
                             { path: "/employees", subject: "Employees" },
-                            { path: "/leave-administration", subject: "Leave" },
                             { path: "/access-management", subject: "AccessManagement" },
                             { path: "/profile", subject: "Profile" }
                         ];

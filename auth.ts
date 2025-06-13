@@ -2,36 +2,11 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
-import { JWT } from "next-auth/jwt";
-
-interface AuthUser {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  isTemporaryPassword: boolean;
-  UserRole: any;
-}
-
-interface ExtendedJWT extends JWT {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  isTemporaryPassword: boolean;
-  UserRole?: any;
-}
-
-interface ExtendedSessionUser {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  isTemporaryPassword: boolean;
-  UserRole: any;
-}
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { AuthUser, ExtendedJWT, ExtendedSessionUser } from './interface/access-management';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(prisma as any),
   providers: [
     Credentials({
       name: "Credentials",
@@ -49,11 +24,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const user = await prisma.user.findUnique({
             where: { username: String(credentials.username) },
             include: {
-              UserRole: {
+              userRoles: {
                 include: {
                   role: {
                     include: {
-                      RolePermission: {
+                      rolePermissions: {
                         include: {
                           permission: true,
                         },
@@ -90,7 +65,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             firstName: user.first_name || '',
             lastName: user.last_name || '',
             isTemporaryPassword: user.isTemporaryPassword,
-            UserRole: user.UserRole,
+            userRoles: user.userRoles,
           };
 
         } catch (error) {
@@ -118,7 +93,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         extendedToken.firstName = authUser.firstName;
         extendedToken.lastName = authUser.lastName;
         extendedToken.isTemporaryPassword = authUser.isTemporaryPassword;
-        extendedToken.UserRole = authUser.UserRole;
+        extendedToken.userRoles = authUser.userRoles;
       }
       return extendedToken;
     },
@@ -134,8 +109,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         sessionUser.lastName = extendedToken.lastName;
         sessionUser.isTemporaryPassword = extendedToken.isTemporaryPassword;
 
-        if (extendedToken.UserRole) {
-          sessionUser.UserRole = extendedToken.UserRole;
+        if (extendedToken.userRoles) {
+          sessionUser.userRoles = extendedToken.userRoles;
         } else {
           console.error('[Auth] UserRole missing on token in session callback!');
         }

@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  output          = "./generated"
 }
 
 datasource db {
@@ -9,31 +10,37 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  username  String     @unique
-  password  String
-  first_name String   @map("firstName")
-  last_name  String   @map("lastName")
-  active    Boolean    @default(true)
-  createdAt DateTime   @default(now())
+  id                  String     @id @default(cuid())
+  username            String     @unique
+  password            String
+  first_name          String     @map("firstName")
+  last_name           String     @map("lastName")
+  active              Boolean    @default(true)
+  createdAt           DateTime   @default(now())
   isTemporaryPassword Boolean    @default(false) @map("is_temporary_password")
-  isSystemUser Boolean    @default(false) @map("is_system_user")
-  UserRole  UserRole[]
+  isSystemUser        Boolean    @default(false) @map("is_system_user")
+  userRoles           UserRole[]
+
+  @@map("_auth_users")
 }
 
 model Role {
-  id             String           @id @default(cuid())
-  name           String           @unique
-  description    String?
-  UserRole       UserRole[]
-  RolePermission RolePermission[]
+  id           String         @id @default(cuid())
+  name         String         @unique
+  description  String?
+  userRoles    UserRole[]
+  rolePermissions RolePermission[]
+
+  @@map("_auth_roles") // Database table name will be "_auth_roles"
 }
 
 model Permission {
-  id             String           @id @default(cuid())
-  name           String           @unique
-  description    String?
-  RolePermission RolePermission[]
+  id           String         @id @default(cuid())
+  name         String         @unique
+  description  String?
+  rolePermissions RolePermission[]
+
+  @@map("_auth_permissions")
 }
 
 model UserRole {
@@ -43,7 +50,7 @@ model UserRole {
   role   Role   @relation(fields: [roleId], references: [id])
 
   @@id([userId, roleId])
-  @@map("user_roles")
+  @@map("_auth_user_roles") // Database table name will be "_auth_user_roles"
 }
 
 model RolePermission {
@@ -53,6 +60,6 @@ model RolePermission {
   permission   Permission @relation(fields: [permissionId], references: [id])
 
   @@id([roleId, permissionId])
-  @@map("role_permissions")
+  @@map("_auth_role_permissions")
 }
 

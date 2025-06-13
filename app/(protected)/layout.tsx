@@ -6,10 +6,10 @@ import { JSX, ReactNode, useEffect, useMemo } from 'react';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { SideBar } from "@/components/LayoutComponents/sidebar";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
-import { Separator } from '@radix-ui/react-separator';
+import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from '@/components/ModeToggle';
 import Loading from './loading';
-import { defineAbilityFor, AppAbility, UserForAbility } from '@/lib/ability'; // Import UserForAbility
+import { defineAbilityFor, AppAbility, UserForAbility } from '@/lib/ability';
 import { AbilityContext } from '@/components/ThemeProvider/AbilityContext';
 import { prismaQuery } from '@casl/prisma/runtime';
 import { ConditionsMatcher } from '@casl/ability';
@@ -82,11 +82,10 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
 
     const ability = useMemo(() => {
                 if (session?.user) {
-                    console.log('Session user object passed to defineAbilityFor:', JSON.stringify(session.user, null, 2));
         
                     const userForAbilityCheck = session.user as UserForAbility;
         
-                    if (!userForAbilityCheck.UserRole || !Array.isArray(userForAbilityCheck.UserRole)) {
+                    if (!userForAbilityCheck.userRoles || !Array.isArray(userForAbilityCheck.userRoles)) {
                         console.error('User object has invalid or missing UserRole structure:', userForAbilityCheck);
                         return new AppAbility([], { conditionsMatcher: prismaQuery as unknown as ConditionsMatcher<unknown> });
                     }
@@ -106,11 +105,11 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
             <AbilityContext.Provider value={ability}>
                 <SidebarProvider>
                     <SideBar user={{
-                        id: session?.user?.id as string, // Assuming 'id' exists
+                        id: session?.user?.id as string,
                         username: (session?.user as any)?.username as string || '',
                         firstName: (session?.user as any)?.firstName as string || '',
                         lastName: (session?.user as any)?.lastName as string || '',
-                        roles: ((session?.user as UserForAbility)?.UserRole || []).map((ur: { role?: { name: string } }) => ur.role?.name).filter(Boolean) as string[],
+                        roles: ((session?.user as UserForAbility)?.userRoles || []).map((ur: { role?: { name: string } }) => ur.role?.name).filter(Boolean) as string[],
                     }} />
                     <SidebarInset>
                         <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">

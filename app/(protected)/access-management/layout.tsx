@@ -41,7 +41,7 @@ export default function AccessManagementLayout({ children }: AccessManagementLay
     }
 
     return (
-        <div className="min-h-screen">
+        <div>
             {children}
         </div>
     );

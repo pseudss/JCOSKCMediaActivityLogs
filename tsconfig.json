@@ -1,4 +1,9 @@
 {
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority"
+  },
   "compilerOptions": {
     "target": "ESNext",
     "lib": [

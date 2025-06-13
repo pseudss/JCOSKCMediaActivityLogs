@@ -6,6 +6,9 @@ export async function GET() {
     const permissions = await prisma.permission.findMany();
     return NextResponse.json(permissions);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch permissions" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch permissions" },
+      { status: 500 }
+    );
   }
 }

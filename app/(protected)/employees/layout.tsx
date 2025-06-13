@@ -4,8 +4,10 @@ export default function EmployeeLayout({
     children: React.ReactNode
   }) {
     return (
-      <div className="min-h-screen">
+      // Removed min-h-screen as the parent layout should manage overall screen height.
+      // This div can be used for employee-section-specific styling or context if needed in the future.
+      <div> 
         {children}
       </div>
     )
-  } 
+  }
