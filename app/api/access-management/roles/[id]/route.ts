@@ -2,32 +2,20 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  req: Request, 
+  context: any
 ) {
-  const { id: roleId } = await params;
+  const roleId = context.params.id;
 
   try {
     if (!roleId) {
       return NextResponse.json({ error: 'Role ID is required in the URL' }, { status: 400 });
     }
 
-    const body = await request.json();
-    const { 
-      name, 
-      description, 
-      permissionIds 
-    } = body;
+    const body = await req.json();
+    const { name, description, permissionIds } = body;
 
-    const updatedRole = await prisma.$transaction(async (tx: { 
-        role: { 
-            update: (arg0: { where: { id: string; }; data: { name?: string; description?: string; }; }) => any; 
-            findUnique: (arg0: { where: { id: string; }; include: { RolePermission: { include: { permission: boolean; }; }; }; }) => any; 
-        }; 
-        rolePermission: { 
-            deleteMany: (arg0: { where: { roleId: string; }; }) => any; 
-            createMany: (arg0: { data: any; }) => any; 
-        }; }) => {
+    const updatedRole = await prisma.$transaction(async (tx) => {
       const roleUpdateData: { name?: string; description?: string } = {};
       if (name !== undefined) roleUpdateData.name = name;
       if (description !== undefined) roleUpdateData.description = description;
@@ -41,14 +29,14 @@ export async function PATCH(
 
       if (permissionIds !== undefined) {
         await tx.rolePermission.deleteMany({
-          where: { roleId: roleId },
+          where: { roleId },
         });
 
         if (permissionIds.length > 0) {
           await tx.rolePermission.createMany({
             data: permissionIds.map((permissionId: number) => ({
-              roleId: roleId,
-              permissionId: permissionId,
+              roleId,
+              permissionId,
             })),
           });
         }
@@ -57,7 +45,7 @@ export async function PATCH(
       const finalRole = await tx.role.findUnique({
         where: { id: roleId },
         include: {
-          RolePermission: {
+          rolePermissions: {
             include: {
               permission: true,
             },
@@ -68,9 +56,10 @@ export async function PATCH(
       if (!finalRole) {
         throw new Error("Role not found after update attempt.");
       }
+
       return {
         ...finalRole,
-        permissions: finalRole.RolePermission.map((rp: { permission: any }) => rp.permission) || []
+        permissions: finalRole.rolePermissions.map((rp) => rp.permission) || []
       };
     });
 
@@ -79,12 +68,9 @@ export async function PATCH(
   } catch (error: any) {
     console.error("Error updating role:", error);
     if (error.code === 'P2002') {
-      return NextResponse.json({ error: "Role name already exists" }, { status: 409 }); // Conflict
+      return NextResponse.json({ error: "Role name already exists" }, { status: 409 });
     }
-    if (error.code === 'P2025') { 
-      return NextResponse.json({ error: "Role not found" }, { status: 404 });
-    }
-    if (error.message === "Role not found after update attempt.") {
+    if (error.code === 'P2025' || error.message === "Role not found after update attempt.") {
       return NextResponse.json({ error: "Role not found" }, { status: 404 });
     }
     return NextResponse.json({ error: "Failed to update role" }, { status: 500 });

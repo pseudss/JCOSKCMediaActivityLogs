@@ -64,7 +64,7 @@ export const ManageUserDialog: React.FC<ManageUserDialogProps> = ({
         });
       }
     }
-  }, [userData, isOpen]); // Depend on userData and isOpen
+  }, [userData, isOpen]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -84,21 +84,17 @@ export const ManageUserDialog: React.FC<ManageUserDialogProps> = ({
   };
 
   const handleSubmit = () => {
-    // Prepare data based on the current form state
-    // The 'id' field determines if it's an update or create in the parent's onSubmit
     const dataToSubmit: EditUserData = {
-        id: form.id, // Pass the id (will be undefined for create)
+        id: form.id,
         username: form.username,
         firstName: form.firstName,
         lastName: form.lastName,
         roleIds: form.roleIds,
         active: form.active,
-        password: form.password, // Include password
+        password: form.password,
     };
     onSubmit(dataToSubmit);
   };
-
-  // Removed handleToggleStatusClick as active status is handled by checkbox/switch
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -115,7 +111,6 @@ export const ManageUserDialog: React.FC<ManageUserDialogProps> = ({
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          {/* Username field - disabled in edit mode */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
               Username
@@ -144,7 +139,6 @@ export const ManageUserDialog: React.FC<ManageUserDialogProps> = ({
             />
           </div>
 
-          {/* Last Name field */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="lastName" className="text-right">
               Last Name
@@ -158,8 +152,6 @@ export const ManageUserDialog: React.FC<ManageUserDialogProps> = ({
             />
           </div>
 
-          {/* Password field - Allow changing password in edit mode too */}
-          {/* Consider adding a separate 'Change Password' feature for better UX */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="password" className="text-right">
               Password
@@ -168,14 +160,13 @@ export const ManageUserDialog: React.FC<ManageUserDialogProps> = ({
               id="password"
               name="password"
               type="password"
-              value={form.password} // Controlled component
+              value={form.password}
               onChange={handleChange}
               placeholder={isEdit ? "Leave blank to keep current password" : "Enter password"}
               className="col-span-3"
             />
           </div>
 
-          {/* Roles selection */}
           <div className="grid grid-cols-4 items-start gap-4">
             <Label className="text-right mt-2">
               Roles

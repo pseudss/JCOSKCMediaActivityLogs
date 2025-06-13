@@ -27,6 +27,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { Employee } from "@/lib/employee_records"
 
@@ -34,8 +41,16 @@ interface EmployeeDetailProps {
   employee: Employee
 }
 
+interface PersonName {
+  firstName: string
+  lastName: string
+  middleName?: string
+  nameExtension?: string
+}
+
 export function EmployeeDetail({ employee }: EmployeeDetailProps) {
   const [newAttachment, setNewAttachment] = useState<File | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string>("Personal Information")
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -48,6 +63,38 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
     // and update the attachments list
     alert("File upload functionality would be implemented here")
     setNewAttachment(null)
+  }
+
+  const calculateAge = (dateOfBirth: string): number => {
+    const birthDate = new Date(dateOfBirth)
+    const today = new Date()
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const monthDifference = today.getMonth() - birthDate.getMonth()
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    return age
+  }
+
+  const formatEmployeeName = (person: PersonName): string => {
+    let name = person.firstName
+    if (person.middleName) {
+      name += ` ${person.middleName.charAt(0)}.`
+    }
+    name += ` ${person.lastName}`
+    if (person.nameExtension) {
+      name += ` ${person.nameExtension}`
+    }
+    return name.trim()
+  }
+
+  const formatAddress = (address: Employee["personalInfo"]["address"]["residential"] | Employee["personalInfo"]["address"]["permanent"]): string => {
+    let formattedAddress = `${address.houseNumber} ${address.street},`
+    if (address.subdivision) {
+      formattedAddress += ` ${address.subdivision},`
+    }
+    formattedAddress += ` ${address.barangay}, ${address.city}, ${address.province} ${address.zipCode}`
+    return formattedAddress.replace(/ ,/g, ",").replace(/,+/g, ",").trim()
   }
 
   return (
@@ -72,9 +119,7 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h1 className="text-3xl font-bold">
-                  {employee.personalInfo.firstName}{" "}
-                  {employee.personalInfo.middleName ? employee.personalInfo.middleName.charAt(0) + ". " : ""}
-                  {employee.personalInfo.lastName} {employee.personalInfo.nameExtension}
+                  {formatEmployeeName(employee.personalInfo)}
                 </h1>
                 <p className="text-xl text-muted-foreground">
                   {employee.workExperience[employee.workExperience.length - 1].positionTitle}
@@ -264,22 +309,14 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
                       <div>
                         <Label className="text-muted-foreground">Residential Address</Label>
                         <p className="font-medium">
-                          {employee.personalInfo.address.residential.houseNumber}{" "}
-                          {employee.personalInfo.address.residential.street},
-                          {employee.personalInfo.address.residential.subdivision &&
-                            ` ${employee.personalInfo.address.residential.subdivision},`}
-                          {` ${employee.personalInfo.address.residential.barangay}, ${employee.personalInfo.address.residential.city}, ${employee.personalInfo.address.residential.province} ${employee.personalInfo.address.residential.zipCode}`}
+                          {formatAddress(employee.personalInfo.address.residential)}
                         </p>
                       </div>
 
                       <div>
                         <Label className="text-muted-foreground">Permanent Address</Label>
                         <p className="font-medium">
-                          {employee.personalInfo.address.permanent.houseNumber}{" "}
-                          {employee.personalInfo.address.permanent.street},
-                          {employee.personalInfo.address.permanent.subdivision &&
-                            ` ${employee.personalInfo.address.permanent.subdivision},`}
-                          {` ${employee.personalInfo.address.permanent.barangay}, ${employee.personalInfo.address.permanent.city}, ${employee.personalInfo.address.permanent.province} ${employee.personalInfo.address.permanent.zipCode}`}
+                          {formatAddress(employee.personalInfo.address.permanent)}
                         </p>
                       </div>
                     </div>
@@ -308,11 +345,7 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
                         <div>
                           <Label className="text-muted-foreground">Full Name</Label>
                           <p className="font-medium">
-                            {employee.familyBackground.spouse.firstName}{" "}
-                            {employee.familyBackground.spouse.middleName
-                              ? employee.familyBackground.spouse.middleName.charAt(0) + ". "
-                              : ""}
-                            {employee.familyBackground.spouse.lastName} {employee.familyBackground.spouse.nameExtension}
+                            {formatEmployeeName(employee.familyBackground.spouse)}
                           </p>
                         </div>
 
@@ -345,23 +378,14 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
                       <div>
                         <Label className="text-muted-foreground">Father's Name</Label>
                         <p className="font-medium">
-                          {employee.familyBackground.parents.father.firstName}{" "}
-                          {employee.familyBackground.parents.father.middleName
-                            ? employee.familyBackground.parents.father.middleName.charAt(0) + ". "
-                            : ""}
-                          {employee.familyBackground.parents.father.lastName}{" "}
-                          {employee.familyBackground.parents.father.nameExtension}
+                          {formatEmployeeName(employee.familyBackground.parents.father)}
                         </p>
                       </div>
 
                       <div>
                         <Label className="text-muted-foreground">Mother's Maiden Name</Label>
                         <p className="font-medium">
-                          {employee.familyBackground.parents.mother.firstName}{" "}
-                          {employee.familyBackground.parents.mother.middleName
-                            ? employee.familyBackground.parents.mother.middleName.charAt(0) + ". "
-                            : ""}
-                          {employee.familyBackground.parents.mother.lastName}
+                          {formatEmployeeName(employee.familyBackground.parents.mother)}
                         </p>
                       </div>
                     </div>
@@ -379,25 +403,13 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {employee.familyBackground.children.map((child, index) => {
-                            const birthDate = new Date(child.dateOfBirth)
-                            const today = new Date()
-                            const age =
-                              today.getFullYear() -
-                              birthDate.getFullYear() -
-                              (today.getMonth() < birthDate.getMonth() ||
-                              (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
-                                ? 1
-                                : 0)
-
-                            return (
-                              <TableRow key={index}>
-                                <TableCell>{child.name}</TableCell>
-                                <TableCell>{new Date(child.dateOfBirth).toLocaleDateString()}</TableCell>
-                                <TableCell>{age} years</TableCell>
-                              </TableRow>
-                            )
-                          })}
+                          {employee.familyBackground.children.map((child, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{child.name}</TableCell>
+                              <TableCell>{new Date(child.dateOfBirth).toLocaleDateString()}</TableCell>
+                              <TableCell>{calculateAge(child.dateOfBirth)} years</TableCell>
+                            </TableRow>
+                          ))}
                         </TableBody>
                       </Table>
                     ) : (
@@ -727,18 +739,20 @@ export function EmployeeDetail({ employee }: EmployeeDetailProps) {
                       </div>
                       <div>
                         <Label htmlFor="file-category">Category</Label>
-                        <select
-                          id="file-category"
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-1"
-                        >
-                          <option value="Personal Information">Personal Information</option>
-                          <option value="Educational Background">Educational Background</option>
-                          <option value="Civil Service Eligibility">Civil Service Eligibility</option>
-                          <option value="Work Experience">Work Experience</option>
-                          <option value="Training">Training</option>
-                          <option value="Performance">Performance</option>
-                          <option value="Other">Other</option>
-                        </select>
+                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                          <SelectTrigger id="file-category" className="mt-1 w-full">
+                            <SelectValue placeholder="Select a category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Personal Information">Personal Information</SelectItem>
+                            <SelectItem value="Educational Background">Educational Background</SelectItem>
+                            <SelectItem value="Civil Service Eligibility">Civil Service Eligibility</SelectItem>
+                            <SelectItem value="Work Experience">Work Experience</SelectItem>
+                            <SelectItem value="Training">Training</SelectItem>
+                            <SelectItem value="Performance">Performance</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                     <Button className="mt-4" onClick={handleUpload} disabled={!newAttachment}>

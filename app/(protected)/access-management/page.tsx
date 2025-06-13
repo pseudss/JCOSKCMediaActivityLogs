@@ -1,17 +1,20 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { UserPlus, Search, Users, Key, Plus, UserCog, MoreHorizontal } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { useState, useEffect, useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { UserPlus, Search, Plus } from "lucide-react";
 
 import { ManageUserDialog } from "@/components/AccessManagementComponents/UsersComponent/ManageUserDialog";
 import { ManageRoleDialog } from "@/components/AccessManagementComponents/RolesComponent/ManageRoleDialog";
 import { Role, User, EditUserData, EditRoleData, Permission } from "@/interface/access-management";
+import { PageHeader } from "@/components/LayoutComponents/page-header";
+
+import { AccessCategoryNav } from "@/components/AccessManagementComponents/AccessCategoryNav";
+import { UsersTable } from "@/components/AccessManagementComponents/UsersTable";
+import { RolesTable } from "@/components/AccessManagementComponents/RolesTable";
+import { PermissionsTable } from "@/components/AccessManagementComponents/PermissionsTable";
 
 export default function AccessManagementPage() {
     const [activeCategory, setActiveCategory] = useState("users");
@@ -24,7 +27,7 @@ export default function AccessManagementPage() {
     const [manageRoleDialogOpen, setManageRoleDialogOpen] = useState(false);
     const [roleFormData, setRoleFormData] = useState<EditRoleData | undefined>(undefined);
     const [isLoadingRoleAction, setIsLoadingRoleAction] = useState(false);
-    const [expandedRoleId, setExpandedRoleId] = useState<string | null>(null); // <-- Add this state
+    const [expandedRoleId, setExpandedRoleId] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
@@ -54,16 +57,23 @@ export default function AccessManagementPage() {
                     if (user.UserRole && Array.isArray(user.UserRole)) {
                         userRoles = user.UserRole.map((ur: any) => {
                             const fullRole = rolesData.find((r: Role) => r.id === ur.roleId);
-                            return fullRole ? { id: fullRole.id, name: fullRole.name, description: fullRole.description, permissions: fullRole.permissions } : null;
+                            // Map permissions for the role if found
+                            const rolePermissions = fullRole ? permissionsData.filter((p: Permission) => (fullRole.permissionIds || []).includes(p.id)) : [];
+                            return fullRole ? { id: fullRole.id, name: fullRole.name, description: fullRole.description, permissions: rolePermissions } : null;
                         }).filter(Boolean) as Role[];
-                    } else if (user.roleIds) {
-                        userRoles = rolesData.filter((role: Role) => user.roleIds.includes(role.id));
-                    } else if (user.roles && Array.isArray(user.roles)) {
-                        userRoles = user.roles.map((role: any) => ({
+                    } else if (user.roleIds) { 
+                        userRoles = rolesData
+                            .filter((role: any) => user.roleIds.includes(role.id))
+                            .map((role: any) => ({
+                                ...role,
+                                permissions: permissionsData.filter((p: Permission) => (role.permissionIds || []).includes(p.id))
+                            }));
+                    } else if (user.roles && Array.isArray(user.roles)) { 
+                         userRoles = user.roles.map((role: any) => ({
                             id: role.id,
                             name: role.name,
                             description: role.description,
-                            permissions: role.permissions
+                            permissions: permissionsData.filter((p: Permission) => (role.permissionIds || []).includes(p.id))
                         }))
                     }
                     return {
@@ -74,7 +84,12 @@ export default function AccessManagementPage() {
                 });
     
                 setUsers(usersWithRoles);
-                setRoles(rolesData);
+                setRoles(rolesData.map((rawRole: any) => ({ 
+                    id: rawRole.id,
+                    name: rawRole.name,
+                    description: rawRole.description,
+                    permissions: permissionsData.filter((p: Permission) => (rawRole.permissionIds || []).includes(p.id))
+                } as Role)));
                 setPermissions(permissionsData);
     
             } catch (err: any) {
@@ -96,8 +111,7 @@ export default function AccessManagementPage() {
                 roleIds: user.roles.map(role => role.id),
                 active: user.active,
             });
-        }
-        else {
+        } else {
             setUserFormData({
                 username: "",
                 firstName: "",
@@ -114,13 +128,12 @@ export default function AccessManagementPage() {
         setIsLoadingUserAction(true);
         try {
             if (data.id) {
-                console.log("Submitting update for user:", data);
                 const payload = {
                     first_name: data.firstName,
                     last_name: data.lastName,
                     roleIds: data.roleIds,
                     active: data.active,
-                    password: data.password,
+                    password: data.password, 
                 };
                 const response = await fetch(`/api/access-management/users/${data.id}`, {
                     method: "PATCH",
@@ -133,9 +146,6 @@ export default function AccessManagementPage() {
                     throw new Error(errorData.error || errorData.message || "Failed to update user");
                 }
     
-                console.log("User updated successfully via API.");
-    
-                    // Update the user in the local state
                 setUsers(prevUsers =>
                     prevUsers.map(u =>
                         u.id === data.id
@@ -143,7 +153,7 @@ export default function AccessManagementPage() {
                                 ...u,
                                 first_name: data.firstName,
                                 last_name: data.lastName,
-                                roles: roles.filter(r => data.roleIds.includes(r.id)), // Update roles based on selected IDs
+                                roles: roles.filter(r => data.roleIds.includes(r.id)),
                                 active: data.active,
                             }
                             : u
@@ -151,13 +161,11 @@ export default function AccessManagementPage() {
                 );
     
             } else {
-                    // It's a create operation
-                console.log("Submitting new user:", data);
                  const payload = {
                     username: data.username,
                     first_name: data.firstName,
                     last_name: data.lastName,
-                    roles: data.roleIds,
+                    roles: data.roleIds, 
                     active: data.active,
                     password: data.password,
                 };
@@ -173,12 +181,10 @@ export default function AccessManagementPage() {
                 }
     
                 const createdUser = await response.json();
-                console.log("API Create User Response:", createdUser);
-                
-                const assignedRoles = roles.filter(role => (createdUser.roles || []).includes(role.id)); // Assuming API returns role IDs on creation
+                const assignedRoles = roles.filter(role => (createdUser.roleIds || createdUser.roles || []).includes(role.id));
                 setUsers(prevUsers => [...prevUsers, {
                     ...createdUser,
-                    id: createdUser.id,
+                    id: createdUser.id, 
                     username: createdUser.username,
                     first_name: createdUser.first_name,
                     last_name: createdUser.last_name,
@@ -219,85 +225,37 @@ export default function AccessManagementPage() {
     const handleRoleSubmit = async (data: EditRoleData) => {
          setIsLoadingRoleAction(true);
          try {
+             const payload = {
+                 name: data.name,
+                 description: data.description,
+                 permissionIds: data.permissionIds,
+             };
+             const url = data.id ? `/api/access-management/roles/${data.id}` : "/api/access-management/roles";
+             const method = data.id ? "PATCH" : "POST";
+
+             const response = await fetch(url, {
+                 method: method,
+                 headers: { "Content-Type": "application/json" },
+                 body: JSON.stringify(payload),
+             });
+
+             if (!response.ok) {
+                 const errorData = await response.json().catch(() => ({ message: `Request failed (${response.status})` }));
+                 throw new Error(errorData.error || errorData.message || `Failed to ${data.id ? 'update' : 'create'} role`);
+             }
+
+             const savedRoleFromApi = await response.json();
+             const finalSavedRole: Role = {
+                 id: savedRoleFromApi.id,
+                 name: savedRoleFromApi.name,
+                 description: savedRoleFromApi.description,
+                 permissions: permissions.filter(p => (savedRoleFromApi.permissionIds || data.permissionIds).includes(p.id)),
+             };
+
              if (data.id) {
-                 console.log("Submitting update for role:", data);
-                 const response = await fetch(`/api/access-management/roles/${data.id}`, {
-                     method: "PATCH",
-                     headers: { "Content-Type": "application/json" },
-                     body: JSON.stringify({
-                         name: data.name,
-                         description: data.description,
-                         permissionIds: data.permissionIds,
-                     }),
-                 });
-    
-                 if (!response.ok) {
-                     const contentType = response.headers.get("content-type");
-                     let errorData: any = { message: `Request failed with status ${response.status}` };
-                     if (contentType && contentType.indexOf("application/json") !== -1) {
-                         try { errorData = await response.json().catch(() => ({ message: `Failed to parse JSON error (${response.status})` })); } catch (jsonError) { /* ignore parse error */ }
-                     }
-                     throw new Error(errorData.error || errorData.message || "Failed to update role");
-                 }
-    
-                 const updatedRoleFromApi = await response.json();
-                 console.log("API Update Response:", updatedRoleFromApi);
-                 
-                 const permissionIdsToMap = updatedRoleFromApi.permissionIds ?? data.permissionIds;
-
-                 const finalUpdatedRole: Role = {
-                     id: updatedRoleFromApi.id,
-                     name: updatedRoleFromApi.name,
-                     description: updatedRoleFromApi.description,
-                     permissions: permissions.filter(p => permissionIdsToMap.includes(p.id)),
-                 };
-                 console.log("Final Updated Role object for state:", finalUpdatedRole);
-    
-                 setRoles(prevRoles => {
-                     const newRoles = prevRoles.map(r => (r.id === finalUpdatedRole.id ? finalUpdatedRole : r));
-                     console.log("Roles state after update:", newRoles);
-                     return newRoles;
-                 });
-    
+                 setRoles(prevRoles => prevRoles.map(r => (r.id === finalSavedRole.id ? finalSavedRole : r)));
              } else {
-                 console.log("Submitting new role:", data);
-                  const response = await fetch("/api/access-management/roles", {
-                     method: "POST",
-                     headers: { "Content-Type": "application/json" },
-                     body: JSON.stringify({
-                         name: data.name,
-                         description: data.description,
-                         permissionIds: data.permissionIds,
-                     }),
-                 });
-    
-                  if (!response.ok) {
-                     const contentType = response.headers.get("content-type");
-                     let errorData: any = { message: `Request failed with status ${response.status}` };
-                     if (contentType && contentType.indexOf("application/json") !== -1) {
-                         try { errorData = await response.json().catch(() => ({ message: `Failed to parse JSON error (${response.status})` })); } catch (jsonError) { /* ignore parse error */ }
-                     }
-                     throw new Error(errorData.error || errorData.message || "Failed to create role");
-                 }
-    
-                 const createdRoleFromApi = await response.json();
-                 console.log("API Create Response:", createdRoleFromApi);
-                 
-                 const permissionIdsToMap = createdRoleFromApi.permissionIds ?? data.permissionIds;
-
-                 const finalCreatedRole: Role = {
-                      id: createdRoleFromApi.id,
-                      name: createdRoleFromApi.name,
-                      description: createdRoleFromApi.description,
-                      permissions: permissions.filter(p => permissionIdsToMap.includes(p.id)),
-                 };
-                 console.log("Final Created Role object for state:", finalCreatedRole);
-    
-                 setRoles(prevRoles => {
-                     const newRoles = [...prevRoles, finalCreatedRole];
-                     console.log("Roles state after create:", newRoles);
-                     return newRoles;
-                 });
+                 setRoles(prevRoles => [...prevRoles, finalSavedRole]);
              }
     
              setManageRoleDialogOpen(false);
@@ -311,21 +269,16 @@ export default function AccessManagementPage() {
          }
        };
     
-    const handleTogglePermissions = (roleId: string, event: React.MouseEvent) => {
-        event.stopPropagation();
-        setExpandedRoleId(prevExpandedRoleId => 
-            prevExpandedRoleId === roleId ? null : roleId
-        );
-    };
-
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
     };
+
+    const handleToggleRoleExpand = (roleId: string) => {
+        setExpandedRoleId(prevId => (prevId === roleId ? null : roleId));
+    };
     
     const filteredUsers = useMemo(() => {
-        if (!searchQuery) {
-            return users;
-        }
+        if (!searchQuery) return users;
         const lowerCaseQuery = searchQuery.toLowerCase();
         return users.filter(user =>
             user.first_name.toLowerCase().includes(lowerCaseQuery) ||
@@ -334,26 +287,19 @@ export default function AccessManagementPage() {
             user.roles.some(role => role.name.toLowerCase().includes(lowerCaseQuery))
         );
     }, [users, searchQuery]);
-    
+
     const filteredRoles = useMemo(() => {
-        if (!searchQuery) {
-            return roles;
-        }
+        if (!searchQuery) return roles;
         const lowerCaseQuery = searchQuery.toLowerCase();
         return roles.filter(role =>
             role.name.toLowerCase().includes(lowerCaseQuery) ||
             (role.description ?? "").toLowerCase().includes(lowerCaseQuery) ||
-            (role.permissions ?? []).some(permission =>
-                permission.name.toLowerCase().includes(lowerCaseQuery) ||
-                permission.description?.toLowerCase().includes(lowerCaseQuery)
-            )
+            (role.permissions?.some(p => p.name.toLowerCase().includes(lowerCaseQuery)))
         );
-    }, [roles, searchQuery, permissions]);
+    }, [roles, searchQuery]);
     
     const filteredPermissions = useMemo(() => {
-        if (!searchQuery) {
-            return permissions;
-        }
+        if (!searchQuery) return permissions;
         const lowerCaseQuery = searchQuery.toLowerCase();
         return permissions.filter(permission =>
             permission.name.toLowerCase().includes(lowerCaseQuery) ||
@@ -362,226 +308,63 @@ export default function AccessManagementPage() {
     }, [permissions, searchQuery]);
 
     return (
-        <div className="flex flex-col min-h-screen">
-
-             <div className="p-6"> 
-                 <div className="flex items-center justify-between mb-6">
-                     <h1 className="text-3xl font-bold">Access Management</h1>
-                 </div>
-
-                 <div className="flex gap-6">
-                     <div className="w-1/4">
-                         <Card className="sticky top-4">
-                             <CardHeader>
-                                 <CardTitle>Categories</CardTitle>
-                             </CardHeader>
-                             <CardContent className="p-0">
-                                 <div className="flex flex-col w-full">
-                                     <button
-                                         className={cn(
-                                             "flex items-center gap-2 px-4 py-3 w-full text-left hover:bg-muted transition-colors",
-                                             activeCategory === "users" ? "bg-muted text-primary" : ""
-                                         )}
-                                         onClick={() => setActiveCategory("users")}>
-                                         <Users className="h-4 w-4 flex-shrink-0" />
-                                         <span className="truncate">Users</span>
-                                     </button>
-                                     <button
-                                         className={cn(
-                                             "flex items-center gap-2 px-4 py-3 w-full text-left hover:bg-muted transition-colors",
-                                             activeCategory === "roles" ? "bg-muted text-primary" : ""
-                                         )}
-                                         onClick={() => setActiveCategory("roles")}>
-                                         <UserCog className="h-4 w-4 flex-shrink-0" />
-                                         <span className="truncate">Roles</span>
-                                     </button>
-                                      <button
-                                          className={cn(
-                                              "flex items-center gap-2 px-4 py-3 w-full text-left hover:bg-muted transition-colors",
-                                              activeCategory === "permissions" ? "bg-muted text-primary" : ""
-                                          )}
-                                          onClick={() => setActiveCategory("permissions")}>
-                                          <Key className="h-4 w-4 flex-shrink-0" />
-                                          <span className="truncate">Permissions</span>
-                                      </button>
-                                 </div>
-                             </CardContent>
-                         </Card>
-                     </div>
-
-                     <div className="w-3/4">
-                         <Card>
-                             <CardHeader className="flex flex-row items-center justify-between">
-                                 <div>
-                                     <CardTitle className="capitalize">{activeCategory}</CardTitle>
-                                     <CardDescription>
-                                         Manage {activeCategory === "users" ? "system users" : activeCategory === "roles" ? "user roles" : "access permissions"}.
-                                     </CardDescription>
-                                 </div>
-                                 <div className="flex items-center gap-2">
-                                     <div className="relative">
-                                         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                                         <Input
-                                             type="search"
-                                             placeholder="Search..."
-                                             className="pl-8 w-64"
-                                             value={searchQuery}
-                                             onChange={handleSearchInputChange}
-                                         />
-                                     </div>
-                                     {activeCategory === "users" && (
-                                         <Button size="sm" onClick={() => handleOpenManageUserDialog()}>
-                                             <UserPlus className="mr-2 h-4 w-4" /> Add User
-                                         </Button>
-                                     )}
-                                     {activeCategory === "roles" && (
-                                         <Button size="sm" onClick={() => handleOpenManageRoleDialog()}>
-                                             <Plus className="mr-2 h-4 w-4" /> Add Role
-                                         </Button>
-                                     )}
-                                 </div>
-                             </CardHeader>
-                             <CardContent>
-                                 {activeCategory === "users" && (
-                                     <Table>
-                                         <TableHeader>
-                                             <TableRow>
-                                                 <TableHead>Username</TableHead>
-                                                 <TableHead>Name</TableHead>
-                                                 <TableHead>Roles</TableHead>
-                                                 <TableHead>Status</TableHead>
-                                             </TableRow>
-                                         </TableHeader>
-                                         <TableBody>
-                                             {filteredUsers.length > 0 ? (
-                                                 filteredUsers.map((user) => (
-                                                     <TableRow 
-                                                        key={user.id} 
-                                                        onClick={() => handleOpenManageUserDialog(user)}
-                                                        className="cursor-pointer hover:bg-muted/50"
-                                                     >
-                                                         <TableCell>{user.username}</TableCell>
-                                                         <TableCell>{user.first_name} {user.last_name}</TableCell>
-                                                         <TableCell>
-                                                             {user.roles.length > 0 ? (
-                                                                 user.roles.map((role) => (
-                                                                     <Badge key={role.id} variant="secondary" className="mr-1 mb-1">
-                                                                         {role.name}
-                                                                     </Badge>
-                                                                 ))
-                                                             ) : (
-                                                                 <span className="text-muted-foreground">No roles</span>
-                                                             )}
-                                                         </TableCell>
-                                                         <TableCell>
-                                                             <Badge variant={user.active ? "default" : "destructive"}>
-                                                                 {user.active ? "Active" : "Inactive"}
-                                                             </Badge>
-                                                         </TableCell>
-                                                     </TableRow>
-                                                 ))
-                                             ) : (
-                                                 <TableRow>
-                                                     <TableCell colSpan={5} className="text-center text-muted-foreground">
-                                                         No users found.
-                                                     </TableCell>
-                                                 </TableRow>
-                                             )}
-                                         </TableBody>
-                                     </Table>
-                                 )}
-
-                                 {activeCategory === "roles" && (
-                                     <Table>
-                                         <TableHeader>
-                                             <TableRow>
-                                                 <TableHead style={{ width: '30%' }}>Role Name</TableHead>
-                                                 <TableHead style={{ width: '30%' }}>Description</TableHead>
-                                                 <TableHead style={{ width: '40%' }}>Permissions</TableHead>
-                                             </TableRow>
-                                         </TableHeader>
-                                         <TableBody>
-                                             {filteredRoles.length > 0 ? (
-                                                 filteredRoles.map((role) => (
-                                                     <TableRow
-                                                         key={role.id}
-                                                         onClick={() => handleOpenManageRoleDialog(role)}
-                                                         className="cursor-pointer hover:bg-muted/50"
-                                                     >
-                                                         <TableCell style={{ width: '30%' }} className="align-top">{role.name}</TableCell> {/* Added align-top */}
-                                                         <TableCell style={{ width: '30%' }} className="text-muted-foreground align-top">{role.description || "-"}</TableCell> {/* Added align-top */}
-                                                         <TableCell style={{ width: '40%' }} className="align-top"> {/* Added align-top */}
-                                                             {role.permissions && role.permissions.length > 0 ? (
-                                                                 <div className="flex flex-col items-start">
-                                                                     {(expandedRoleId === role.id ? role.permissions : role.permissions.slice(0, 4)).map((permission) => (
-                                                                         <Badge
-                                                                             key={permission.id}
-                                                                             variant="outline"
-                                                                             className="mb-1"
-                                                                         >
-                                                                             {permission.name}
-                                                                         </Badge>
-                                                                     ))}
-                                                                     {role.permissions.length > 4 && (
-                                                                         <Badge
-                                                                             variant="secondary"
-                                                                             className="cursor-pointer mt-1"
-                                                                             onClick={(e) => handleTogglePermissions(role.id, e)}
-                                                                         >
-                                                                             {expandedRoleId === role.id ? "Show Less" : <MoreHorizontal className="h-4 w-4" />}
-                                                                         </Badge>
-                                                                     )}
-                                                                 </div>
-                                                             ) : (
-                                                                 <span className="text-muted-foreground">No permissions</span>
-                                                             )}
-                                                         </TableCell>
-                                                     </TableRow>
-                                                 ))
-                                             ) : (
-                                                 <TableRow>
-                                                     <TableCell colSpan={3} className="text-center text-muted-foreground">
-                                                         No roles found.
-                                                     </TableCell>
-                                                 </TableRow>
-                                             )}
-                                         </TableBody>
-                                     </Table>
-                                 )}
-
-                                 {activeCategory === "permissions" && (
-                                     <Table>
-                                         <TableHeader>
-                                             <TableRow>
-                                                 <TableHead>Permission Name</TableHead>
-                                                 <TableHead>Description</TableHead>
-                                             </TableRow>
-                                         </TableHeader>
-                                         <TableBody>
-                                             {filteredPermissions.length > 0 ? (
-                                                 filteredPermissions.map((permission) => (
-                                                     <TableRow key={permission.id}>
-                                                         <TableCell>{permission.name}</TableCell>
-                                                         <TableCell className="text-muted-foreground">{permission.description || "-"}</TableCell>
-                                                     </TableRow>
-                                                 ))
-                                             ) : (
-                                                 <TableRow>
-                                                     <TableCell colSpan={3} className="text-center text-muted-foreground">
-                                                         No permissions found.
-                                                     </TableCell>
-                                                 </TableRow>
-                                             )}
-                                         </TableBody>
-                                     </Table>
-                                 )}
-                             </CardContent>
-                         </Card>
-                     </div>
-                 </div>
-             </div>
-
-            {/* User Management Dialog */} 
+        <div> 
+            <PageHeader/>
+            <div className="flex gap-6">
+                <div className="w-1/4">
+                    <AccessCategoryNav activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
+                </div>
+                <div className="w-3/4">
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between">
+                            <div>
+                                <CardTitle className="capitalize">{activeCategory}</CardTitle>
+                                <CardDescription>
+                                    Manage {activeCategory === "users" ? "system users" : activeCategory === "roles" ? "user roles" : "access permissions"}.
+                                </CardDescription>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="relative">
+                                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                                    <Input
+                                        type="search"
+                                        placeholder="Search..."
+                                        className="pl-8 w-64"
+                                        value={searchQuery}
+                                        onChange={handleSearchInputChange}
+                                    />
+                                </div>
+                                {activeCategory === "users" && (
+                                    <Button size="sm" onClick={() => handleOpenManageUserDialog()}>
+                                        <UserPlus className="mr-2 h-4 w-4" /> Add User
+                                    </Button>
+                                )}
+                                {activeCategory === "roles" && (
+                                    <Button size="sm" onClick={() => handleOpenManageRoleDialog()}>
+                                        <Plus className="mr-2 h-4 w-4" /> Add Role
+                                    </Button>
+                                )}
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            {activeCategory === "users" && (
+                                <UsersTable users={filteredUsers} onRowClick={handleOpenManageUserDialog} />
+                            )}
+                            {activeCategory === "roles" && (
+                                <RolesTable
+                                    roles={filteredRoles}
+                                    onRowClick={handleOpenManageRoleDialog}
+                                    expandedRoleId={expandedRoleId}
+                                    onToggleExpand={handleToggleRoleExpand}
+                                />
+                            )}
+                            {activeCategory === "permissions" && (
+                                <PermissionsTable permissions={filteredPermissions} />
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
             {manageUserDialogOpen && (
                 <ManageUserDialog
                     isOpen={manageUserDialogOpen}
@@ -591,24 +374,23 @@ export default function AccessManagementPage() {
                     }}
                     onSubmit={handleUserSubmit}
                     userData={userFormData}
-                    roles={roles}
+                    roles={roles} 
                     isLoading={isLoadingUserAction}
                 />
             )}
-
-            {/* Role Management Dialog */}
-            {manageRoleDialogOpen && roleFormData && (
+            {manageRoleDialogOpen && roleFormData && ( 
                 <ManageRoleDialog
                     open={manageRoleDialogOpen}
                     onOpenChange={() => {
                         setManageRoleDialogOpen(false);
-                        setRoleFormData(undefined); // Clear form data on close
+                        setRoleFormData(undefined);
                     }}
                     onSubmit={handleRoleSubmit}
                     roleData={roleFormData}
-                    permissions={permissions} // Pass the full list of permissions
+                    permissions={permissions} 
                     isLoading={isLoadingRoleAction}
                 />
             )}
         </div>
-    );}
+    );
+}

@@ -1,20 +1,21 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Role, Permission } from "@/interface/access-management"
+import { Prisma } from "@/prisma/generated/client";
 
 export async function GET() {
   try {
     const roles = await prisma.role.findMany({
       where: {
         name: {
-          not: 'SuperAdmin' // Exclude the SuperAdmin role
+          not: 'SuperAdmin'
         }
       },
       select: {
         id: true,
         name: true,
         description: true,
-        RolePermission: {
+        rolePermissions: {
           include: {
             permission: true,
           },
@@ -26,7 +27,7 @@ export async function GET() {
       id: role.id,
       name: role.name,
       description: role.description,
-      permissions: role.RolePermission.map((rp: { permission: Permission }) => rp.permission)
+      permissions: role.rolePermissions.map((rp: { permission: Permission }) => rp.permission)
     }));
 
     return NextResponse.json(formattedRoles);
@@ -41,20 +42,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, description, permissionIds } = body;
 
-    // Basic validation
     if (!name) {
       return NextResponse.json({ error: "Role name is required" }, { status: 400 });
     }
-
-    // Create the role and potentially link permissions in a transaction
-    const newRole = await prisma.$transaction(async (tx: { 
-      role: { 
-        create: (arg0: { data: { name: any; description: any; }; }) => any; 
-        findUnique: (arg0: { where: { id: any; }; include: { RolePermission: { include: { permission: boolean; }; }; }; }) => any; 
-      }; 
-      rolePermission: { 
-        createMany: (arg0: { data: { roleId: any; permissionId: string; }[]; }) => any; 
-      }; }) => {
+    const newRole = await prisma.$transaction(async (tx) => {
       const role = await tx.role.create({
         data: {
           name,
@@ -74,23 +65,32 @@ export async function POST(request: NextRequest) {
       const roleWithPermissions = await tx.role.findUnique({
         where: { id: role.id },
         include: {
-          RolePermission: {
+          rolePermissions: {
             include: {
               permission: true,
             },
           },
         },
       });
+      
+      const permissions = roleWithPermissions?.rolePermissions.map(
+        (rp: { permission: any }) => rp.permission
+      ) || [];
 
       return {
         ...roleWithPermissions,
-        permissions: roleWithPermissions?.RolePermission.map((rp: { permission: Permission }) => rp.permission) || []
+        permissions,
       };
     });
 
     return NextResponse.json(newRole, { status: 201 });
   } catch (error) {
     console.error("Error creating role:", error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2002') {
+        return NextResponse.json({ error: `A role with the name '${name}' already exists.` }, { status: 409 });
+      }
+    }
     return NextResponse.json({ error: "Failed to create role" }, { status: 500 });
   }
 }

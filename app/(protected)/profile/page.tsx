@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, FormEvent } from 'react'; // Added FormEvent
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,13 +11,25 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'react-toastify';
 import Loading from '../loading';
 import { UserForAbility } from '@/lib/ability';
+import { Session } from 'next-auth';
 
-type SessionUserWithRoles = NonNullable<ReturnType<typeof useSession>['data']>['user'] & {
-    UserRole?: UserForAbility['UserRole'];
-};
+interface ExtendedUser {
+    id?: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+    first_name?: string;
+    last_name?: string;
+    UserRole?: UserForAbility['userRoles'];
+}
+
+interface ExtendedSession {
+  user?: ExtendedUser;
+}
 
 export default function ProfilePage() {
-    const { data: session, status, update } = useSession();
+    const { data: session, status, update } = useSession() as { data: ExtendedSession | null, status: string, update: () => Promise<ExtendedSession | null> };
     const router = useRouter();
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -25,27 +37,26 @@ export default function ProfilePage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { userRoles, userPermissions } = useMemo(() => {
-        const user = session?.user as SessionUserWithRoles | undefined;
+        const currentUser = session?.user;
         const roles: string[] = [];
         const permissions = new Set<string>();
 
-        if (user?.UserRole) {
-            user.UserRole.forEach((userRole: { role?: { name: string; RolePermission?: { permission?: { name: string } }[] } }) => {
+        if (currentUser?.UserRole) {
+            currentUser.UserRole.forEach(userRole => {
                 if (userRole.role) {
                     roles.push(userRole.role.name);
-                    userRole.role.RolePermission?.forEach(rp => {
-                        if (rp.permission) {
+                    userRole.role.rolePermissions?.forEach(rp => {
+                        if (rp.permission?.name) {
                             permissions.add(rp.permission.name);
                         }
                     });
                 }
             });
         }
-
         return { userRoles: roles, userPermissions: Array.from(permissions) };
     }, [session]);
 
-    const handleChangePassword = async (e: React.FormEvent) => {
+    const handleChangePassword = async (e: FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
@@ -78,8 +89,8 @@ export default function ProfilePage() {
             setOldPassword('');
             setNewPassword('');
             setConfirmPassword('');
-
-            await update(); // Refresh session
+            
+            await update(); 
             router.push('/login');
 
         } catch (error: any) {
@@ -94,10 +105,11 @@ export default function ProfilePage() {
     }
 
     if (status === 'unauthenticated' || !session?.user) {
-        return <p>Access Denied.</p>;
+        router.push('/login');
+        return <Loading/>;
     }
 
-    const user = session.user as SessionUserWithRoles;
+    const currentUser = session.user;
 
     return (
         <div className="space-y-6">
@@ -109,15 +121,19 @@ export default function ProfilePage() {
                 <CardContent className="space-y-4">
                     <div>
                         <Label>Username</Label>
-                        <p className="text-sm text-muted-foreground">{(user as any).username || 'Not provided'}</p>
+                        <p className="text-sm text-muted-foreground">{currentUser.username || 'Not provided'}</p>
                     </div>
                     <div>
                         <Label>First Name</Label>
-                        <p className="text-sm text-muted-foreground">{(user as any).firstName || 'Not provided'}</p>
+                        <p className="text-sm text-muted-foreground">{currentUser.first_name || 'Not provided'}</p>
                     </div>
                     <div>
                         <Label>Last Name</Label>
-                        <p className="text-sm text-muted-foreground">{(user as any).lastName || 'Not provided'}</p>
+                        <p className="text-sm text-muted-foreground">{currentUser.last_name || 'Not provided'}</p>
+                    </div>
+                     <div>
+                        <Label>Email</Label>
+                        <p className="text-sm text-muted-foreground">{currentUser.email || 'Not provided'}</p>
                     </div>
                     <div>
                         <Label>Roles</Label>
@@ -132,14 +148,14 @@ export default function ProfilePage() {
                         </div>
                     </div>
                     <div>
-                        <Label>Permissions</Label>
-                        <div className="flex flex-wrap gap-2 mt-1">
+                        <Label>Permissions (Derived)</Label>
+                        <div className="flex flex-wrap gap-2 mt-1 max-h-32 overflow-y-auto">
                             {userPermissions.length > 0 ? (
-                                userPermissions.map((permission) => (
-                                    <Badge key={permission} variant="outline">{permission}</Badge>
+                                userPermissions.sort().map((permission) => (
+                                    <Badge key={permission} variant="outline" className="text-xs">{permission}</Badge>
                                 ))
                             ) : (
-                                <p className="text-sm text-muted-foreground">No permissions derived.</p>
+                                <p className="text-sm text-muted-foreground">No specific permissions derived.</p>
                             )}
                         </div>
                     </div>
@@ -162,6 +178,7 @@ export default function ProfilePage() {
                                 onChange={(e) => setOldPassword(e.target.value)}
                                 required
                                 disabled={isSubmitting}
+                                autoComplete="current-password"
                             />
                         </div>
                         <div className="space-y-2">
@@ -174,6 +191,7 @@ export default function ProfilePage() {
                                 required
                                 minLength={8}
                                 disabled={isSubmitting}
+                                autoComplete="new-password"
                             />
                         </div>
                         <div className="space-y-2">
@@ -186,6 +204,7 @@ export default function ProfilePage() {
                                 required
                                 minLength={8}
                                 disabled={isSubmitting}
+                                autoComplete="new-password"
                             />
                         </div>
                     </CardContent>

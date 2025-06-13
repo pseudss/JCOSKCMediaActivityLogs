@@ -48,7 +48,17 @@ export async function PATCH(
             findMany: (arg0: { where: { userId: string; }; select: { roleId: boolean; }; }) => any; 
         }; 
         user: { 
-            update: (arg0: { where: { id: string; }; data: any; include: { UserRole: { include: { role: boolean; }; }; }; }) => any; 
+            update: (args: {
+                where: { id: string };
+                data: any;
+                include?: {
+                    userRoles?: {
+                        include?: {
+                            role?: boolean;
+                        };
+                    };
+                };
+            }) => Promise<any>;
         }; }) => {
         const existingUserRoles = await tx.userRole.findMany({
           where: { userId: userId },
@@ -70,14 +80,14 @@ export async function PATCH(
         }
 
         if (Object.keys(userRoleUpdate).length > 0) {
-          updateData.UserRole = userRoleUpdate;
+          updateData.userRoles = userRoleUpdate;
         }
 
         const updatedUser = await tx.user.update({
           where: { id: userId },
           data: updateData,
           include: {
-            UserRole: {
+            userRoles: {
               include: {
                 role: true,
               },
@@ -88,7 +98,7 @@ export async function PATCH(
         const { password: _, ...userWithoutPassword } = updatedUser;
         const formattedUserData = {
           ...userWithoutPassword,
-          roles: updatedUser.UserRole.map((ur: { role: any }) => ur.role),
+          roles: updatedUser.userRoles.map((ur: { role: any }) => ur.role),
         };
         return formattedUserData;
       });
@@ -100,7 +110,7 @@ export async function PATCH(
         const currentUser = await prisma.user.findUnique({
           where: { id: userId },
           include: {
-            UserRole: {
+            userRoles: {
               include: {
                 role: true,
               },
@@ -113,7 +123,7 @@ export async function PATCH(
         const { password: _, ...userWithoutPassword } = currentUser;
         const formattedUser = {
           ...userWithoutPassword,
-          roles: currentUser.UserRole.map((ur: { role: any }) => ur.role),
+          roles: currentUser.userRoles.map((ur: { role: any }) => ur.role),
         };
         return NextResponse.json(formattedUser);
       }
@@ -122,7 +132,7 @@ export async function PATCH(
         where: { id: userId },
         data: updateData,
         include: {
-          UserRole: {
+          userRoles: {
             include: {
               role: true,
             },
@@ -133,7 +143,7 @@ export async function PATCH(
       const { password: _, ...userWithoutPassword } = updatedUser;
       const formattedUser = {
         ...userWithoutPassword,
-        roles: updatedUser.UserRole.map((ur: { role: any }) => ur.role),
+        roles: updatedUser.userRoles.map((ur: { role: any }) => ur.role),
       };
       return NextResponse.json(formattedUser);
     }

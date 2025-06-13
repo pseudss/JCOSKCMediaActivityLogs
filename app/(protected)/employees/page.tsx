@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import { defineAbilityFor, UserForAbility } from "@/lib/ability";
 import { redirect } from "next/navigation";
 import { EmployeeTableClient } from "@/components/EmployeeComponents/EmployeeTableClient";
+import { PageHeader } from "@/components/LayoutComponents/page-header"
 
 export default async function EmployeesPage() {
   const session = await auth();
@@ -23,56 +24,21 @@ export default async function EmployeesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Employee Management</h1>
-        {canCreateEmployees && (
-            <Button asChild>
-                <Link href="/employees/add">
-                    <UserPlus className="mr-2 h-4 w-4" />
-                    Add New Employee
-                </Link>
-            </Button>
-        )}
-      </div>
-
-      <div className="grid gap-6 mb-6 md:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>Total Employees</CardTitle>
-            <CardDescription>Active and inactive employees</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">{employees.length}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>Active Employees</CardTitle>
-            <CardDescription>Currently working employees</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">
-              {employees.filter((e) => e.status === "Permanent" || e.status === "Regular").length}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>On Leave</CardTitle>
-            <CardDescription>Employees currently on leave</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">0</p>
-          </CardContent>
-        </Card>
-      </div>
+      <PageHeader/>
 
       <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Employee Directory</CardTitle>
-          <CardDescription>View and manage employee information</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle>Employee Directory</CardTitle>
+            <CardDescription>View and manage employee information</CardDescription>
+          </div>
+          {canCreateEmployees && (
+            <Link href="/employees/create" passHref>
+              <Button>
+                <UserPlus className="mr-2 h-4 w-4" /> Create Employee
+              </Button>
+            </Link>
+          )}
         </CardHeader>
         <CardContent>
           <EmployeeTableClient
