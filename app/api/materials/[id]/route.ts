@@ -4,11 +4,12 @@ import { prisma } from "@/lib/prisma";
 // PUT - Update a material
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
+  const id = context.params?.id;
+
   try {
     const { name, description, quantity, unit } = await request.json();
-    const { id } = params;
 
     if (!name || name.trim() === "") {
       return NextResponse.json(
@@ -37,14 +38,11 @@ export async function PUT(
     return NextResponse.json(material);
   } catch (error: any) {
     console.error("Error updating material:", error);
-    
+
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { error: "Material not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Material not found" }, { status: 404 });
     }
-    
+
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Material name already exists" },
@@ -62,11 +60,11 @@ export async function PUT(
 // DELETE - Soft delete a material (set active to false)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
-  try {
-    const { id } = params;
+  const id = context.params?.id;
 
+  try {
     const material = await prisma.material.update({
       where: { id },
       data: { active: false },
@@ -75,12 +73,9 @@ export async function DELETE(
     return NextResponse.json(material);
   } catch (error: any) {
     console.error("Error deleting material:", error);
-    
+
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { error: "Material not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Material not found" }, { status: 404 });
     }
 
     return NextResponse.json(
@@ -88,4 +83,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-} 
+}
