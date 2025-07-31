@@ -4,11 +4,12 @@ import { prisma } from "@/lib/prisma";
 // PUT - Update a device
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
+  const id = context.params?.id;
+
   try {
     const { name, description } = await request.json();
-    const { id } = params;
 
     if (!name || name.trim() === "") {
       return NextResponse.json(
@@ -28,14 +29,11 @@ export async function PUT(
     return NextResponse.json(device);
   } catch (error: any) {
     console.error("Error updating device:", error);
-    
+
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { error: "Device not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Device not found" }, { status: 404 });
     }
-    
+
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Device name already exists" },
@@ -53,11 +51,11 @@ export async function PUT(
 // DELETE - Soft delete a device (set active to false)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
-  try {
-    const { id } = params;
+  const id = context.params?.id;
 
+  try {
     const device = await prisma.device.update({
       where: { id },
       data: { active: false },
@@ -66,12 +64,9 @@ export async function DELETE(
     return NextResponse.json(device);
   } catch (error: any) {
     console.error("Error deleting device:", error);
-    
+
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { error: "Device not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Device not found" }, { status: 404 });
     }
 
     return NextResponse.json(
@@ -79,4 +74,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-} 
+}
