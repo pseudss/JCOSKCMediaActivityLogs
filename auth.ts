@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./lib/prisma";
-import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { AuthUser, ExtendedJWT, ExtendedSessionUser } from './interface/access-management';
 
@@ -11,7 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials): Promise<AuthUser | null> {
@@ -19,6 +18,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.error("Missing username or password");
           return null;
         }
+
+        console.log("Received credentials:", credentials);
 
         try {
           const user = await prisma.user.findUnique({
@@ -44,8 +45,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             console.error("User not found:", credentials.username);
             return null;
           }
+
           if (!user.active) {
-            console.error("User is not active:", credentials.username);
+            console.error("User is inactive:", credentials.username);
             return null;
           }
 
@@ -55,9 +57,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           );
 
           if (!isValidPassword) {
-            console.error("Invalid password for user:", credentials.username);
+            console.error("Invalid password for:", credentials.username);
             return null;
           }
+
+          console.log("Login successful for:", user.username);
 
           return {
             id: user.id.toString(),
@@ -67,10 +71,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             isTemporaryPassword: user.isTemporaryPassword,
             userRoles: user.userRoles,
           };
-
         } catch (error) {
-          console.error("Error during authentication:", error);
-          return null;
+          console.error("Auth error:", error);
+          throw new Error("Authorization failed");
         }
       },
     }),
@@ -108,17 +111,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         sessionUser.firstName = extendedToken.firstName;
         sessionUser.lastName = extendedToken.lastName;
         sessionUser.isTemporaryPassword = extendedToken.isTemporaryPassword;
-
-        if (extendedToken.userRoles) {
-          sessionUser.userRoles = extendedToken.userRoles;
-        } else {
-          console.error('[Auth] UserRole missing on token in session callback!');
-        }
-      } else {
-        console.error("[Auth] Token or session.user missing in session callback");
+        sessionUser.userRoles = extendedToken.userRoles ?? [];
       }
+
       return session;
     },
   },
-  trustHost: true
+  trustHost: true,
 });
