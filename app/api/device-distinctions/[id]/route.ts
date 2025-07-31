@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// PUT - Update a device distinction
-export async function PUT(
-  request: NextRequest,
-  context: any
-) {
-  const id = context?.params?.id;
+// PUT request to update device distinction
+export async function PUT(req: NextRequest, context: { params: any }) {
+  const id = context.params.id;
 
   try {
-    const { name, description } = await request.json();
+    const { name, description } = await req.json();
 
     if (!name || name.trim() === "") {
       return NextResponse.json(
@@ -18,7 +15,7 @@ export async function PUT(
       );
     }
 
-    const deviceDistinction = await prisma.deviceDistinction.update({
+    const updated = await prisma.deviceDistinction.update({
       where: { id },
       data: {
         name: name.trim(),
@@ -26,58 +23,32 @@ export async function PUT(
       },
     });
 
-    return NextResponse.json(deviceDistinction);
+    return NextResponse.json(updated);
   } catch (error: any) {
-    console.error("Error updating device distinction:", error);
-
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { error: "Device distinction not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    if (error.code === "P2002") {
-      return NextResponse.json(
-        { error: "Device distinction name already exists" },
-        { status: 400 }
-      );
-    }
-
-    return NextResponse.json(
-      { error: "Failed to update device distinction" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
-// DELETE - Soft delete a device distinction (set active to false)
-export async function DELETE(
-  request: NextRequest,
-  context: any
-) {
-  const id = context?.params?.id;
+// DELETE request to soft delete
+export async function DELETE(req: NextRequest, context: { params: any }) {
+  const id = context.params.id;
 
   try {
-    const deviceDistinction = await prisma.deviceDistinction.update({
+    const deleted = await prisma.deviceDistinction.update({
       where: { id },
       data: { active: false },
     });
 
-    return NextResponse.json(deviceDistinction);
+    return NextResponse.json(deleted);
   } catch (error: any) {
-    console.error("Error deleting device distinction:", error);
-
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { error: "Device distinction not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to delete device distinction" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
