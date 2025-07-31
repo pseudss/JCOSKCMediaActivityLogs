@@ -36,13 +36,13 @@ export async function GET(request: NextRequest) {
       select: { id: true, name: true }
     });
 
-    const deviceMap = new Map(devices.map(d => [d.id, d.name]));
+    const deviceMap = new Map<string, string>(devices.map(d => [d.id, d.name]));
 
     // Process the data for demographics
-    const demographicsData = activityLogs.map(log => {
+    const demographicsData = activityLogs.map((log: any) => {
       const deviceIds = JSON.parse(log.deviceIds || '[]');
       const deviceNames = deviceIds.map((id: string) => deviceMap.get(id) || 'Unknown Device').join(', ');
-      
+
       return {
         id: log.id,
         memberName: log.member.name,
@@ -61,20 +61,29 @@ export async function GET(request: NextRequest) {
 
     // Generate summary statistics
     const totalLogs = demographicsData.length;
-    const uniqueMembers = new Set(demographicsData.map(d => d.memberName)).size;
-    const totalDevices = new Set(demographicsData.flatMap(d => d.devicesUsed.split(', ').filter(d => d !== 'No Devices' && d !== 'Unknown Device'))).size;
-    
+    const uniqueMembers = new Set(demographicsData.map((d: any) => d.memberName)).size;
+
+    const totalDevices = new Set<string>(
+      demographicsData.flatMap((log: any) =>
+        (log.devicesUsed || '')
+          .split(', ')
+          .filter((deviceName: string) => 
+            deviceName && deviceName !== 'No Devices' && deviceName !== 'Unknown Device')
+      )
+    ).size;
+
     // Calculate average duration
     const durations = demographicsData
-      .filter(d => d.duration !== 'N/A')
-      .map(d => parseInt(d.duration.split(' ')[0]));
+      .filter((d: any) => d.duration !== 'N/A')
+      .map((d: any) => parseInt(d.duration.split(' ')[0]));
+      
     const avgDuration = durations.length > 0 
-      ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length)
+      ? Math.round(durations.reduce((a: number, b: number) => a + b, 0) / durations.length)
       : 0;
 
     const summary = {
       totalActivityLogs: totalLogs,
-      uniqueMembers: uniqueMembers,
+      uniqueMembers,
       totalDevicesUsed: totalDevices,
       averageDurationMinutes: avgDuration,
       dateRange: {
@@ -94,4 +103,4 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-} 
+}
