@@ -4,11 +4,12 @@ import { prisma } from "@/lib/prisma";
 // PUT - Update a device distinction
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
+  const { id } = context.params;
+
   try {
     const { name, description } = await request.json();
-    const { id } = params;
 
     if (!name || name.trim() === "") {
       return NextResponse.json(
@@ -28,14 +29,14 @@ export async function PUT(
     return NextResponse.json(deviceDistinction);
   } catch (error: any) {
     console.error("Error updating device distinction:", error);
-    
+
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Device distinction not found" },
         { status: 404 }
       );
     }
-    
+
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Device distinction name already exists" },
@@ -53,11 +54,11 @@ export async function PUT(
 // DELETE - Soft delete a device distinction (set active to false)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  try {
-    const { id } = params;
+  const { id } = context.params;
 
+  try {
     const deviceDistinction = await prisma.deviceDistinction.update({
       where: { id },
       data: { active: false },
@@ -66,7 +67,7 @@ export async function DELETE(
     return NextResponse.json(deviceDistinction);
   } catch (error: any) {
     console.error("Error deleting device distinction:", error);
-    
+
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Device distinction not found" },
@@ -79,4 +80,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-} 
+}
