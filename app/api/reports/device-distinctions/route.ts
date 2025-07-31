@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
     const totalItems = combinedData.length;
     const totalDevices = deviceData.length;
     const totalMaterials = materialData.length;
-    const activeItems = combinedData.filter(item => item.status === 'Active').length;
+    const activeItems = combinedData.filter((item: any) => item.status === 'Active').length;
     const inactiveItems = combinedData.filter(item => item.status === 'Inactive').length;
     
     // Device-specific statistics
@@ -91,7 +91,8 @@ export async function GET(request: NextRequest) {
     
     // Material-specific statistics
     const activeMaterials = materialData.filter(m => m.status === 'Active').length;
-    const totalMaterialQuantity = materialData.reduce((sum, material) => sum + (material.quantity || 0), 0);
+    const totalMaterialQuantity = materialData.reduce((sum: number, material: any) => sum + (material.quantity || 0), 0);
+
     
     // Get all unique distinctions
     const allDistinctions = new Set<string>();
