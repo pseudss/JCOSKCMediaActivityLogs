@@ -52,7 +52,7 @@ export const SideBar: React.FC<AppSidebarProps> = ({ user }) => {
                                         className="object-contain"
                                     />
                                     <span className="flex-grow text-center text-sm font-medium">
-                                        {process.env.NEXT_PUBLIC_APP_NAME ? process.env.NEXT_PUBLIC_APP_NAME.split(' ').map(word => word.charAt(0)).join('') : ''}
+                                        Media Ministry
                                     </span>
                                 </div>
                             ) : (

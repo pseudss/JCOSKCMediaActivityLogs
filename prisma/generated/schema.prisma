@@ -24,6 +24,52 @@ model User {
   @@map("_auth_users")
 }
 
+model Member {
+  id           String              @id @default(cuid())
+  name         String              @unique
+  description  String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  active       Boolean             @default(true)
+  officeId     String? // Foreign key to Office
+  office       Office?             @relation(fields: [officeId], references: [id])
+  dojHmoId     String? // Foreign key to DOJ HMO
+  dojHmo       DOJHMO?             @relation(fields: [dojHmoId], references: [id])
+  activityLogs MemberActivityLog[]
+
+  @@map("members")
+}
+
+model Office {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String   @unique
+  description String?
+  head        String?
+  location    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  active      Boolean  @default(true)
+  members     Member[] // One-to-many relationship with Member
+
+  @@map("offices")
+}
+
+model DOJHMO {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String   @unique
+  description String?
+  type        String? // Type of HMO
+  status      String? // Status of the HMO
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  active      Boolean  @default(true)
+  members     Member[] // One-to-many relationship with Member
+
+  @@map("doj_hmos")
+}
+
 model Role {
   id              String           @id @default(cuid())
   name            String           @unique
@@ -61,4 +107,69 @@ model RolePermission {
 
   @@id([roleId, permissionId])
   @@map("_auth_role_permissions")
+}
+
+model Device {
+  id                 String                    @id @default(cuid())
+  name               String                    @unique
+  description        String?                   @db.Text
+  deviceDistinctions DeviceDeviceDistinction[]
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+  active             Boolean                   @default(true)
+
+  @@map("devices")
+}
+
+model DeviceDistinction {
+  id          String                    @id @default(cuid())
+  name        String                    @unique
+  description String?                   @db.Text
+  devices     DeviceDeviceDistinction[]
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+  active      Boolean                   @default(true)
+
+  @@map("device_distinctions")
+}
+
+model DeviceDeviceDistinction {
+  id                  String            @id @default(cuid())
+  deviceId            String
+  deviceDistinctionId String
+  device              Device            @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  deviceDistinction   DeviceDistinction @relation(fields: [deviceDistinctionId], references: [id], onDelete: Cascade)
+  createdAt           DateTime          @default(now())
+
+  @@unique([deviceId, deviceDistinctionId])
+  @@map("device_device_distinctions")
+}
+
+model Material {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?  @db.Text
+  quantity    Int      @default(0)
+  unit        String? // e.g., "pieces", "boxes", "kg", "liters"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  active      Boolean  @default(true)
+
+  @@map("materials")
+}
+
+model MemberActivityLog {
+  id          String    @id @default(cuid())
+  memberId    String
+  deviceIds   String    @db.Text // Store as JSON string
+  description String?   @db.Text
+  timeIn      DateTime?
+  timeOut     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  active      Boolean   @default(true)
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@map("member_activity_logs")
 }

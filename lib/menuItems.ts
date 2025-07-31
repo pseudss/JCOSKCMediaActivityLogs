@@ -3,6 +3,7 @@ import {
     ShieldCheck,
     Users,
     BarChart3,
+    Activity,
 } from "lucide-react"
 import { Actions, AppSubjects } from "./ability";
 
@@ -25,10 +26,16 @@ interface MenuItems {
 export const menuItems: MenuItems = {
     main: [
         {
-            name: "Employees",
-            url: "/employees",
+            name: "Member",
+            url: "/member",
             icon: Users,
-            ability: { action: 'read', subject: 'Employees' }
+            ability: { action: 'read', subject: 'Member' }
+        },
+        {
+            name: "Member Activity Logs",
+            url: "/member-activity-logs",
+            icon: Activity,
+            ability: { action: 'read', subject: 'Member' }
         },
         {
             name: "Reports",
@@ -38,12 +45,6 @@ export const menuItems: MenuItems = {
         },
     ],
     system: [
-        {
-            name: "Access Management",
-            url: "/access-management",
-            icon: ShieldCheck,
-            ability: { action: 'manage', subject: 'AccessManagement' }
-        },
         {
             name: "Library",
             url: "/library",

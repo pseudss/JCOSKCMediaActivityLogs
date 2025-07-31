@@ -67,7 +67,8 @@ export default function LoginForm() {
 
                         const ability = defineAbilityFor(userForAbility);
                         const prioritizedRoutes: { path: string; subject: AppSubjects }[] = [
-                            { path: "/employees", subject: "Employees" },
+                            { path: "/member-activity-logs", subject: "MemberActivityLogs" },
+                            { path: "/member", subject: "Member" },
                             { path: "/access-management", subject: "AccessManagement" },
                             { path: "/profile", subject: "Profile" }
                         ];
@@ -96,7 +97,16 @@ export default function LoginForm() {
             <form onSubmit={handleSubmit}>
                 <CardHeader>
                     <div className="grid gap-2 text-center">
-                        <h1 className="text-3xl font-bold">{process.env.NEXT_PUBLIC_APP_NAME}</h1>
+                        <div className="flex justify-center mb-4">
+                            <img
+                                src="/logo.png"
+                                alt="Media Ministry Logo"
+                                width={64}
+                                height={64}
+                                className="object-contain"
+                            />
+                        </div>
+                        <h1 className="text-3xl font-bold">Media Ministry Activity Logs</h1>
                         <div className="divide-dashed"></div>
                         <p className="text-balance text-muted-foreground text-sm">
                             Enter your username below to login to your account

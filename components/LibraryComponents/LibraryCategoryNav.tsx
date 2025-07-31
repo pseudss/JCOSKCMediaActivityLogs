@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Building, Table2 } from "lucide-react";
+import { Briefcase, Building, Table2, Users, Monitor, Package, Award } from "lucide-react";
 import React from "react";
 
 interface Category {
@@ -9,9 +9,9 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { key: "plantilla", label: "Plantilla", icon: Briefcase },
-  { key: "offices", label: "Offices", icon: Building },
-  { key: "salary-grades", label: "Salary Grades", icon: Table2 },
+  { key: "device", label: "Device", icon: Monitor },
+  { key: "device-distinction", label: "Device Distinction", icon: Award },
+  { key: "materials", label: "Materials", icon: Package },
 ];
 
 interface LibraryCategoryNavProps {

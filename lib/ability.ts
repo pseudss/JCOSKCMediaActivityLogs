@@ -4,13 +4,13 @@ import { prismaQuery } from '@casl/prisma/runtime';
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete';
 
 export type AppSubjects =
-  | 'Employees'
-  | 'EmployeeDetails'
   | 'Library'
   | 'AccessManagement'
+  | 'MemberActivityLogs'	
   | 'Reports'
   | 'Profile'
   | 'SystemSettings'
+  | 'Member'
   | 'all';
 
 type Subjects = InferSubjects<AppSubjects | string> | 'all';
@@ -33,12 +33,11 @@ export type UserForAbility = {
   };
 
 const permissionNameToSubjectMap: Record<string, AppSubjects> = {
-  employees: 'Employees',
-  employeedetails: 'EmployeeDetails',
   library: 'Library',
   accessmanagement: 'AccessManagement',
   reports: 'Reports',
   profile: 'Profile',
+  member: 'Member',
   user: 'AccessManagement',
   role: 'AccessManagement',
   permission: 'AccessManagement',

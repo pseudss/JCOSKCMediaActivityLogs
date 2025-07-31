@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.11.1
+ * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.11.1",
+  engine: "f40f79ec31188888a2e33acda0ecc8fd10a853a9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -132,6 +132,41 @@ exports.Prisma.UserScalarFieldEnum = {
   isSystemUser: 'isSystemUser'
 };
 
+exports.Prisma.MemberScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active',
+  officeId: 'officeId',
+  dojHmoId: 'dojHmoId'
+};
+
+exports.Prisma.OfficeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  head: 'head',
+  location: 'location',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active'
+};
+
+exports.Prisma.DOJHMOScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  type: 'type',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active'
+};
+
 exports.Prisma.RoleScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -154,6 +189,54 @@ exports.Prisma.RolePermissionScalarFieldEnum = {
   permissionId: 'permissionId'
 };
 
+exports.Prisma.DeviceScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active'
+};
+
+exports.Prisma.DeviceDistinctionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active'
+};
+
+exports.Prisma.DeviceDeviceDistinctionScalarFieldEnum = {
+  id: 'id',
+  deviceId: 'deviceId',
+  deviceDistinctionId: 'deviceDistinctionId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MaterialScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  quantity: 'quantity',
+  unit: 'unit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active'
+};
+
+exports.Prisma.MemberActivityLogScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  deviceIds: 'deviceIds',
+  description: 'description',
+  timeIn: 'timeIn',
+  timeOut: 'timeOut',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -170,6 +253,32 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.MemberOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  officeId: 'officeId',
+  dojHmoId: 'dojHmoId'
+};
+
+exports.Prisma.OfficeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  head: 'head',
+  location: 'location'
+};
+
+exports.Prisma.DOJHMOOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  type: 'type',
+  status: 'status'
 };
 
 exports.Prisma.RoleOrderByRelevanceFieldEnum = {
@@ -194,13 +303,53 @@ exports.Prisma.RolePermissionOrderByRelevanceFieldEnum = {
   permissionId: 'permissionId'
 };
 
+exports.Prisma.DeviceOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.DeviceDistinctionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.DeviceDeviceDistinctionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  deviceId: 'deviceId',
+  deviceDistinctionId: 'deviceDistinctionId'
+};
+
+exports.Prisma.MaterialOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  unit: 'unit'
+};
+
+exports.Prisma.MemberActivityLogOrderByRelevanceFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  deviceIds: 'deviceIds',
+  description: 'description'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Member: 'Member',
+  Office: 'Office',
+  DOJHMO: 'DOJHMO',
   Role: 'Role',
   Permission: 'Permission',
   UserRole: 'UserRole',
-  RolePermission: 'RolePermission'
+  RolePermission: 'RolePermission',
+  Device: 'Device',
+  DeviceDistinction: 'DeviceDistinction',
+  DeviceDeviceDistinction: 'DeviceDeviceDistinction',
+  Material: 'Material',
+  MemberActivityLog: 'MemberActivityLog'
 };
 
 /**

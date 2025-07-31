@@ -22,8 +22,10 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
     useEffect(() => {
         if (status === 'unauthenticated') {
             router.push('/login');
+        } else if (status === 'authenticated' && pathname === '/') {
+            router.push('/member');
         } 
-    }, [status, router]);
+    }, [status, router, pathname]);
 
     const capitalizeFirstLetter = (str: string) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -33,17 +35,7 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
         const pathParts = pathname.split('/').filter(part => part);
         const breadcrumbs: JSX.Element[] = [];
 
-        if (pathname.match(/^\/employees\/[^/]+$/)) {
-            return [
-                <BreadcrumbItem key="/employees">
-                    <BreadcrumbLink href="/employees">Employees</BreadcrumbLink>
-                </BreadcrumbItem>,
-                <BreadcrumbSeparator key="separator" />,
-                <BreadcrumbItem key={pathname}>
-                    <BreadcrumbPage>Employee Details</BreadcrumbPage>
-                </BreadcrumbItem>
-            ];
-        }
+
 
         pathParts.forEach((part, index) => {
             const href = `/${pathParts.slice(0, index + 1).join('/')}`;
@@ -54,9 +46,7 @@ export default function ProtectedLayout({ children }: { children?: ReactNode }) 
             let displayText = capitalizeFirstLetter(decodeURIComponent(part));
 
             switch (part) {
-                case 'employees':
-                    displayText = 'Employees';
-                    break;
+                // Employee cases removed
             }
 
             if (isLast) {

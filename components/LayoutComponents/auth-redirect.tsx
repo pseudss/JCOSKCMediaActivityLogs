@@ -11,14 +11,14 @@ export function AuthRedirect({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         
-        if (status === 'loading' || pathname === '/login' || pathname === '/employees') return;
+        if (status === 'loading' || pathname === '/login' || pathname === '/member') return;
 
         if (status === 'unauthenticated') {
             router.push('/login');
         } else if (status === 'authenticated') {
             
             if (pathname === '/') {
-                 router.push('/employees');
+                 router.push('/member');
             }
         }
     }, [session, status, router, pathname]);

@@ -17,6 +17,9 @@ const permissionsToSeed = [
   { name: 'create_users', description: 'Add new users' },
   { name: 'update_users', description: 'Modify existing user details' },
   { name: 'delete_users', description: 'Remove users' },
+  { name: 'read_library', description: 'View library items' },
+  { name: 'read_memberactivitylogs', description: 'View member activity logs' }, 
+  { name: 'manage_memberactivitylogs', description: 'Full control over member activity logs' },
 
   // Role Management
   { name: 'manage_roles', description: 'Full control over roles and their permissions' },
@@ -64,6 +67,8 @@ const permissionsToSeed = [
 
   // Profile Management (Self)
   { name: 'manage_profile', description: 'Update own user profile' },
+
+
 ];
 
 async function main() {
@@ -107,11 +112,11 @@ async function main() {
 
   // --- Upsert SuperAdmin User ---
   const superAdminUser = await prisma.user.upsert({
-    where: { username: 'asd_admin' }, 
+    where: { username: 'media_admin' }, 
     update: {},
     create: {
-      username: 'asd_admin',
-      password: await bcrypt.hash('admin123', 12), // <<< SET A STRONG, UNIQUE PASSWORD HERE
+      username: 'media_admin',
+      password: await bcrypt.hash('mediaministryadmin012', 12), // <<< SET A STRONG, UNIQUE PASSWORD HERE
       first_name: 'System',
       last_name: 'Admin',
       active: true,
@@ -205,6 +210,57 @@ async function main() {
       }
   }
   console.log(`Finished assigning permissions to ${userRole.name} role.`);
+
+  // --- Upsert MediaMember Role ---
+  const mediaMemberRole = await prisma.role.upsert({
+    where: { name: 'MediaMember' },
+    update: {},
+    create: {
+      name: 'MediaMember',
+      description: 'Can only access Member Activity Logs and Library',
+    },
+  });
+  console.log(`Upserted role: ${mediaMemberRole.name}`);
+
+  // --- Assign permissions to MediaMember Role ---
+  const mediaMemberPermissions = [
+    'read_library',
+    'read_memberactivitylogs', // Make sure this matches your actual permission name!
+  ];
+  for (const permName of mediaMemberPermissions) {
+    const permission = createdPermissionsMap.get(permName);
+    if (permission) {
+      await prisma.rolePermission.upsert({
+        where: { roleId_permissionId: { roleId: mediaMemberRole.id, permissionId: permission.id } },
+        update: {},
+        create: { roleId: mediaMemberRole.id, permissionId: permission.id },
+      });
+    }
+  }
+
+  // --- Upsert Media Member User ---
+  const mediaMemberUser = await prisma.user.upsert({
+    where: { username: 'media_member' },
+    update: {},
+    create: {
+      username: 'media_member',
+      password: await bcrypt.hash('mediamember012', 12),
+      first_name: 'Media',
+      last_name: 'Member',
+      active: true,
+      isTemporaryPassword: false,
+      isSystemUser: false,
+    },
+  });
+  console.log(`Upserted user: ${mediaMemberUser.username}`);
+
+  // --- Link Media Member User to MediaMember Role ---
+  await prisma.userRole.upsert({
+    where: { userId_roleId: { userId: mediaMemberUser.id, roleId: mediaMemberRole.id } },
+    update: {},
+    create: { userId: mediaMemberUser.id, roleId: mediaMemberRole.id },
+  });
+  console.log(`Linked user ${mediaMemberUser.username} to role ${mediaMemberRole.name}`);
 
   console.log('Seeding finished.');
 }

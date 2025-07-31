@@ -1,18 +1,14 @@
 "use client"
 
 import { useState } from "react";
-import { salaryGrades } from "@/lib/salary_grades";
 import { PageHeader } from "@/components/LayoutComponents/page-header";
 import { LibraryCategoryNav } from "@/components/LibraryComponents/LibraryCategoryNav";
-import { PlantillaSection } from "@/components/LibraryComponents/PlantillaSection";
-import { OfficesSection } from "@/components/LibraryComponents/OfficesSection";
-import { SalaryGradeSection } from "@/components/LibraryComponents/SalaryGradeSection";
+import { DeviceSection } from "@/components/LibraryComponents/DeviceSection";
+import { MaterialsSection } from "@/components/LibraryComponents/MaterialsSection";
+import { DeviceDistinctionSection } from "@/components/LibraryComponents/DeviceDistinctionSection";
 
 export default function LibraryPage() {
-  const [activeCategory, setActiveCategory] = useState("plantilla");
-  const [selectedYear, setSelectedYear] = useState("2024");
-
-  const availableYears = Object.keys(salaryGrades).sort().reverse();
+  const [activeCategory, setActiveCategory] = useState("device");
 
   return (
     <div>
@@ -22,15 +18,9 @@ export default function LibraryPage() {
           <LibraryCategoryNav activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
         </div>
         <div className="w-3/4">
-          {activeCategory === "plantilla" && <PlantillaSection />}
-          {activeCategory === "offices" && <OfficesSection />}
-          {activeCategory === "salary-grades" && (
-            <SalaryGradeSection
-              selectedYear={selectedYear}
-              onSelectYear={setSelectedYear}
-              availableYears={availableYears}
-            />
-          )}
+          {activeCategory === "device" && <DeviceSection />}
+          {activeCategory === "materials" && <MaterialsSection />}
+          {activeCategory === "device-distinction" && <DeviceDistinctionSection />}
         </div>
       </div>
     </div>

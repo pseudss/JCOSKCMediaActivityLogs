@@ -19,6 +19,21 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Member
+ * 
+ */
+export type Member = $Result.DefaultSelection<Prisma.$MemberPayload>
+/**
+ * Model Office
+ * 
+ */
+export type Office = $Result.DefaultSelection<Prisma.$OfficePayload>
+/**
+ * Model DOJHMO
+ * 
+ */
+export type DOJHMO = $Result.DefaultSelection<Prisma.$DOJHMOPayload>
+/**
  * Model Role
  * 
  */
@@ -38,6 +53,31 @@ export type UserRole = $Result.DefaultSelection<Prisma.$UserRolePayload>
  * 
  */
 export type RolePermission = $Result.DefaultSelection<Prisma.$RolePermissionPayload>
+/**
+ * Model Device
+ * 
+ */
+export type Device = $Result.DefaultSelection<Prisma.$DevicePayload>
+/**
+ * Model DeviceDistinction
+ * 
+ */
+export type DeviceDistinction = $Result.DefaultSelection<Prisma.$DeviceDistinctionPayload>
+/**
+ * Model DeviceDeviceDistinction
+ * 
+ */
+export type DeviceDeviceDistinction = $Result.DefaultSelection<Prisma.$DeviceDeviceDistinctionPayload>
+/**
+ * Model Material
+ * 
+ */
+export type Material = $Result.DefaultSelection<Prisma.$MaterialPayload>
+/**
+ * Model MemberActivityLog
+ * 
+ */
+export type MemberActivityLog = $Result.DefaultSelection<Prisma.$MemberActivityLogPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -175,6 +215,36 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.member`: Exposes CRUD operations for the **Member** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Members
+    * const members = await prisma.member.findMany()
+    * ```
+    */
+  get member(): Prisma.MemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.office`: Exposes CRUD operations for the **Office** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Offices
+    * const offices = await prisma.office.findMany()
+    * ```
+    */
+  get office(): Prisma.OfficeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dOJHMO`: Exposes CRUD operations for the **DOJHMO** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DOJHMOS
+    * const dOJHMOS = await prisma.dOJHMO.findMany()
+    * ```
+    */
+  get dOJHMO(): Prisma.DOJHMODelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.role`: Exposes CRUD operations for the **Role** model.
     * Example usage:
     * ```ts
@@ -213,6 +283,56 @@ export class PrismaClient<
     * ```
     */
   get rolePermission(): Prisma.RolePermissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.device`: Exposes CRUD operations for the **Device** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Devices
+    * const devices = await prisma.device.findMany()
+    * ```
+    */
+  get device(): Prisma.DeviceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deviceDistinction`: Exposes CRUD operations for the **DeviceDistinction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeviceDistinctions
+    * const deviceDistinctions = await prisma.deviceDistinction.findMany()
+    * ```
+    */
+  get deviceDistinction(): Prisma.DeviceDistinctionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deviceDeviceDistinction`: Exposes CRUD operations for the **DeviceDeviceDistinction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeviceDeviceDistinctions
+    * const deviceDeviceDistinctions = await prisma.deviceDeviceDistinction.findMany()
+    * ```
+    */
+  get deviceDeviceDistinction(): Prisma.DeviceDeviceDistinctionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.material`: Exposes CRUD operations for the **Material** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Materials
+    * const materials = await prisma.material.findMany()
+    * ```
+    */
+  get material(): Prisma.MaterialDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.memberActivityLog`: Exposes CRUD operations for the **MemberActivityLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MemberActivityLogs
+    * const memberActivityLogs = await prisma.memberActivityLog.findMany()
+    * ```
+    */
+  get memberActivityLog(): Prisma.MemberActivityLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -271,8 +391,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.7.0
-   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+   * Prisma Client JS version: 6.11.1
+   * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
    */
   export type PrismaVersion = {
     client: string
@@ -654,10 +774,18 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Member: 'Member',
+    Office: 'Office',
+    DOJHMO: 'DOJHMO',
     Role: 'Role',
     Permission: 'Permission',
     UserRole: 'UserRole',
-    RolePermission: 'RolePermission'
+    RolePermission: 'RolePermission',
+    Device: 'Device',
+    DeviceDistinction: 'DeviceDistinction',
+    DeviceDeviceDistinction: 'DeviceDeviceDistinction',
+    Material: 'Material',
+    MemberActivityLog: 'MemberActivityLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -676,7 +804,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "userRole" | "rolePermission"
+      modelProps: "user" | "member" | "office" | "dOJHMO" | "role" | "permission" | "userRole" | "rolePermission" | "device" | "deviceDistinction" | "deviceDeviceDistinction" | "material" | "memberActivityLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -743,6 +871,204 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Member: {
+        payload: Prisma.$MemberPayload<ExtArgs>
+        fields: Prisma.MemberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>
+          }
+          findFirst: {
+            args: Prisma.MemberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>
+          }
+          findMany: {
+            args: Prisma.MemberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>[]
+          }
+          create: {
+            args: Prisma.MemberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>
+          }
+          createMany: {
+            args: Prisma.MemberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MemberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>
+          }
+          update: {
+            args: Prisma.MemberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MemberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberPayload>
+          }
+          aggregate: {
+            args: Prisma.MemberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMember>
+          }
+          groupBy: {
+            args: Prisma.MemberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemberCountArgs<ExtArgs>
+            result: $Utils.Optional<MemberCountAggregateOutputType> | number
+          }
+        }
+      }
+      Office: {
+        payload: Prisma.$OfficePayload<ExtArgs>
+        fields: Prisma.OfficeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OfficeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OfficeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>
+          }
+          findFirst: {
+            args: Prisma.OfficeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OfficeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>
+          }
+          findMany: {
+            args: Prisma.OfficeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>[]
+          }
+          create: {
+            args: Prisma.OfficeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>
+          }
+          createMany: {
+            args: Prisma.OfficeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.OfficeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>
+          }
+          update: {
+            args: Prisma.OfficeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>
+          }
+          deleteMany: {
+            args: Prisma.OfficeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OfficeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OfficeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfficePayload>
+          }
+          aggregate: {
+            args: Prisma.OfficeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOffice>
+          }
+          groupBy: {
+            args: Prisma.OfficeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OfficeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OfficeCountArgs<ExtArgs>
+            result: $Utils.Optional<OfficeCountAggregateOutputType> | number
+          }
+        }
+      }
+      DOJHMO: {
+        payload: Prisma.$DOJHMOPayload<ExtArgs>
+        fields: Prisma.DOJHMOFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DOJHMOFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DOJHMOFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>
+          }
+          findFirst: {
+            args: Prisma.DOJHMOFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DOJHMOFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>
+          }
+          findMany: {
+            args: Prisma.DOJHMOFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>[]
+          }
+          create: {
+            args: Prisma.DOJHMOCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>
+          }
+          createMany: {
+            args: Prisma.DOJHMOCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DOJHMODeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>
+          }
+          update: {
+            args: Prisma.DOJHMOUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>
+          }
+          deleteMany: {
+            args: Prisma.DOJHMODeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DOJHMOUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DOJHMOUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DOJHMOPayload>
+          }
+          aggregate: {
+            args: Prisma.DOJHMOAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDOJHMO>
+          }
+          groupBy: {
+            args: Prisma.DOJHMOGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DOJHMOGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DOJHMOCountArgs<ExtArgs>
+            result: $Utils.Optional<DOJHMOCountAggregateOutputType> | number
           }
         }
       }
@@ -1010,6 +1336,336 @@ export namespace Prisma {
           }
         }
       }
+      Device: {
+        payload: Prisma.$DevicePayload<ExtArgs>
+        fields: Prisma.DeviceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          findMany: {
+            args: Prisma.DeviceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+          }
+          create: {
+            args: Prisma.DeviceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          createMany: {
+            args: Prisma.DeviceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DeviceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          update: {
+            args: Prisma.DeviceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DeviceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDevice>
+          }
+          groupBy: {
+            args: Prisma.DeviceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeviceDistinction: {
+        payload: Prisma.$DeviceDistinctionPayload<ExtArgs>
+        fields: Prisma.DeviceDistinctionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceDistinctionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceDistinctionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceDistinctionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceDistinctionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>
+          }
+          findMany: {
+            args: Prisma.DeviceDistinctionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>[]
+          }
+          create: {
+            args: Prisma.DeviceDistinctionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>
+          }
+          createMany: {
+            args: Prisma.DeviceDistinctionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DeviceDistinctionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>
+          }
+          update: {
+            args: Prisma.DeviceDistinctionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceDistinctionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceDistinctionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DeviceDistinctionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDistinctionPayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceDistinctionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeviceDistinction>
+          }
+          groupBy: {
+            args: Prisma.DeviceDistinctionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceDistinctionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceDistinctionCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceDistinctionCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeviceDeviceDistinction: {
+        payload: Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>
+        fields: Prisma.DeviceDeviceDistinctionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceDeviceDistinctionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceDeviceDistinctionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceDeviceDistinctionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceDeviceDistinctionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>
+          }
+          findMany: {
+            args: Prisma.DeviceDeviceDistinctionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>[]
+          }
+          create: {
+            args: Prisma.DeviceDeviceDistinctionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>
+          }
+          createMany: {
+            args: Prisma.DeviceDeviceDistinctionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DeviceDeviceDistinctionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>
+          }
+          update: {
+            args: Prisma.DeviceDeviceDistinctionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceDeviceDistinctionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceDeviceDistinctionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DeviceDeviceDistinctionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceDeviceDistinctionPayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceDeviceDistinctionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeviceDeviceDistinction>
+          }
+          groupBy: {
+            args: Prisma.DeviceDeviceDistinctionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceDeviceDistinctionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceDeviceDistinctionCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceDeviceDistinctionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Material: {
+        payload: Prisma.$MaterialPayload<ExtArgs>
+        fields: Prisma.MaterialFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaterialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaterialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>
+          }
+          findFirst: {
+            args: Prisma.MaterialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaterialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>
+          }
+          findMany: {
+            args: Prisma.MaterialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>[]
+          }
+          create: {
+            args: Prisma.MaterialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>
+          }
+          createMany: {
+            args: Prisma.MaterialCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MaterialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>
+          }
+          update: {
+            args: Prisma.MaterialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaterialDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaterialUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MaterialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaterialPayload>
+          }
+          aggregate: {
+            args: Prisma.MaterialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaterial>
+          }
+          groupBy: {
+            args: Prisma.MaterialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaterialGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaterialCountArgs<ExtArgs>
+            result: $Utils.Optional<MaterialCountAggregateOutputType> | number
+          }
+        }
+      }
+      MemberActivityLog: {
+        payload: Prisma.$MemberActivityLogPayload<ExtArgs>
+        fields: Prisma.MemberActivityLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemberActivityLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemberActivityLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>
+          }
+          findFirst: {
+            args: Prisma.MemberActivityLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemberActivityLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>
+          }
+          findMany: {
+            args: Prisma.MemberActivityLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>[]
+          }
+          create: {
+            args: Prisma.MemberActivityLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>
+          }
+          createMany: {
+            args: Prisma.MemberActivityLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MemberActivityLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>
+          }
+          update: {
+            args: Prisma.MemberActivityLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemberActivityLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemberActivityLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MemberActivityLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberActivityLogPayload>
+          }
+          aggregate: {
+            args: Prisma.MemberActivityLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMemberActivityLog>
+          }
+          groupBy: {
+            args: Prisma.MemberActivityLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemberActivityLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemberActivityLogCountArgs<ExtArgs>
+            result: $Utils.Optional<MemberActivityLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1095,10 +1751,18 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    member?: MemberOmit
+    office?: OfficeOmit
+    dOJHMO?: DOJHMOOmit
     role?: RoleOmit
     permission?: PermissionOmit
     userRole?: UserRoleOmit
     rolePermission?: RolePermissionOmit
+    device?: DeviceOmit
+    deviceDistinction?: DeviceDistinctionOmit
+    deviceDeviceDistinction?: DeviceDeviceDistinctionOmit
+    material?: MaterialOmit
+    memberActivityLog?: MemberActivityLogOmit
   }
 
   /* Types for Logging */
@@ -1220,6 +1884,99 @@ export namespace Prisma {
 
 
   /**
+   * Count Type MemberCountOutputType
+   */
+
+  export type MemberCountOutputType = {
+    activityLogs: number
+  }
+
+  export type MemberCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activityLogs?: boolean | MemberCountOutputTypeCountActivityLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MemberCountOutputType without action
+   */
+  export type MemberCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberCountOutputType
+     */
+    select?: MemberCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MemberCountOutputType without action
+   */
+  export type MemberCountOutputTypeCountActivityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberActivityLogWhereInput
+  }
+
+
+  /**
+   * Count Type OfficeCountOutputType
+   */
+
+  export type OfficeCountOutputType = {
+    members: number
+  }
+
+  export type OfficeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | OfficeCountOutputTypeCountMembersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OfficeCountOutputType without action
+   */
+  export type OfficeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfficeCountOutputType
+     */
+    select?: OfficeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OfficeCountOutputType without action
+   */
+  export type OfficeCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberWhereInput
+  }
+
+
+  /**
+   * Count Type DOJHMOCountOutputType
+   */
+
+  export type DOJHMOCountOutputType = {
+    members: number
+  }
+
+  export type DOJHMOCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | DOJHMOCountOutputTypeCountMembersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DOJHMOCountOutputType without action
+   */
+  export type DOJHMOCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMOCountOutputType
+     */
+    select?: DOJHMOCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DOJHMOCountOutputType without action
+   */
+  export type DOJHMOCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberWhereInput
+  }
+
+
+  /**
    * Count Type RoleCountOutputType
    */
 
@@ -1287,6 +2044,68 @@ export namespace Prisma {
    */
   export type PermissionCountOutputTypeCountRolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RolePermissionWhereInput
+  }
+
+
+  /**
+   * Count Type DeviceCountOutputType
+   */
+
+  export type DeviceCountOutputType = {
+    deviceDistinctions: number
+  }
+
+  export type DeviceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deviceDistinctions?: boolean | DeviceCountOutputTypeCountDeviceDistinctionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeviceCountOutputType without action
+   */
+  export type DeviceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceCountOutputType
+     */
+    select?: DeviceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeviceCountOutputType without action
+   */
+  export type DeviceCountOutputTypeCountDeviceDistinctionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceDeviceDistinctionWhereInput
+  }
+
+
+  /**
+   * Count Type DeviceDistinctionCountOutputType
+   */
+
+  export type DeviceDistinctionCountOutputType = {
+    devices: number
+  }
+
+  export type DeviceDistinctionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    devices?: boolean | DeviceDistinctionCountOutputTypeCountDevicesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeviceDistinctionCountOutputType without action
+   */
+  export type DeviceDistinctionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinctionCountOutputType
+     */
+    select?: DeviceDistinctionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeviceDistinctionCountOutputType without action
+   */
+  export type DeviceDistinctionCountOutputTypeCountDevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceDeviceDistinctionWhereInput
   }
 
 
@@ -2290,6 +3109,3038 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Member
+   */
+
+  export type AggregateMember = {
+    _count: MemberCountAggregateOutputType | null
+    _min: MemberMinAggregateOutputType | null
+    _max: MemberMaxAggregateOutputType | null
+  }
+
+  export type MemberMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+    officeId: string | null
+    dojHmoId: string | null
+  }
+
+  export type MemberMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+    officeId: string | null
+    dojHmoId: string | null
+  }
+
+  export type MemberCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    officeId: number
+    dojHmoId: number
+    _all: number
+  }
+
+
+  export type MemberMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    officeId?: true
+    dojHmoId?: true
+  }
+
+  export type MemberMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    officeId?: true
+    dojHmoId?: true
+  }
+
+  export type MemberCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    officeId?: true
+    dojHmoId?: true
+    _all?: true
+  }
+
+  export type MemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Member to aggregate.
+     */
+    where?: MemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Members to fetch.
+     */
+    orderBy?: MemberOrderByWithRelationInput | MemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Members
+    **/
+    _count?: true | MemberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemberMaxAggregateInputType
+  }
+
+  export type GetMemberAggregateType<T extends MemberAggregateArgs> = {
+        [P in keyof T & keyof AggregateMember]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMember[P]>
+      : GetScalarType<T[P], AggregateMember[P]>
+  }
+
+
+
+
+  export type MemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberWhereInput
+    orderBy?: MemberOrderByWithAggregationInput | MemberOrderByWithAggregationInput[]
+    by: MemberScalarFieldEnum[] | MemberScalarFieldEnum
+    having?: MemberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemberCountAggregateInputType | true
+    _min?: MemberMinAggregateInputType
+    _max?: MemberMaxAggregateInputType
+  }
+
+  export type MemberGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    officeId: string | null
+    dojHmoId: string | null
+    _count: MemberCountAggregateOutputType | null
+    _min: MemberMinAggregateOutputType | null
+    _max: MemberMaxAggregateOutputType | null
+  }
+
+  type GetMemberGroupByPayload<T extends MemberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemberGroupByOutputType[P]>
+            : GetScalarType<T[P], MemberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    officeId?: boolean
+    dojHmoId?: boolean
+    office?: boolean | Member$officeArgs<ExtArgs>
+    dojHmo?: boolean | Member$dojHmoArgs<ExtArgs>
+    activityLogs?: boolean | Member$activityLogsArgs<ExtArgs>
+    _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["member"]>
+
+
+
+  export type MemberSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    officeId?: boolean
+    dojHmoId?: boolean
+  }
+
+  export type MemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "active" | "officeId" | "dojHmoId", ExtArgs["result"]["member"]>
+  export type MemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    office?: boolean | Member$officeArgs<ExtArgs>
+    dojHmo?: boolean | Member$dojHmoArgs<ExtArgs>
+    activityLogs?: boolean | Member$activityLogsArgs<ExtArgs>
+    _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $MemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Member"
+    objects: {
+      office: Prisma.$OfficePayload<ExtArgs> | null
+      dojHmo: Prisma.$DOJHMOPayload<ExtArgs> | null
+      activityLogs: Prisma.$MemberActivityLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+      officeId: string | null
+      dojHmoId: string | null
+    }, ExtArgs["result"]["member"]>
+    composites: {}
+  }
+
+  type MemberGetPayload<S extends boolean | null | undefined | MemberDefaultArgs> = $Result.GetResult<Prisma.$MemberPayload, S>
+
+  type MemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MemberFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MemberCountAggregateInputType | true
+    }
+
+  export interface MemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Member'], meta: { name: 'Member' } }
+    /**
+     * Find zero or one Member that matches the filter.
+     * @param {MemberFindUniqueArgs} args - Arguments to find a Member
+     * @example
+     * // Get one Member
+     * const member = await prisma.member.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemberFindUniqueArgs>(args: SelectSubset<T, MemberFindUniqueArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Member that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MemberFindUniqueOrThrowArgs} args - Arguments to find a Member
+     * @example
+     * // Get one Member
+     * const member = await prisma.member.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemberFindUniqueOrThrowArgs>(args: SelectSubset<T, MemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Member that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberFindFirstArgs} args - Arguments to find a Member
+     * @example
+     * // Get one Member
+     * const member = await prisma.member.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemberFindFirstArgs>(args?: SelectSubset<T, MemberFindFirstArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Member that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberFindFirstOrThrowArgs} args - Arguments to find a Member
+     * @example
+     * // Get one Member
+     * const member = await prisma.member.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemberFindFirstOrThrowArgs>(args?: SelectSubset<T, MemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Members that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Members
+     * const members = await prisma.member.findMany()
+     * 
+     * // Get first 10 Members
+     * const members = await prisma.member.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memberWithIdOnly = await prisma.member.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemberFindManyArgs>(args?: SelectSubset<T, MemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Member.
+     * @param {MemberCreateArgs} args - Arguments to create a Member.
+     * @example
+     * // Create one Member
+     * const Member = await prisma.member.create({
+     *   data: {
+     *     // ... data to create a Member
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemberCreateArgs>(args: SelectSubset<T, MemberCreateArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Members.
+     * @param {MemberCreateManyArgs} args - Arguments to create many Members.
+     * @example
+     * // Create many Members
+     * const member = await prisma.member.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemberCreateManyArgs>(args?: SelectSubset<T, MemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Member.
+     * @param {MemberDeleteArgs} args - Arguments to delete one Member.
+     * @example
+     * // Delete one Member
+     * const Member = await prisma.member.delete({
+     *   where: {
+     *     // ... filter to delete one Member
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemberDeleteArgs>(args: SelectSubset<T, MemberDeleteArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Member.
+     * @param {MemberUpdateArgs} args - Arguments to update one Member.
+     * @example
+     * // Update one Member
+     * const member = await prisma.member.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemberUpdateArgs>(args: SelectSubset<T, MemberUpdateArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Members.
+     * @param {MemberDeleteManyArgs} args - Arguments to filter Members to delete.
+     * @example
+     * // Delete a few Members
+     * const { count } = await prisma.member.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemberDeleteManyArgs>(args?: SelectSubset<T, MemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Members
+     * const member = await prisma.member.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemberUpdateManyArgs>(args: SelectSubset<T, MemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Member.
+     * @param {MemberUpsertArgs} args - Arguments to update or create a Member.
+     * @example
+     * // Update or create a Member
+     * const member = await prisma.member.upsert({
+     *   create: {
+     *     // ... data to create a Member
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Member we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemberUpsertArgs>(args: SelectSubset<T, MemberUpsertArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberCountArgs} args - Arguments to filter Members to count.
+     * @example
+     * // Count the number of Members
+     * const count = await prisma.member.count({
+     *   where: {
+     *     // ... the filter for the Members we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemberCountArgs>(
+      args?: Subset<T, MemberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Member.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemberAggregateArgs>(args: Subset<T, MemberAggregateArgs>): Prisma.PrismaPromise<GetMemberAggregateType<T>>
+
+    /**
+     * Group by Member.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemberGroupByArgs['orderBy'] }
+        : { orderBy?: MemberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Member model
+   */
+  readonly fields: MemberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Member.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    office<T extends Member$officeArgs<ExtArgs> = {}>(args?: Subset<T, Member$officeArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    dojHmo<T extends Member$dojHmoArgs<ExtArgs> = {}>(args?: Subset<T, Member$dojHmoArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    activityLogs<T extends Member$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, Member$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Member model
+   */
+  interface MemberFieldRefs {
+    readonly id: FieldRef<"Member", 'String'>
+    readonly name: FieldRef<"Member", 'String'>
+    readonly description: FieldRef<"Member", 'String'>
+    readonly createdAt: FieldRef<"Member", 'DateTime'>
+    readonly updatedAt: FieldRef<"Member", 'DateTime'>
+    readonly active: FieldRef<"Member", 'Boolean'>
+    readonly officeId: FieldRef<"Member", 'String'>
+    readonly dojHmoId: FieldRef<"Member", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Member findUnique
+   */
+  export type MemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * Filter, which Member to fetch.
+     */
+    where: MemberWhereUniqueInput
+  }
+
+  /**
+   * Member findUniqueOrThrow
+   */
+  export type MemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * Filter, which Member to fetch.
+     */
+    where: MemberWhereUniqueInput
+  }
+
+  /**
+   * Member findFirst
+   */
+  export type MemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * Filter, which Member to fetch.
+     */
+    where?: MemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Members to fetch.
+     */
+    orderBy?: MemberOrderByWithRelationInput | MemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Members.
+     */
+    cursor?: MemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Members.
+     */
+    distinct?: MemberScalarFieldEnum | MemberScalarFieldEnum[]
+  }
+
+  /**
+   * Member findFirstOrThrow
+   */
+  export type MemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * Filter, which Member to fetch.
+     */
+    where?: MemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Members to fetch.
+     */
+    orderBy?: MemberOrderByWithRelationInput | MemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Members.
+     */
+    cursor?: MemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Members.
+     */
+    distinct?: MemberScalarFieldEnum | MemberScalarFieldEnum[]
+  }
+
+  /**
+   * Member findMany
+   */
+  export type MemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * Filter, which Members to fetch.
+     */
+    where?: MemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Members to fetch.
+     */
+    orderBy?: MemberOrderByWithRelationInput | MemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Members.
+     */
+    cursor?: MemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Members.
+     */
+    skip?: number
+    distinct?: MemberScalarFieldEnum | MemberScalarFieldEnum[]
+  }
+
+  /**
+   * Member create
+   */
+  export type MemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Member.
+     */
+    data: XOR<MemberCreateInput, MemberUncheckedCreateInput>
+  }
+
+  /**
+   * Member createMany
+   */
+  export type MemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Members.
+     */
+    data: MemberCreateManyInput | MemberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Member update
+   */
+  export type MemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Member.
+     */
+    data: XOR<MemberUpdateInput, MemberUncheckedUpdateInput>
+    /**
+     * Choose, which Member to update.
+     */
+    where: MemberWhereUniqueInput
+  }
+
+  /**
+   * Member updateMany
+   */
+  export type MemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Members.
+     */
+    data: XOR<MemberUpdateManyMutationInput, MemberUncheckedUpdateManyInput>
+    /**
+     * Filter which Members to update
+     */
+    where?: MemberWhereInput
+    /**
+     * Limit how many Members to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Member upsert
+   */
+  export type MemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Member to update in case it exists.
+     */
+    where: MemberWhereUniqueInput
+    /**
+     * In case the Member found by the `where` argument doesn't exist, create a new Member with this data.
+     */
+    create: XOR<MemberCreateInput, MemberUncheckedCreateInput>
+    /**
+     * In case the Member was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemberUpdateInput, MemberUncheckedUpdateInput>
+  }
+
+  /**
+   * Member delete
+   */
+  export type MemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    /**
+     * Filter which Member to delete.
+     */
+    where: MemberWhereUniqueInput
+  }
+
+  /**
+   * Member deleteMany
+   */
+  export type MemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Members to delete
+     */
+    where?: MemberWhereInput
+    /**
+     * Limit how many Members to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Member.office
+   */
+  export type Member$officeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    where?: OfficeWhereInput
+  }
+
+  /**
+   * Member.dojHmo
+   */
+  export type Member$dojHmoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    where?: DOJHMOWhereInput
+  }
+
+  /**
+   * Member.activityLogs
+   */
+  export type Member$activityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    where?: MemberActivityLogWhereInput
+    orderBy?: MemberActivityLogOrderByWithRelationInput | MemberActivityLogOrderByWithRelationInput[]
+    cursor?: MemberActivityLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberActivityLogScalarFieldEnum | MemberActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * Member without action
+   */
+  export type MemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Office
+   */
+
+  export type AggregateOffice = {
+    _count: OfficeCountAggregateOutputType | null
+    _min: OfficeMinAggregateOutputType | null
+    _max: OfficeMaxAggregateOutputType | null
+  }
+
+  export type OfficeMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    description: string | null
+    head: string | null
+    location: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type OfficeMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    description: string | null
+    head: string | null
+    location: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type OfficeCountAggregateOutputType = {
+    id: number
+    name: number
+    code: number
+    description: number
+    head: number
+    location: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    _all: number
+  }
+
+
+  export type OfficeMinAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    description?: true
+    head?: true
+    location?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type OfficeMaxAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    description?: true
+    head?: true
+    location?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type OfficeCountAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    description?: true
+    head?: true
+    location?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    _all?: true
+  }
+
+  export type OfficeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Office to aggregate.
+     */
+    where?: OfficeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offices to fetch.
+     */
+    orderBy?: OfficeOrderByWithRelationInput | OfficeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OfficeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Offices
+    **/
+    _count?: true | OfficeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OfficeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OfficeMaxAggregateInputType
+  }
+
+  export type GetOfficeAggregateType<T extends OfficeAggregateArgs> = {
+        [P in keyof T & keyof AggregateOffice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOffice[P]>
+      : GetScalarType<T[P], AggregateOffice[P]>
+  }
+
+
+
+
+  export type OfficeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfficeWhereInput
+    orderBy?: OfficeOrderByWithAggregationInput | OfficeOrderByWithAggregationInput[]
+    by: OfficeScalarFieldEnum[] | OfficeScalarFieldEnum
+    having?: OfficeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OfficeCountAggregateInputType | true
+    _min?: OfficeMinAggregateInputType
+    _max?: OfficeMaxAggregateInputType
+  }
+
+  export type OfficeGroupByOutputType = {
+    id: string
+    name: string
+    code: string
+    description: string | null
+    head: string | null
+    location: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    _count: OfficeCountAggregateOutputType | null
+    _min: OfficeMinAggregateOutputType | null
+    _max: OfficeMaxAggregateOutputType | null
+  }
+
+  type GetOfficeGroupByPayload<T extends OfficeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OfficeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OfficeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OfficeGroupByOutputType[P]>
+            : GetScalarType<T[P], OfficeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OfficeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    description?: boolean
+    head?: boolean
+    location?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    members?: boolean | Office$membersArgs<ExtArgs>
+    _count?: boolean | OfficeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["office"]>
+
+
+
+  export type OfficeSelectScalar = {
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    description?: boolean
+    head?: boolean
+    location?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }
+
+  export type OfficeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "description" | "head" | "location" | "createdAt" | "updatedAt" | "active", ExtArgs["result"]["office"]>
+  export type OfficeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | Office$membersArgs<ExtArgs>
+    _count?: boolean | OfficeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $OfficePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Office"
+    objects: {
+      members: Prisma.$MemberPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      code: string
+      description: string | null
+      head: string | null
+      location: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+    }, ExtArgs["result"]["office"]>
+    composites: {}
+  }
+
+  type OfficeGetPayload<S extends boolean | null | undefined | OfficeDefaultArgs> = $Result.GetResult<Prisma.$OfficePayload, S>
+
+  type OfficeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OfficeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OfficeCountAggregateInputType | true
+    }
+
+  export interface OfficeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Office'], meta: { name: 'Office' } }
+    /**
+     * Find zero or one Office that matches the filter.
+     * @param {OfficeFindUniqueArgs} args - Arguments to find a Office
+     * @example
+     * // Get one Office
+     * const office = await prisma.office.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OfficeFindUniqueArgs>(args: SelectSubset<T, OfficeFindUniqueArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Office that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OfficeFindUniqueOrThrowArgs} args - Arguments to find a Office
+     * @example
+     * // Get one Office
+     * const office = await prisma.office.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OfficeFindUniqueOrThrowArgs>(args: SelectSubset<T, OfficeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Office that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeFindFirstArgs} args - Arguments to find a Office
+     * @example
+     * // Get one Office
+     * const office = await prisma.office.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OfficeFindFirstArgs>(args?: SelectSubset<T, OfficeFindFirstArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Office that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeFindFirstOrThrowArgs} args - Arguments to find a Office
+     * @example
+     * // Get one Office
+     * const office = await prisma.office.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OfficeFindFirstOrThrowArgs>(args?: SelectSubset<T, OfficeFindFirstOrThrowArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Offices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Offices
+     * const offices = await prisma.office.findMany()
+     * 
+     * // Get first 10 Offices
+     * const offices = await prisma.office.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const officeWithIdOnly = await prisma.office.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OfficeFindManyArgs>(args?: SelectSubset<T, OfficeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Office.
+     * @param {OfficeCreateArgs} args - Arguments to create a Office.
+     * @example
+     * // Create one Office
+     * const Office = await prisma.office.create({
+     *   data: {
+     *     // ... data to create a Office
+     *   }
+     * })
+     * 
+     */
+    create<T extends OfficeCreateArgs>(args: SelectSubset<T, OfficeCreateArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Offices.
+     * @param {OfficeCreateManyArgs} args - Arguments to create many Offices.
+     * @example
+     * // Create many Offices
+     * const office = await prisma.office.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OfficeCreateManyArgs>(args?: SelectSubset<T, OfficeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Office.
+     * @param {OfficeDeleteArgs} args - Arguments to delete one Office.
+     * @example
+     * // Delete one Office
+     * const Office = await prisma.office.delete({
+     *   where: {
+     *     // ... filter to delete one Office
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OfficeDeleteArgs>(args: SelectSubset<T, OfficeDeleteArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Office.
+     * @param {OfficeUpdateArgs} args - Arguments to update one Office.
+     * @example
+     * // Update one Office
+     * const office = await prisma.office.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OfficeUpdateArgs>(args: SelectSubset<T, OfficeUpdateArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Offices.
+     * @param {OfficeDeleteManyArgs} args - Arguments to filter Offices to delete.
+     * @example
+     * // Delete a few Offices
+     * const { count } = await prisma.office.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OfficeDeleteManyArgs>(args?: SelectSubset<T, OfficeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Offices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Offices
+     * const office = await prisma.office.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OfficeUpdateManyArgs>(args: SelectSubset<T, OfficeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Office.
+     * @param {OfficeUpsertArgs} args - Arguments to update or create a Office.
+     * @example
+     * // Update or create a Office
+     * const office = await prisma.office.upsert({
+     *   create: {
+     *     // ... data to create a Office
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Office we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OfficeUpsertArgs>(args: SelectSubset<T, OfficeUpsertArgs<ExtArgs>>): Prisma__OfficeClient<$Result.GetResult<Prisma.$OfficePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Offices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeCountArgs} args - Arguments to filter Offices to count.
+     * @example
+     * // Count the number of Offices
+     * const count = await prisma.office.count({
+     *   where: {
+     *     // ... the filter for the Offices we want to count
+     *   }
+     * })
+    **/
+    count<T extends OfficeCountArgs>(
+      args?: Subset<T, OfficeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OfficeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Office.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OfficeAggregateArgs>(args: Subset<T, OfficeAggregateArgs>): Prisma.PrismaPromise<GetOfficeAggregateType<T>>
+
+    /**
+     * Group by Office.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfficeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OfficeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OfficeGroupByArgs['orderBy'] }
+        : { orderBy?: OfficeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OfficeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOfficeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Office model
+   */
+  readonly fields: OfficeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Office.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OfficeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    members<T extends Office$membersArgs<ExtArgs> = {}>(args?: Subset<T, Office$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Office model
+   */
+  interface OfficeFieldRefs {
+    readonly id: FieldRef<"Office", 'String'>
+    readonly name: FieldRef<"Office", 'String'>
+    readonly code: FieldRef<"Office", 'String'>
+    readonly description: FieldRef<"Office", 'String'>
+    readonly head: FieldRef<"Office", 'String'>
+    readonly location: FieldRef<"Office", 'String'>
+    readonly createdAt: FieldRef<"Office", 'DateTime'>
+    readonly updatedAt: FieldRef<"Office", 'DateTime'>
+    readonly active: FieldRef<"Office", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Office findUnique
+   */
+  export type OfficeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * Filter, which Office to fetch.
+     */
+    where: OfficeWhereUniqueInput
+  }
+
+  /**
+   * Office findUniqueOrThrow
+   */
+  export type OfficeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * Filter, which Office to fetch.
+     */
+    where: OfficeWhereUniqueInput
+  }
+
+  /**
+   * Office findFirst
+   */
+  export type OfficeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * Filter, which Office to fetch.
+     */
+    where?: OfficeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offices to fetch.
+     */
+    orderBy?: OfficeOrderByWithRelationInput | OfficeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Offices.
+     */
+    cursor?: OfficeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Offices.
+     */
+    distinct?: OfficeScalarFieldEnum | OfficeScalarFieldEnum[]
+  }
+
+  /**
+   * Office findFirstOrThrow
+   */
+  export type OfficeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * Filter, which Office to fetch.
+     */
+    where?: OfficeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offices to fetch.
+     */
+    orderBy?: OfficeOrderByWithRelationInput | OfficeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Offices.
+     */
+    cursor?: OfficeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Offices.
+     */
+    distinct?: OfficeScalarFieldEnum | OfficeScalarFieldEnum[]
+  }
+
+  /**
+   * Office findMany
+   */
+  export type OfficeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * Filter, which Offices to fetch.
+     */
+    where?: OfficeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offices to fetch.
+     */
+    orderBy?: OfficeOrderByWithRelationInput | OfficeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Offices.
+     */
+    cursor?: OfficeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offices.
+     */
+    skip?: number
+    distinct?: OfficeScalarFieldEnum | OfficeScalarFieldEnum[]
+  }
+
+  /**
+   * Office create
+   */
+  export type OfficeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Office.
+     */
+    data: XOR<OfficeCreateInput, OfficeUncheckedCreateInput>
+  }
+
+  /**
+   * Office createMany
+   */
+  export type OfficeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Offices.
+     */
+    data: OfficeCreateManyInput | OfficeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Office update
+   */
+  export type OfficeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Office.
+     */
+    data: XOR<OfficeUpdateInput, OfficeUncheckedUpdateInput>
+    /**
+     * Choose, which Office to update.
+     */
+    where: OfficeWhereUniqueInput
+  }
+
+  /**
+   * Office updateMany
+   */
+  export type OfficeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Offices.
+     */
+    data: XOR<OfficeUpdateManyMutationInput, OfficeUncheckedUpdateManyInput>
+    /**
+     * Filter which Offices to update
+     */
+    where?: OfficeWhereInput
+    /**
+     * Limit how many Offices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Office upsert
+   */
+  export type OfficeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Office to update in case it exists.
+     */
+    where: OfficeWhereUniqueInput
+    /**
+     * In case the Office found by the `where` argument doesn't exist, create a new Office with this data.
+     */
+    create: XOR<OfficeCreateInput, OfficeUncheckedCreateInput>
+    /**
+     * In case the Office was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OfficeUpdateInput, OfficeUncheckedUpdateInput>
+  }
+
+  /**
+   * Office delete
+   */
+  export type OfficeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+    /**
+     * Filter which Office to delete.
+     */
+    where: OfficeWhereUniqueInput
+  }
+
+  /**
+   * Office deleteMany
+   */
+  export type OfficeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Offices to delete
+     */
+    where?: OfficeWhereInput
+    /**
+     * Limit how many Offices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Office.members
+   */
+  export type Office$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    where?: MemberWhereInput
+    orderBy?: MemberOrderByWithRelationInput | MemberOrderByWithRelationInput[]
+    cursor?: MemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberScalarFieldEnum | MemberScalarFieldEnum[]
+  }
+
+  /**
+   * Office without action
+   */
+  export type OfficeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Office
+     */
+    select?: OfficeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Office
+     */
+    omit?: OfficeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfficeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DOJHMO
+   */
+
+  export type AggregateDOJHMO = {
+    _count: DOJHMOCountAggregateOutputType | null
+    _min: DOJHMOMinAggregateOutputType | null
+    _max: DOJHMOMaxAggregateOutputType | null
+  }
+
+  export type DOJHMOMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    description: string | null
+    type: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type DOJHMOMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    description: string | null
+    type: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type DOJHMOCountAggregateOutputType = {
+    id: number
+    name: number
+    code: number
+    description: number
+    type: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    _all: number
+  }
+
+
+  export type DOJHMOMinAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    description?: true
+    type?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type DOJHMOMaxAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    description?: true
+    type?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type DOJHMOCountAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    description?: true
+    type?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    _all?: true
+  }
+
+  export type DOJHMOAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DOJHMO to aggregate.
+     */
+    where?: DOJHMOWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DOJHMOS to fetch.
+     */
+    orderBy?: DOJHMOOrderByWithRelationInput | DOJHMOOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DOJHMOWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DOJHMOS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DOJHMOS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DOJHMOS
+    **/
+    _count?: true | DOJHMOCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DOJHMOMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DOJHMOMaxAggregateInputType
+  }
+
+  export type GetDOJHMOAggregateType<T extends DOJHMOAggregateArgs> = {
+        [P in keyof T & keyof AggregateDOJHMO]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDOJHMO[P]>
+      : GetScalarType<T[P], AggregateDOJHMO[P]>
+  }
+
+
+
+
+  export type DOJHMOGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DOJHMOWhereInput
+    orderBy?: DOJHMOOrderByWithAggregationInput | DOJHMOOrderByWithAggregationInput[]
+    by: DOJHMOScalarFieldEnum[] | DOJHMOScalarFieldEnum
+    having?: DOJHMOScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DOJHMOCountAggregateInputType | true
+    _min?: DOJHMOMinAggregateInputType
+    _max?: DOJHMOMaxAggregateInputType
+  }
+
+  export type DOJHMOGroupByOutputType = {
+    id: string
+    name: string
+    code: string
+    description: string | null
+    type: string | null
+    status: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    _count: DOJHMOCountAggregateOutputType | null
+    _min: DOJHMOMinAggregateOutputType | null
+    _max: DOJHMOMaxAggregateOutputType | null
+  }
+
+  type GetDOJHMOGroupByPayload<T extends DOJHMOGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DOJHMOGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DOJHMOGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DOJHMOGroupByOutputType[P]>
+            : GetScalarType<T[P], DOJHMOGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DOJHMOSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    description?: boolean
+    type?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    members?: boolean | DOJHMO$membersArgs<ExtArgs>
+    _count?: boolean | DOJHMOCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dOJHMO"]>
+
+
+
+  export type DOJHMOSelectScalar = {
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    description?: boolean
+    type?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }
+
+  export type DOJHMOOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "description" | "type" | "status" | "createdAt" | "updatedAt" | "active", ExtArgs["result"]["dOJHMO"]>
+  export type DOJHMOInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | DOJHMO$membersArgs<ExtArgs>
+    _count?: boolean | DOJHMOCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $DOJHMOPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DOJHMO"
+    objects: {
+      members: Prisma.$MemberPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      code: string
+      description: string | null
+      type: string | null
+      status: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+    }, ExtArgs["result"]["dOJHMO"]>
+    composites: {}
+  }
+
+  type DOJHMOGetPayload<S extends boolean | null | undefined | DOJHMODefaultArgs> = $Result.GetResult<Prisma.$DOJHMOPayload, S>
+
+  type DOJHMOCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DOJHMOFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DOJHMOCountAggregateInputType | true
+    }
+
+  export interface DOJHMODelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DOJHMO'], meta: { name: 'DOJHMO' } }
+    /**
+     * Find zero or one DOJHMO that matches the filter.
+     * @param {DOJHMOFindUniqueArgs} args - Arguments to find a DOJHMO
+     * @example
+     * // Get one DOJHMO
+     * const dOJHMO = await prisma.dOJHMO.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DOJHMOFindUniqueArgs>(args: SelectSubset<T, DOJHMOFindUniqueArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DOJHMO that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DOJHMOFindUniqueOrThrowArgs} args - Arguments to find a DOJHMO
+     * @example
+     * // Get one DOJHMO
+     * const dOJHMO = await prisma.dOJHMO.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DOJHMOFindUniqueOrThrowArgs>(args: SelectSubset<T, DOJHMOFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DOJHMO that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOFindFirstArgs} args - Arguments to find a DOJHMO
+     * @example
+     * // Get one DOJHMO
+     * const dOJHMO = await prisma.dOJHMO.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DOJHMOFindFirstArgs>(args?: SelectSubset<T, DOJHMOFindFirstArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DOJHMO that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOFindFirstOrThrowArgs} args - Arguments to find a DOJHMO
+     * @example
+     * // Get one DOJHMO
+     * const dOJHMO = await prisma.dOJHMO.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DOJHMOFindFirstOrThrowArgs>(args?: SelectSubset<T, DOJHMOFindFirstOrThrowArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DOJHMOS that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DOJHMOS
+     * const dOJHMOS = await prisma.dOJHMO.findMany()
+     * 
+     * // Get first 10 DOJHMOS
+     * const dOJHMOS = await prisma.dOJHMO.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dOJHMOWithIdOnly = await prisma.dOJHMO.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DOJHMOFindManyArgs>(args?: SelectSubset<T, DOJHMOFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DOJHMO.
+     * @param {DOJHMOCreateArgs} args - Arguments to create a DOJHMO.
+     * @example
+     * // Create one DOJHMO
+     * const DOJHMO = await prisma.dOJHMO.create({
+     *   data: {
+     *     // ... data to create a DOJHMO
+     *   }
+     * })
+     * 
+     */
+    create<T extends DOJHMOCreateArgs>(args: SelectSubset<T, DOJHMOCreateArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DOJHMOS.
+     * @param {DOJHMOCreateManyArgs} args - Arguments to create many DOJHMOS.
+     * @example
+     * // Create many DOJHMOS
+     * const dOJHMO = await prisma.dOJHMO.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DOJHMOCreateManyArgs>(args?: SelectSubset<T, DOJHMOCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DOJHMO.
+     * @param {DOJHMODeleteArgs} args - Arguments to delete one DOJHMO.
+     * @example
+     * // Delete one DOJHMO
+     * const DOJHMO = await prisma.dOJHMO.delete({
+     *   where: {
+     *     // ... filter to delete one DOJHMO
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DOJHMODeleteArgs>(args: SelectSubset<T, DOJHMODeleteArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DOJHMO.
+     * @param {DOJHMOUpdateArgs} args - Arguments to update one DOJHMO.
+     * @example
+     * // Update one DOJHMO
+     * const dOJHMO = await prisma.dOJHMO.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DOJHMOUpdateArgs>(args: SelectSubset<T, DOJHMOUpdateArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DOJHMOS.
+     * @param {DOJHMODeleteManyArgs} args - Arguments to filter DOJHMOS to delete.
+     * @example
+     * // Delete a few DOJHMOS
+     * const { count } = await prisma.dOJHMO.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DOJHMODeleteManyArgs>(args?: SelectSubset<T, DOJHMODeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DOJHMOS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DOJHMOS
+     * const dOJHMO = await prisma.dOJHMO.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DOJHMOUpdateManyArgs>(args: SelectSubset<T, DOJHMOUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DOJHMO.
+     * @param {DOJHMOUpsertArgs} args - Arguments to update or create a DOJHMO.
+     * @example
+     * // Update or create a DOJHMO
+     * const dOJHMO = await prisma.dOJHMO.upsert({
+     *   create: {
+     *     // ... data to create a DOJHMO
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DOJHMO we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DOJHMOUpsertArgs>(args: SelectSubset<T, DOJHMOUpsertArgs<ExtArgs>>): Prisma__DOJHMOClient<$Result.GetResult<Prisma.$DOJHMOPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DOJHMOS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOCountArgs} args - Arguments to filter DOJHMOS to count.
+     * @example
+     * // Count the number of DOJHMOS
+     * const count = await prisma.dOJHMO.count({
+     *   where: {
+     *     // ... the filter for the DOJHMOS we want to count
+     *   }
+     * })
+    **/
+    count<T extends DOJHMOCountArgs>(
+      args?: Subset<T, DOJHMOCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DOJHMOCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DOJHMO.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DOJHMOAggregateArgs>(args: Subset<T, DOJHMOAggregateArgs>): Prisma.PrismaPromise<GetDOJHMOAggregateType<T>>
+
+    /**
+     * Group by DOJHMO.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DOJHMOGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DOJHMOGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DOJHMOGroupByArgs['orderBy'] }
+        : { orderBy?: DOJHMOGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DOJHMOGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDOJHMOGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DOJHMO model
+   */
+  readonly fields: DOJHMOFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DOJHMO.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DOJHMOClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    members<T extends DOJHMO$membersArgs<ExtArgs> = {}>(args?: Subset<T, DOJHMO$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DOJHMO model
+   */
+  interface DOJHMOFieldRefs {
+    readonly id: FieldRef<"DOJHMO", 'String'>
+    readonly name: FieldRef<"DOJHMO", 'String'>
+    readonly code: FieldRef<"DOJHMO", 'String'>
+    readonly description: FieldRef<"DOJHMO", 'String'>
+    readonly type: FieldRef<"DOJHMO", 'String'>
+    readonly status: FieldRef<"DOJHMO", 'String'>
+    readonly createdAt: FieldRef<"DOJHMO", 'DateTime'>
+    readonly updatedAt: FieldRef<"DOJHMO", 'DateTime'>
+    readonly active: FieldRef<"DOJHMO", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DOJHMO findUnique
+   */
+  export type DOJHMOFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * Filter, which DOJHMO to fetch.
+     */
+    where: DOJHMOWhereUniqueInput
+  }
+
+  /**
+   * DOJHMO findUniqueOrThrow
+   */
+  export type DOJHMOFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * Filter, which DOJHMO to fetch.
+     */
+    where: DOJHMOWhereUniqueInput
+  }
+
+  /**
+   * DOJHMO findFirst
+   */
+  export type DOJHMOFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * Filter, which DOJHMO to fetch.
+     */
+    where?: DOJHMOWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DOJHMOS to fetch.
+     */
+    orderBy?: DOJHMOOrderByWithRelationInput | DOJHMOOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DOJHMOS.
+     */
+    cursor?: DOJHMOWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DOJHMOS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DOJHMOS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DOJHMOS.
+     */
+    distinct?: DOJHMOScalarFieldEnum | DOJHMOScalarFieldEnum[]
+  }
+
+  /**
+   * DOJHMO findFirstOrThrow
+   */
+  export type DOJHMOFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * Filter, which DOJHMO to fetch.
+     */
+    where?: DOJHMOWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DOJHMOS to fetch.
+     */
+    orderBy?: DOJHMOOrderByWithRelationInput | DOJHMOOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DOJHMOS.
+     */
+    cursor?: DOJHMOWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DOJHMOS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DOJHMOS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DOJHMOS.
+     */
+    distinct?: DOJHMOScalarFieldEnum | DOJHMOScalarFieldEnum[]
+  }
+
+  /**
+   * DOJHMO findMany
+   */
+  export type DOJHMOFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * Filter, which DOJHMOS to fetch.
+     */
+    where?: DOJHMOWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DOJHMOS to fetch.
+     */
+    orderBy?: DOJHMOOrderByWithRelationInput | DOJHMOOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DOJHMOS.
+     */
+    cursor?: DOJHMOWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DOJHMOS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DOJHMOS.
+     */
+    skip?: number
+    distinct?: DOJHMOScalarFieldEnum | DOJHMOScalarFieldEnum[]
+  }
+
+  /**
+   * DOJHMO create
+   */
+  export type DOJHMOCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DOJHMO.
+     */
+    data: XOR<DOJHMOCreateInput, DOJHMOUncheckedCreateInput>
+  }
+
+  /**
+   * DOJHMO createMany
+   */
+  export type DOJHMOCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DOJHMOS.
+     */
+    data: DOJHMOCreateManyInput | DOJHMOCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DOJHMO update
+   */
+  export type DOJHMOUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DOJHMO.
+     */
+    data: XOR<DOJHMOUpdateInput, DOJHMOUncheckedUpdateInput>
+    /**
+     * Choose, which DOJHMO to update.
+     */
+    where: DOJHMOWhereUniqueInput
+  }
+
+  /**
+   * DOJHMO updateMany
+   */
+  export type DOJHMOUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DOJHMOS.
+     */
+    data: XOR<DOJHMOUpdateManyMutationInput, DOJHMOUncheckedUpdateManyInput>
+    /**
+     * Filter which DOJHMOS to update
+     */
+    where?: DOJHMOWhereInput
+    /**
+     * Limit how many DOJHMOS to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DOJHMO upsert
+   */
+  export type DOJHMOUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DOJHMO to update in case it exists.
+     */
+    where: DOJHMOWhereUniqueInput
+    /**
+     * In case the DOJHMO found by the `where` argument doesn't exist, create a new DOJHMO with this data.
+     */
+    create: XOR<DOJHMOCreateInput, DOJHMOUncheckedCreateInput>
+    /**
+     * In case the DOJHMO was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DOJHMOUpdateInput, DOJHMOUncheckedUpdateInput>
+  }
+
+  /**
+   * DOJHMO delete
+   */
+  export type DOJHMODeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
+    /**
+     * Filter which DOJHMO to delete.
+     */
+    where: DOJHMOWhereUniqueInput
+  }
+
+  /**
+   * DOJHMO deleteMany
+   */
+  export type DOJHMODeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DOJHMOS to delete
+     */
+    where?: DOJHMOWhereInput
+    /**
+     * Limit how many DOJHMOS to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DOJHMO.members
+   */
+  export type DOJHMO$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Member
+     */
+    select?: MemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Member
+     */
+    omit?: MemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberInclude<ExtArgs> | null
+    where?: MemberWhereInput
+    orderBy?: MemberOrderByWithRelationInput | MemberOrderByWithRelationInput[]
+    cursor?: MemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberScalarFieldEnum | MemberScalarFieldEnum[]
+  }
+
+  /**
+   * DOJHMO without action
+   */
+  export type DOJHMODefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DOJHMO
+     */
+    select?: DOJHMOSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DOJHMO
+     */
+    omit?: DOJHMOOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DOJHMOInclude<ExtArgs> | null
   }
 
 
@@ -5988,6 +9839,4782 @@ export namespace Prisma {
 
 
   /**
+   * Model Device
+   */
+
+  export type AggregateDevice = {
+    _count: DeviceCountAggregateOutputType | null
+    _min: DeviceMinAggregateOutputType | null
+    _max: DeviceMaxAggregateOutputType | null
+  }
+
+  export type DeviceMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type DeviceMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type DeviceCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    _all: number
+  }
+
+
+  export type DeviceMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type DeviceMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type DeviceCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    _all?: true
+  }
+
+  export type DeviceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Device to aggregate.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Devices
+    **/
+    _count?: true | DeviceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceMaxAggregateInputType
+  }
+
+  export type GetDeviceAggregateType<T extends DeviceAggregateArgs> = {
+        [P in keyof T & keyof AggregateDevice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDevice[P]>
+      : GetScalarType<T[P], AggregateDevice[P]>
+  }
+
+
+
+
+  export type DeviceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceWhereInput
+    orderBy?: DeviceOrderByWithAggregationInput | DeviceOrderByWithAggregationInput[]
+    by: DeviceScalarFieldEnum[] | DeviceScalarFieldEnum
+    having?: DeviceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceCountAggregateInputType | true
+    _min?: DeviceMinAggregateInputType
+    _max?: DeviceMaxAggregateInputType
+  }
+
+  export type DeviceGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    _count: DeviceCountAggregateOutputType | null
+    _min: DeviceMinAggregateOutputType | null
+    _max: DeviceMaxAggregateOutputType | null
+  }
+
+  type GetDeviceGroupByPayload<T extends DeviceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    deviceDistinctions?: boolean | Device$deviceDistinctionsArgs<ExtArgs>
+    _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["device"]>
+
+
+
+  export type DeviceSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }
+
+  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "active", ExtArgs["result"]["device"]>
+  export type DeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deviceDistinctions?: boolean | Device$deviceDistinctionsArgs<ExtArgs>
+    _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $DevicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Device"
+    objects: {
+      deviceDistinctions: Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+    }, ExtArgs["result"]["device"]>
+    composites: {}
+  }
+
+  type DeviceGetPayload<S extends boolean | null | undefined | DeviceDefaultArgs> = $Result.GetResult<Prisma.$DevicePayload, S>
+
+  type DeviceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceCountAggregateInputType | true
+    }
+
+  export interface DeviceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Device'], meta: { name: 'Device' } }
+    /**
+     * Find zero or one Device that matches the filter.
+     * @param {DeviceFindUniqueArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceFindUniqueArgs>(args: SelectSubset<T, DeviceFindUniqueArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Device that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceFindUniqueOrThrowArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Device that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceFindFirstArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceFindFirstArgs>(args?: SelectSubset<T, DeviceFindFirstArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Device that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceFindFirstOrThrowArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Devices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Devices
+     * const devices = await prisma.device.findMany()
+     * 
+     * // Get first 10 Devices
+     * const devices = await prisma.device.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceWithIdOnly = await prisma.device.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceFindManyArgs>(args?: SelectSubset<T, DeviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Device.
+     * @param {DeviceCreateArgs} args - Arguments to create a Device.
+     * @example
+     * // Create one Device
+     * const Device = await prisma.device.create({
+     *   data: {
+     *     // ... data to create a Device
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceCreateArgs>(args: SelectSubset<T, DeviceCreateArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Devices.
+     * @param {DeviceCreateManyArgs} args - Arguments to create many Devices.
+     * @example
+     * // Create many Devices
+     * const device = await prisma.device.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceCreateManyArgs>(args?: SelectSubset<T, DeviceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Device.
+     * @param {DeviceDeleteArgs} args - Arguments to delete one Device.
+     * @example
+     * // Delete one Device
+     * const Device = await prisma.device.delete({
+     *   where: {
+     *     // ... filter to delete one Device
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceDeleteArgs>(args: SelectSubset<T, DeviceDeleteArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Device.
+     * @param {DeviceUpdateArgs} args - Arguments to update one Device.
+     * @example
+     * // Update one Device
+     * const device = await prisma.device.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceUpdateArgs>(args: SelectSubset<T, DeviceUpdateArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Devices.
+     * @param {DeviceDeleteManyArgs} args - Arguments to filter Devices to delete.
+     * @example
+     * // Delete a few Devices
+     * const { count } = await prisma.device.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceDeleteManyArgs>(args?: SelectSubset<T, DeviceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Devices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Devices
+     * const device = await prisma.device.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceUpdateManyArgs>(args: SelectSubset<T, DeviceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Device.
+     * @param {DeviceUpsertArgs} args - Arguments to update or create a Device.
+     * @example
+     * // Update or create a Device
+     * const device = await prisma.device.upsert({
+     *   create: {
+     *     // ... data to create a Device
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Device we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceUpsertArgs>(args: SelectSubset<T, DeviceUpsertArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Devices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceCountArgs} args - Arguments to filter Devices to count.
+     * @example
+     * // Count the number of Devices
+     * const count = await prisma.device.count({
+     *   where: {
+     *     // ... the filter for the Devices we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceCountArgs>(
+      args?: Subset<T, DeviceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Device.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceAggregateArgs>(args: Subset<T, DeviceAggregateArgs>): Prisma.PrismaPromise<GetDeviceAggregateType<T>>
+
+    /**
+     * Group by Device.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Device model
+   */
+  readonly fields: DeviceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Device.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deviceDistinctions<T extends Device$deviceDistinctionsArgs<ExtArgs> = {}>(args?: Subset<T, Device$deviceDistinctionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Device model
+   */
+  interface DeviceFieldRefs {
+    readonly id: FieldRef<"Device", 'String'>
+    readonly name: FieldRef<"Device", 'String'>
+    readonly description: FieldRef<"Device", 'String'>
+    readonly createdAt: FieldRef<"Device", 'DateTime'>
+    readonly updatedAt: FieldRef<"Device", 'DateTime'>
+    readonly active: FieldRef<"Device", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Device findUnique
+   */
+  export type DeviceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device findUniqueOrThrow
+   */
+  export type DeviceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device findFirst
+   */
+  export type DeviceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Devices.
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Devices.
+     */
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Device findFirstOrThrow
+   */
+  export type DeviceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Devices.
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Devices.
+     */
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Device findMany
+   */
+  export type DeviceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Devices to fetch.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Devices.
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Device create
+   */
+  export type DeviceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Device.
+     */
+    data: XOR<DeviceCreateInput, DeviceUncheckedCreateInput>
+  }
+
+  /**
+   * Device createMany
+   */
+  export type DeviceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Devices.
+     */
+    data: DeviceCreateManyInput | DeviceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Device update
+   */
+  export type DeviceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Device.
+     */
+    data: XOR<DeviceUpdateInput, DeviceUncheckedUpdateInput>
+    /**
+     * Choose, which Device to update.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device updateMany
+   */
+  export type DeviceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Devices.
+     */
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyInput>
+    /**
+     * Filter which Devices to update
+     */
+    where?: DeviceWhereInput
+    /**
+     * Limit how many Devices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Device upsert
+   */
+  export type DeviceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Device to update in case it exists.
+     */
+    where: DeviceWhereUniqueInput
+    /**
+     * In case the Device found by the `where` argument doesn't exist, create a new Device with this data.
+     */
+    create: XOR<DeviceCreateInput, DeviceUncheckedCreateInput>
+    /**
+     * In case the Device was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceUpdateInput, DeviceUncheckedUpdateInput>
+  }
+
+  /**
+   * Device delete
+   */
+  export type DeviceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter which Device to delete.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device deleteMany
+   */
+  export type DeviceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Devices to delete
+     */
+    where?: DeviceWhereInput
+    /**
+     * Limit how many Devices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Device.deviceDistinctions
+   */
+  export type Device$deviceDistinctionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    where?: DeviceDeviceDistinctionWhereInput
+    orderBy?: DeviceDeviceDistinctionOrderByWithRelationInput | DeviceDeviceDistinctionOrderByWithRelationInput[]
+    cursor?: DeviceDeviceDistinctionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceDeviceDistinctionScalarFieldEnum | DeviceDeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * Device without action
+   */
+  export type DeviceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeviceDistinction
+   */
+
+  export type AggregateDeviceDistinction = {
+    _count: DeviceDistinctionCountAggregateOutputType | null
+    _min: DeviceDistinctionMinAggregateOutputType | null
+    _max: DeviceDistinctionMaxAggregateOutputType | null
+  }
+
+  export type DeviceDistinctionMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type DeviceDistinctionMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type DeviceDistinctionCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    _all: number
+  }
+
+
+  export type DeviceDistinctionMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type DeviceDistinctionMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type DeviceDistinctionCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    _all?: true
+  }
+
+  export type DeviceDistinctionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceDistinction to aggregate.
+     */
+    where?: DeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDistinctionOrderByWithRelationInput | DeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDistinctions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeviceDistinctions
+    **/
+    _count?: true | DeviceDistinctionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceDistinctionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceDistinctionMaxAggregateInputType
+  }
+
+  export type GetDeviceDistinctionAggregateType<T extends DeviceDistinctionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeviceDistinction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeviceDistinction[P]>
+      : GetScalarType<T[P], AggregateDeviceDistinction[P]>
+  }
+
+
+
+
+  export type DeviceDistinctionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceDistinctionWhereInput
+    orderBy?: DeviceDistinctionOrderByWithAggregationInput | DeviceDistinctionOrderByWithAggregationInput[]
+    by: DeviceDistinctionScalarFieldEnum[] | DeviceDistinctionScalarFieldEnum
+    having?: DeviceDistinctionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceDistinctionCountAggregateInputType | true
+    _min?: DeviceDistinctionMinAggregateInputType
+    _max?: DeviceDistinctionMaxAggregateInputType
+  }
+
+  export type DeviceDistinctionGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    _count: DeviceDistinctionCountAggregateOutputType | null
+    _min: DeviceDistinctionMinAggregateOutputType | null
+    _max: DeviceDistinctionMaxAggregateOutputType | null
+  }
+
+  type GetDeviceDistinctionGroupByPayload<T extends DeviceDistinctionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceDistinctionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceDistinctionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceDistinctionGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceDistinctionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceDistinctionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    devices?: boolean | DeviceDistinction$devicesArgs<ExtArgs>
+    _count?: boolean | DeviceDistinctionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceDistinction"]>
+
+
+
+  export type DeviceDistinctionSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }
+
+  export type DeviceDistinctionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "active", ExtArgs["result"]["deviceDistinction"]>
+  export type DeviceDistinctionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    devices?: boolean | DeviceDistinction$devicesArgs<ExtArgs>
+    _count?: boolean | DeviceDistinctionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $DeviceDistinctionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeviceDistinction"
+    objects: {
+      devices: Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+    }, ExtArgs["result"]["deviceDistinction"]>
+    composites: {}
+  }
+
+  type DeviceDistinctionGetPayload<S extends boolean | null | undefined | DeviceDistinctionDefaultArgs> = $Result.GetResult<Prisma.$DeviceDistinctionPayload, S>
+
+  type DeviceDistinctionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceDistinctionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceDistinctionCountAggregateInputType | true
+    }
+
+  export interface DeviceDistinctionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeviceDistinction'], meta: { name: 'DeviceDistinction' } }
+    /**
+     * Find zero or one DeviceDistinction that matches the filter.
+     * @param {DeviceDistinctionFindUniqueArgs} args - Arguments to find a DeviceDistinction
+     * @example
+     * // Get one DeviceDistinction
+     * const deviceDistinction = await prisma.deviceDistinction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceDistinctionFindUniqueArgs>(args: SelectSubset<T, DeviceDistinctionFindUniqueArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeviceDistinction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceDistinctionFindUniqueOrThrowArgs} args - Arguments to find a DeviceDistinction
+     * @example
+     * // Get one DeviceDistinction
+     * const deviceDistinction = await prisma.deviceDistinction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceDistinctionFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceDistinctionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceDistinction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionFindFirstArgs} args - Arguments to find a DeviceDistinction
+     * @example
+     * // Get one DeviceDistinction
+     * const deviceDistinction = await prisma.deviceDistinction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceDistinctionFindFirstArgs>(args?: SelectSubset<T, DeviceDistinctionFindFirstArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceDistinction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionFindFirstOrThrowArgs} args - Arguments to find a DeviceDistinction
+     * @example
+     * // Get one DeviceDistinction
+     * const deviceDistinction = await prisma.deviceDistinction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceDistinctionFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceDistinctionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeviceDistinctions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeviceDistinctions
+     * const deviceDistinctions = await prisma.deviceDistinction.findMany()
+     * 
+     * // Get first 10 DeviceDistinctions
+     * const deviceDistinctions = await prisma.deviceDistinction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceDistinctionWithIdOnly = await prisma.deviceDistinction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceDistinctionFindManyArgs>(args?: SelectSubset<T, DeviceDistinctionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeviceDistinction.
+     * @param {DeviceDistinctionCreateArgs} args - Arguments to create a DeviceDistinction.
+     * @example
+     * // Create one DeviceDistinction
+     * const DeviceDistinction = await prisma.deviceDistinction.create({
+     *   data: {
+     *     // ... data to create a DeviceDistinction
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceDistinctionCreateArgs>(args: SelectSubset<T, DeviceDistinctionCreateArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeviceDistinctions.
+     * @param {DeviceDistinctionCreateManyArgs} args - Arguments to create many DeviceDistinctions.
+     * @example
+     * // Create many DeviceDistinctions
+     * const deviceDistinction = await prisma.deviceDistinction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceDistinctionCreateManyArgs>(args?: SelectSubset<T, DeviceDistinctionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DeviceDistinction.
+     * @param {DeviceDistinctionDeleteArgs} args - Arguments to delete one DeviceDistinction.
+     * @example
+     * // Delete one DeviceDistinction
+     * const DeviceDistinction = await prisma.deviceDistinction.delete({
+     *   where: {
+     *     // ... filter to delete one DeviceDistinction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceDistinctionDeleteArgs>(args: SelectSubset<T, DeviceDistinctionDeleteArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeviceDistinction.
+     * @param {DeviceDistinctionUpdateArgs} args - Arguments to update one DeviceDistinction.
+     * @example
+     * // Update one DeviceDistinction
+     * const deviceDistinction = await prisma.deviceDistinction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceDistinctionUpdateArgs>(args: SelectSubset<T, DeviceDistinctionUpdateArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeviceDistinctions.
+     * @param {DeviceDistinctionDeleteManyArgs} args - Arguments to filter DeviceDistinctions to delete.
+     * @example
+     * // Delete a few DeviceDistinctions
+     * const { count } = await prisma.deviceDistinction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceDistinctionDeleteManyArgs>(args?: SelectSubset<T, DeviceDistinctionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceDistinctions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeviceDistinctions
+     * const deviceDistinction = await prisma.deviceDistinction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceDistinctionUpdateManyArgs>(args: SelectSubset<T, DeviceDistinctionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DeviceDistinction.
+     * @param {DeviceDistinctionUpsertArgs} args - Arguments to update or create a DeviceDistinction.
+     * @example
+     * // Update or create a DeviceDistinction
+     * const deviceDistinction = await prisma.deviceDistinction.upsert({
+     *   create: {
+     *     // ... data to create a DeviceDistinction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeviceDistinction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceDistinctionUpsertArgs>(args: SelectSubset<T, DeviceDistinctionUpsertArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeviceDistinctions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionCountArgs} args - Arguments to filter DeviceDistinctions to count.
+     * @example
+     * // Count the number of DeviceDistinctions
+     * const count = await prisma.deviceDistinction.count({
+     *   where: {
+     *     // ... the filter for the DeviceDistinctions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceDistinctionCountArgs>(
+      args?: Subset<T, DeviceDistinctionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceDistinctionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeviceDistinction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceDistinctionAggregateArgs>(args: Subset<T, DeviceDistinctionAggregateArgs>): Prisma.PrismaPromise<GetDeviceDistinctionAggregateType<T>>
+
+    /**
+     * Group by DeviceDistinction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDistinctionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceDistinctionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceDistinctionGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceDistinctionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceDistinctionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceDistinctionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeviceDistinction model
+   */
+  readonly fields: DeviceDistinctionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeviceDistinction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceDistinctionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    devices<T extends DeviceDistinction$devicesArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDistinction$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeviceDistinction model
+   */
+  interface DeviceDistinctionFieldRefs {
+    readonly id: FieldRef<"DeviceDistinction", 'String'>
+    readonly name: FieldRef<"DeviceDistinction", 'String'>
+    readonly description: FieldRef<"DeviceDistinction", 'String'>
+    readonly createdAt: FieldRef<"DeviceDistinction", 'DateTime'>
+    readonly updatedAt: FieldRef<"DeviceDistinction", 'DateTime'>
+    readonly active: FieldRef<"DeviceDistinction", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeviceDistinction findUnique
+   */
+  export type DeviceDistinctionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDistinction to fetch.
+     */
+    where: DeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDistinction findUniqueOrThrow
+   */
+  export type DeviceDistinctionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDistinction to fetch.
+     */
+    where: DeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDistinction findFirst
+   */
+  export type DeviceDistinctionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDistinction to fetch.
+     */
+    where?: DeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDistinctionOrderByWithRelationInput | DeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceDistinctions.
+     */
+    cursor?: DeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDistinctions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceDistinctions.
+     */
+    distinct?: DeviceDistinctionScalarFieldEnum | DeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDistinction findFirstOrThrow
+   */
+  export type DeviceDistinctionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDistinction to fetch.
+     */
+    where?: DeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDistinctionOrderByWithRelationInput | DeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceDistinctions.
+     */
+    cursor?: DeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDistinctions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceDistinctions.
+     */
+    distinct?: DeviceDistinctionScalarFieldEnum | DeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDistinction findMany
+   */
+  export type DeviceDistinctionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDistinctions to fetch.
+     */
+    where?: DeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDistinctionOrderByWithRelationInput | DeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeviceDistinctions.
+     */
+    cursor?: DeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDistinctions.
+     */
+    skip?: number
+    distinct?: DeviceDistinctionScalarFieldEnum | DeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDistinction create
+   */
+  export type DeviceDistinctionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeviceDistinction.
+     */
+    data: XOR<DeviceDistinctionCreateInput, DeviceDistinctionUncheckedCreateInput>
+  }
+
+  /**
+   * DeviceDistinction createMany
+   */
+  export type DeviceDistinctionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeviceDistinctions.
+     */
+    data: DeviceDistinctionCreateManyInput | DeviceDistinctionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeviceDistinction update
+   */
+  export type DeviceDistinctionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeviceDistinction.
+     */
+    data: XOR<DeviceDistinctionUpdateInput, DeviceDistinctionUncheckedUpdateInput>
+    /**
+     * Choose, which DeviceDistinction to update.
+     */
+    where: DeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDistinction updateMany
+   */
+  export type DeviceDistinctionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeviceDistinctions.
+     */
+    data: XOR<DeviceDistinctionUpdateManyMutationInput, DeviceDistinctionUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceDistinctions to update
+     */
+    where?: DeviceDistinctionWhereInput
+    /**
+     * Limit how many DeviceDistinctions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceDistinction upsert
+   */
+  export type DeviceDistinctionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeviceDistinction to update in case it exists.
+     */
+    where: DeviceDistinctionWhereUniqueInput
+    /**
+     * In case the DeviceDistinction found by the `where` argument doesn't exist, create a new DeviceDistinction with this data.
+     */
+    create: XOR<DeviceDistinctionCreateInput, DeviceDistinctionUncheckedCreateInput>
+    /**
+     * In case the DeviceDistinction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceDistinctionUpdateInput, DeviceDistinctionUncheckedUpdateInput>
+  }
+
+  /**
+   * DeviceDistinction delete
+   */
+  export type DeviceDistinctionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter which DeviceDistinction to delete.
+     */
+    where: DeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDistinction deleteMany
+   */
+  export type DeviceDistinctionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceDistinctions to delete
+     */
+    where?: DeviceDistinctionWhereInput
+    /**
+     * Limit how many DeviceDistinctions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceDistinction.devices
+   */
+  export type DeviceDistinction$devicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    where?: DeviceDeviceDistinctionWhereInput
+    orderBy?: DeviceDeviceDistinctionOrderByWithRelationInput | DeviceDeviceDistinctionOrderByWithRelationInput[]
+    cursor?: DeviceDeviceDistinctionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceDeviceDistinctionScalarFieldEnum | DeviceDeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDistinction without action
+   */
+  export type DeviceDistinctionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDistinction
+     */
+    select?: DeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDistinction
+     */
+    omit?: DeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDistinctionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeviceDeviceDistinction
+   */
+
+  export type AggregateDeviceDeviceDistinction = {
+    _count: DeviceDeviceDistinctionCountAggregateOutputType | null
+    _min: DeviceDeviceDistinctionMinAggregateOutputType | null
+    _max: DeviceDeviceDistinctionMaxAggregateOutputType | null
+  }
+
+  export type DeviceDeviceDistinctionMinAggregateOutputType = {
+    id: string | null
+    deviceId: string | null
+    deviceDistinctionId: string | null
+    createdAt: Date | null
+  }
+
+  export type DeviceDeviceDistinctionMaxAggregateOutputType = {
+    id: string | null
+    deviceId: string | null
+    deviceDistinctionId: string | null
+    createdAt: Date | null
+  }
+
+  export type DeviceDeviceDistinctionCountAggregateOutputType = {
+    id: number
+    deviceId: number
+    deviceDistinctionId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DeviceDeviceDistinctionMinAggregateInputType = {
+    id?: true
+    deviceId?: true
+    deviceDistinctionId?: true
+    createdAt?: true
+  }
+
+  export type DeviceDeviceDistinctionMaxAggregateInputType = {
+    id?: true
+    deviceId?: true
+    deviceDistinctionId?: true
+    createdAt?: true
+  }
+
+  export type DeviceDeviceDistinctionCountAggregateInputType = {
+    id?: true
+    deviceId?: true
+    deviceDistinctionId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DeviceDeviceDistinctionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceDeviceDistinction to aggregate.
+     */
+    where?: DeviceDeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDeviceDistinctionOrderByWithRelationInput | DeviceDeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceDeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDeviceDistinctions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeviceDeviceDistinctions
+    **/
+    _count?: true | DeviceDeviceDistinctionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceDeviceDistinctionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceDeviceDistinctionMaxAggregateInputType
+  }
+
+  export type GetDeviceDeviceDistinctionAggregateType<T extends DeviceDeviceDistinctionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeviceDeviceDistinction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeviceDeviceDistinction[P]>
+      : GetScalarType<T[P], AggregateDeviceDeviceDistinction[P]>
+  }
+
+
+
+
+  export type DeviceDeviceDistinctionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceDeviceDistinctionWhereInput
+    orderBy?: DeviceDeviceDistinctionOrderByWithAggregationInput | DeviceDeviceDistinctionOrderByWithAggregationInput[]
+    by: DeviceDeviceDistinctionScalarFieldEnum[] | DeviceDeviceDistinctionScalarFieldEnum
+    having?: DeviceDeviceDistinctionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceDeviceDistinctionCountAggregateInputType | true
+    _min?: DeviceDeviceDistinctionMinAggregateInputType
+    _max?: DeviceDeviceDistinctionMaxAggregateInputType
+  }
+
+  export type DeviceDeviceDistinctionGroupByOutputType = {
+    id: string
+    deviceId: string
+    deviceDistinctionId: string
+    createdAt: Date
+    _count: DeviceDeviceDistinctionCountAggregateOutputType | null
+    _min: DeviceDeviceDistinctionMinAggregateOutputType | null
+    _max: DeviceDeviceDistinctionMaxAggregateOutputType | null
+  }
+
+  type GetDeviceDeviceDistinctionGroupByPayload<T extends DeviceDeviceDistinctionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceDeviceDistinctionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceDeviceDistinctionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceDeviceDistinctionGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceDeviceDistinctionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceDeviceDistinctionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deviceId?: boolean
+    deviceDistinctionId?: boolean
+    createdAt?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+    deviceDistinction?: boolean | DeviceDistinctionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceDeviceDistinction"]>
+
+
+
+  export type DeviceDeviceDistinctionSelectScalar = {
+    id?: boolean
+    deviceId?: boolean
+    deviceDistinctionId?: boolean
+    createdAt?: boolean
+  }
+
+  export type DeviceDeviceDistinctionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deviceId" | "deviceDistinctionId" | "createdAt", ExtArgs["result"]["deviceDeviceDistinction"]>
+  export type DeviceDeviceDistinctionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+    deviceDistinction?: boolean | DeviceDistinctionDefaultArgs<ExtArgs>
+  }
+
+  export type $DeviceDeviceDistinctionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeviceDeviceDistinction"
+    objects: {
+      device: Prisma.$DevicePayload<ExtArgs>
+      deviceDistinction: Prisma.$DeviceDistinctionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      deviceId: string
+      deviceDistinctionId: string
+      createdAt: Date
+    }, ExtArgs["result"]["deviceDeviceDistinction"]>
+    composites: {}
+  }
+
+  type DeviceDeviceDistinctionGetPayload<S extends boolean | null | undefined | DeviceDeviceDistinctionDefaultArgs> = $Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload, S>
+
+  type DeviceDeviceDistinctionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceDeviceDistinctionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceDeviceDistinctionCountAggregateInputType | true
+    }
+
+  export interface DeviceDeviceDistinctionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeviceDeviceDistinction'], meta: { name: 'DeviceDeviceDistinction' } }
+    /**
+     * Find zero or one DeviceDeviceDistinction that matches the filter.
+     * @param {DeviceDeviceDistinctionFindUniqueArgs} args - Arguments to find a DeviceDeviceDistinction
+     * @example
+     * // Get one DeviceDeviceDistinction
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceDeviceDistinctionFindUniqueArgs>(args: SelectSubset<T, DeviceDeviceDistinctionFindUniqueArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeviceDeviceDistinction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceDeviceDistinctionFindUniqueOrThrowArgs} args - Arguments to find a DeviceDeviceDistinction
+     * @example
+     * // Get one DeviceDeviceDistinction
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceDeviceDistinctionFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceDeviceDistinctionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceDeviceDistinction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionFindFirstArgs} args - Arguments to find a DeviceDeviceDistinction
+     * @example
+     * // Get one DeviceDeviceDistinction
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceDeviceDistinctionFindFirstArgs>(args?: SelectSubset<T, DeviceDeviceDistinctionFindFirstArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceDeviceDistinction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionFindFirstOrThrowArgs} args - Arguments to find a DeviceDeviceDistinction
+     * @example
+     * // Get one DeviceDeviceDistinction
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceDeviceDistinctionFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceDeviceDistinctionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeviceDeviceDistinctions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeviceDeviceDistinctions
+     * const deviceDeviceDistinctions = await prisma.deviceDeviceDistinction.findMany()
+     * 
+     * // Get first 10 DeviceDeviceDistinctions
+     * const deviceDeviceDistinctions = await prisma.deviceDeviceDistinction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceDeviceDistinctionWithIdOnly = await prisma.deviceDeviceDistinction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceDeviceDistinctionFindManyArgs>(args?: SelectSubset<T, DeviceDeviceDistinctionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeviceDeviceDistinction.
+     * @param {DeviceDeviceDistinctionCreateArgs} args - Arguments to create a DeviceDeviceDistinction.
+     * @example
+     * // Create one DeviceDeviceDistinction
+     * const DeviceDeviceDistinction = await prisma.deviceDeviceDistinction.create({
+     *   data: {
+     *     // ... data to create a DeviceDeviceDistinction
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceDeviceDistinctionCreateArgs>(args: SelectSubset<T, DeviceDeviceDistinctionCreateArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeviceDeviceDistinctions.
+     * @param {DeviceDeviceDistinctionCreateManyArgs} args - Arguments to create many DeviceDeviceDistinctions.
+     * @example
+     * // Create many DeviceDeviceDistinctions
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceDeviceDistinctionCreateManyArgs>(args?: SelectSubset<T, DeviceDeviceDistinctionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DeviceDeviceDistinction.
+     * @param {DeviceDeviceDistinctionDeleteArgs} args - Arguments to delete one DeviceDeviceDistinction.
+     * @example
+     * // Delete one DeviceDeviceDistinction
+     * const DeviceDeviceDistinction = await prisma.deviceDeviceDistinction.delete({
+     *   where: {
+     *     // ... filter to delete one DeviceDeviceDistinction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceDeviceDistinctionDeleteArgs>(args: SelectSubset<T, DeviceDeviceDistinctionDeleteArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeviceDeviceDistinction.
+     * @param {DeviceDeviceDistinctionUpdateArgs} args - Arguments to update one DeviceDeviceDistinction.
+     * @example
+     * // Update one DeviceDeviceDistinction
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceDeviceDistinctionUpdateArgs>(args: SelectSubset<T, DeviceDeviceDistinctionUpdateArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeviceDeviceDistinctions.
+     * @param {DeviceDeviceDistinctionDeleteManyArgs} args - Arguments to filter DeviceDeviceDistinctions to delete.
+     * @example
+     * // Delete a few DeviceDeviceDistinctions
+     * const { count } = await prisma.deviceDeviceDistinction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceDeviceDistinctionDeleteManyArgs>(args?: SelectSubset<T, DeviceDeviceDistinctionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceDeviceDistinctions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeviceDeviceDistinctions
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceDeviceDistinctionUpdateManyArgs>(args: SelectSubset<T, DeviceDeviceDistinctionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DeviceDeviceDistinction.
+     * @param {DeviceDeviceDistinctionUpsertArgs} args - Arguments to update or create a DeviceDeviceDistinction.
+     * @example
+     * // Update or create a DeviceDeviceDistinction
+     * const deviceDeviceDistinction = await prisma.deviceDeviceDistinction.upsert({
+     *   create: {
+     *     // ... data to create a DeviceDeviceDistinction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeviceDeviceDistinction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceDeviceDistinctionUpsertArgs>(args: SelectSubset<T, DeviceDeviceDistinctionUpsertArgs<ExtArgs>>): Prisma__DeviceDeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDeviceDistinctionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeviceDeviceDistinctions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionCountArgs} args - Arguments to filter DeviceDeviceDistinctions to count.
+     * @example
+     * // Count the number of DeviceDeviceDistinctions
+     * const count = await prisma.deviceDeviceDistinction.count({
+     *   where: {
+     *     // ... the filter for the DeviceDeviceDistinctions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceDeviceDistinctionCountArgs>(
+      args?: Subset<T, DeviceDeviceDistinctionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceDeviceDistinctionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeviceDeviceDistinction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceDeviceDistinctionAggregateArgs>(args: Subset<T, DeviceDeviceDistinctionAggregateArgs>): Prisma.PrismaPromise<GetDeviceDeviceDistinctionAggregateType<T>>
+
+    /**
+     * Group by DeviceDeviceDistinction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceDeviceDistinctionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceDeviceDistinctionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceDeviceDistinctionGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceDeviceDistinctionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceDeviceDistinctionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceDeviceDistinctionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeviceDeviceDistinction model
+   */
+  readonly fields: DeviceDeviceDistinctionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeviceDeviceDistinction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceDeviceDistinctionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deviceDistinction<T extends DeviceDistinctionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDistinctionDefaultArgs<ExtArgs>>): Prisma__DeviceDistinctionClient<$Result.GetResult<Prisma.$DeviceDistinctionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeviceDeviceDistinction model
+   */
+  interface DeviceDeviceDistinctionFieldRefs {
+    readonly id: FieldRef<"DeviceDeviceDistinction", 'String'>
+    readonly deviceId: FieldRef<"DeviceDeviceDistinction", 'String'>
+    readonly deviceDistinctionId: FieldRef<"DeviceDeviceDistinction", 'String'>
+    readonly createdAt: FieldRef<"DeviceDeviceDistinction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeviceDeviceDistinction findUnique
+   */
+  export type DeviceDeviceDistinctionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDeviceDistinction to fetch.
+     */
+    where: DeviceDeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDeviceDistinction findUniqueOrThrow
+   */
+  export type DeviceDeviceDistinctionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDeviceDistinction to fetch.
+     */
+    where: DeviceDeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDeviceDistinction findFirst
+   */
+  export type DeviceDeviceDistinctionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDeviceDistinction to fetch.
+     */
+    where?: DeviceDeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDeviceDistinctionOrderByWithRelationInput | DeviceDeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceDeviceDistinctions.
+     */
+    cursor?: DeviceDeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDeviceDistinctions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceDeviceDistinctions.
+     */
+    distinct?: DeviceDeviceDistinctionScalarFieldEnum | DeviceDeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDeviceDistinction findFirstOrThrow
+   */
+  export type DeviceDeviceDistinctionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDeviceDistinction to fetch.
+     */
+    where?: DeviceDeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDeviceDistinctionOrderByWithRelationInput | DeviceDeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceDeviceDistinctions.
+     */
+    cursor?: DeviceDeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDeviceDistinctions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceDeviceDistinctions.
+     */
+    distinct?: DeviceDeviceDistinctionScalarFieldEnum | DeviceDeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDeviceDistinction findMany
+   */
+  export type DeviceDeviceDistinctionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceDeviceDistinctions to fetch.
+     */
+    where?: DeviceDeviceDistinctionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceDeviceDistinctions to fetch.
+     */
+    orderBy?: DeviceDeviceDistinctionOrderByWithRelationInput | DeviceDeviceDistinctionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeviceDeviceDistinctions.
+     */
+    cursor?: DeviceDeviceDistinctionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceDeviceDistinctions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceDeviceDistinctions.
+     */
+    skip?: number
+    distinct?: DeviceDeviceDistinctionScalarFieldEnum | DeviceDeviceDistinctionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceDeviceDistinction create
+   */
+  export type DeviceDeviceDistinctionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeviceDeviceDistinction.
+     */
+    data: XOR<DeviceDeviceDistinctionCreateInput, DeviceDeviceDistinctionUncheckedCreateInput>
+  }
+
+  /**
+   * DeviceDeviceDistinction createMany
+   */
+  export type DeviceDeviceDistinctionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeviceDeviceDistinctions.
+     */
+    data: DeviceDeviceDistinctionCreateManyInput | DeviceDeviceDistinctionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeviceDeviceDistinction update
+   */
+  export type DeviceDeviceDistinctionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeviceDeviceDistinction.
+     */
+    data: XOR<DeviceDeviceDistinctionUpdateInput, DeviceDeviceDistinctionUncheckedUpdateInput>
+    /**
+     * Choose, which DeviceDeviceDistinction to update.
+     */
+    where: DeviceDeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDeviceDistinction updateMany
+   */
+  export type DeviceDeviceDistinctionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeviceDeviceDistinctions.
+     */
+    data: XOR<DeviceDeviceDistinctionUpdateManyMutationInput, DeviceDeviceDistinctionUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceDeviceDistinctions to update
+     */
+    where?: DeviceDeviceDistinctionWhereInput
+    /**
+     * Limit how many DeviceDeviceDistinctions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceDeviceDistinction upsert
+   */
+  export type DeviceDeviceDistinctionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeviceDeviceDistinction to update in case it exists.
+     */
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    /**
+     * In case the DeviceDeviceDistinction found by the `where` argument doesn't exist, create a new DeviceDeviceDistinction with this data.
+     */
+    create: XOR<DeviceDeviceDistinctionCreateInput, DeviceDeviceDistinctionUncheckedCreateInput>
+    /**
+     * In case the DeviceDeviceDistinction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceDeviceDistinctionUpdateInput, DeviceDeviceDistinctionUncheckedUpdateInput>
+  }
+
+  /**
+   * DeviceDeviceDistinction delete
+   */
+  export type DeviceDeviceDistinctionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+    /**
+     * Filter which DeviceDeviceDistinction to delete.
+     */
+    where: DeviceDeviceDistinctionWhereUniqueInput
+  }
+
+  /**
+   * DeviceDeviceDistinction deleteMany
+   */
+  export type DeviceDeviceDistinctionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceDeviceDistinctions to delete
+     */
+    where?: DeviceDeviceDistinctionWhereInput
+    /**
+     * Limit how many DeviceDeviceDistinctions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceDeviceDistinction without action
+   */
+  export type DeviceDeviceDistinctionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceDeviceDistinction
+     */
+    select?: DeviceDeviceDistinctionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceDeviceDistinction
+     */
+    omit?: DeviceDeviceDistinctionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceDeviceDistinctionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Material
+   */
+
+  export type AggregateMaterial = {
+    _count: MaterialCountAggregateOutputType | null
+    _avg: MaterialAvgAggregateOutputType | null
+    _sum: MaterialSumAggregateOutputType | null
+    _min: MaterialMinAggregateOutputType | null
+    _max: MaterialMaxAggregateOutputType | null
+  }
+
+  export type MaterialAvgAggregateOutputType = {
+    quantity: number | null
+  }
+
+  export type MaterialSumAggregateOutputType = {
+    quantity: number | null
+  }
+
+  export type MaterialMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    quantity: number | null
+    unit: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type MaterialMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    quantity: number | null
+    unit: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type MaterialCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    quantity: number
+    unit: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    _all: number
+  }
+
+
+  export type MaterialAvgAggregateInputType = {
+    quantity?: true
+  }
+
+  export type MaterialSumAggregateInputType = {
+    quantity?: true
+  }
+
+  export type MaterialMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    quantity?: true
+    unit?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type MaterialMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    quantity?: true
+    unit?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type MaterialCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    quantity?: true
+    unit?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    _all?: true
+  }
+
+  export type MaterialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Material to aggregate.
+     */
+    where?: MaterialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Materials to fetch.
+     */
+    orderBy?: MaterialOrderByWithRelationInput | MaterialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaterialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Materials
+    **/
+    _count?: true | MaterialCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaterialAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaterialSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaterialMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaterialMaxAggregateInputType
+  }
+
+  export type GetMaterialAggregateType<T extends MaterialAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaterial]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaterial[P]>
+      : GetScalarType<T[P], AggregateMaterial[P]>
+  }
+
+
+
+
+  export type MaterialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaterialWhereInput
+    orderBy?: MaterialOrderByWithAggregationInput | MaterialOrderByWithAggregationInput[]
+    by: MaterialScalarFieldEnum[] | MaterialScalarFieldEnum
+    having?: MaterialScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaterialCountAggregateInputType | true
+    _avg?: MaterialAvgAggregateInputType
+    _sum?: MaterialSumAggregateInputType
+    _min?: MaterialMinAggregateInputType
+    _max?: MaterialMaxAggregateInputType
+  }
+
+  export type MaterialGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    quantity: number
+    unit: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    _count: MaterialCountAggregateOutputType | null
+    _avg: MaterialAvgAggregateOutputType | null
+    _sum: MaterialSumAggregateOutputType | null
+    _min: MaterialMinAggregateOutputType | null
+    _max: MaterialMaxAggregateOutputType | null
+  }
+
+  type GetMaterialGroupByPayload<T extends MaterialGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaterialGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaterialGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaterialGroupByOutputType[P]>
+            : GetScalarType<T[P], MaterialGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaterialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    quantity?: boolean
+    unit?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }, ExtArgs["result"]["material"]>
+
+
+
+  export type MaterialSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    quantity?: boolean
+    unit?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }
+
+  export type MaterialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "quantity" | "unit" | "createdAt" | "updatedAt" | "active", ExtArgs["result"]["material"]>
+
+  export type $MaterialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Material"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      quantity: number
+      unit: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+    }, ExtArgs["result"]["material"]>
+    composites: {}
+  }
+
+  type MaterialGetPayload<S extends boolean | null | undefined | MaterialDefaultArgs> = $Result.GetResult<Prisma.$MaterialPayload, S>
+
+  type MaterialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaterialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaterialCountAggregateInputType | true
+    }
+
+  export interface MaterialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Material'], meta: { name: 'Material' } }
+    /**
+     * Find zero or one Material that matches the filter.
+     * @param {MaterialFindUniqueArgs} args - Arguments to find a Material
+     * @example
+     * // Get one Material
+     * const material = await prisma.material.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaterialFindUniqueArgs>(args: SelectSubset<T, MaterialFindUniqueArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Material that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaterialFindUniqueOrThrowArgs} args - Arguments to find a Material
+     * @example
+     * // Get one Material
+     * const material = await prisma.material.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaterialFindUniqueOrThrowArgs>(args: SelectSubset<T, MaterialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Material that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialFindFirstArgs} args - Arguments to find a Material
+     * @example
+     * // Get one Material
+     * const material = await prisma.material.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaterialFindFirstArgs>(args?: SelectSubset<T, MaterialFindFirstArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Material that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialFindFirstOrThrowArgs} args - Arguments to find a Material
+     * @example
+     * // Get one Material
+     * const material = await prisma.material.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaterialFindFirstOrThrowArgs>(args?: SelectSubset<T, MaterialFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Materials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Materials
+     * const materials = await prisma.material.findMany()
+     * 
+     * // Get first 10 Materials
+     * const materials = await prisma.material.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const materialWithIdOnly = await prisma.material.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaterialFindManyArgs>(args?: SelectSubset<T, MaterialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Material.
+     * @param {MaterialCreateArgs} args - Arguments to create a Material.
+     * @example
+     * // Create one Material
+     * const Material = await prisma.material.create({
+     *   data: {
+     *     // ... data to create a Material
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaterialCreateArgs>(args: SelectSubset<T, MaterialCreateArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Materials.
+     * @param {MaterialCreateManyArgs} args - Arguments to create many Materials.
+     * @example
+     * // Create many Materials
+     * const material = await prisma.material.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaterialCreateManyArgs>(args?: SelectSubset<T, MaterialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Material.
+     * @param {MaterialDeleteArgs} args - Arguments to delete one Material.
+     * @example
+     * // Delete one Material
+     * const Material = await prisma.material.delete({
+     *   where: {
+     *     // ... filter to delete one Material
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaterialDeleteArgs>(args: SelectSubset<T, MaterialDeleteArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Material.
+     * @param {MaterialUpdateArgs} args - Arguments to update one Material.
+     * @example
+     * // Update one Material
+     * const material = await prisma.material.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaterialUpdateArgs>(args: SelectSubset<T, MaterialUpdateArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Materials.
+     * @param {MaterialDeleteManyArgs} args - Arguments to filter Materials to delete.
+     * @example
+     * // Delete a few Materials
+     * const { count } = await prisma.material.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaterialDeleteManyArgs>(args?: SelectSubset<T, MaterialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Materials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Materials
+     * const material = await prisma.material.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaterialUpdateManyArgs>(args: SelectSubset<T, MaterialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Material.
+     * @param {MaterialUpsertArgs} args - Arguments to update or create a Material.
+     * @example
+     * // Update or create a Material
+     * const material = await prisma.material.upsert({
+     *   create: {
+     *     // ... data to create a Material
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Material we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaterialUpsertArgs>(args: SelectSubset<T, MaterialUpsertArgs<ExtArgs>>): Prisma__MaterialClient<$Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Materials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialCountArgs} args - Arguments to filter Materials to count.
+     * @example
+     * // Count the number of Materials
+     * const count = await prisma.material.count({
+     *   where: {
+     *     // ... the filter for the Materials we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaterialCountArgs>(
+      args?: Subset<T, MaterialCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaterialCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Material.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaterialAggregateArgs>(args: Subset<T, MaterialAggregateArgs>): Prisma.PrismaPromise<GetMaterialAggregateType<T>>
+
+    /**
+     * Group by Material.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaterialGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaterialGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaterialGroupByArgs['orderBy'] }
+        : { orderBy?: MaterialGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaterialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaterialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Material model
+   */
+  readonly fields: MaterialFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Material.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaterialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Material model
+   */
+  interface MaterialFieldRefs {
+    readonly id: FieldRef<"Material", 'String'>
+    readonly name: FieldRef<"Material", 'String'>
+    readonly description: FieldRef<"Material", 'String'>
+    readonly quantity: FieldRef<"Material", 'Int'>
+    readonly unit: FieldRef<"Material", 'String'>
+    readonly createdAt: FieldRef<"Material", 'DateTime'>
+    readonly updatedAt: FieldRef<"Material", 'DateTime'>
+    readonly active: FieldRef<"Material", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Material findUnique
+   */
+  export type MaterialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * Filter, which Material to fetch.
+     */
+    where: MaterialWhereUniqueInput
+  }
+
+  /**
+   * Material findUniqueOrThrow
+   */
+  export type MaterialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * Filter, which Material to fetch.
+     */
+    where: MaterialWhereUniqueInput
+  }
+
+  /**
+   * Material findFirst
+   */
+  export type MaterialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * Filter, which Material to fetch.
+     */
+    where?: MaterialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Materials to fetch.
+     */
+    orderBy?: MaterialOrderByWithRelationInput | MaterialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Materials.
+     */
+    cursor?: MaterialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Materials.
+     */
+    distinct?: MaterialScalarFieldEnum | MaterialScalarFieldEnum[]
+  }
+
+  /**
+   * Material findFirstOrThrow
+   */
+  export type MaterialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * Filter, which Material to fetch.
+     */
+    where?: MaterialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Materials to fetch.
+     */
+    orderBy?: MaterialOrderByWithRelationInput | MaterialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Materials.
+     */
+    cursor?: MaterialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Materials.
+     */
+    distinct?: MaterialScalarFieldEnum | MaterialScalarFieldEnum[]
+  }
+
+  /**
+   * Material findMany
+   */
+  export type MaterialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * Filter, which Materials to fetch.
+     */
+    where?: MaterialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Materials to fetch.
+     */
+    orderBy?: MaterialOrderByWithRelationInput | MaterialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Materials.
+     */
+    cursor?: MaterialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Materials.
+     */
+    skip?: number
+    distinct?: MaterialScalarFieldEnum | MaterialScalarFieldEnum[]
+  }
+
+  /**
+   * Material create
+   */
+  export type MaterialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Material.
+     */
+    data: XOR<MaterialCreateInput, MaterialUncheckedCreateInput>
+  }
+
+  /**
+   * Material createMany
+   */
+  export type MaterialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Materials.
+     */
+    data: MaterialCreateManyInput | MaterialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Material update
+   */
+  export type MaterialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Material.
+     */
+    data: XOR<MaterialUpdateInput, MaterialUncheckedUpdateInput>
+    /**
+     * Choose, which Material to update.
+     */
+    where: MaterialWhereUniqueInput
+  }
+
+  /**
+   * Material updateMany
+   */
+  export type MaterialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Materials.
+     */
+    data: XOR<MaterialUpdateManyMutationInput, MaterialUncheckedUpdateManyInput>
+    /**
+     * Filter which Materials to update
+     */
+    where?: MaterialWhereInput
+    /**
+     * Limit how many Materials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Material upsert
+   */
+  export type MaterialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Material to update in case it exists.
+     */
+    where: MaterialWhereUniqueInput
+    /**
+     * In case the Material found by the `where` argument doesn't exist, create a new Material with this data.
+     */
+    create: XOR<MaterialCreateInput, MaterialUncheckedCreateInput>
+    /**
+     * In case the Material was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaterialUpdateInput, MaterialUncheckedUpdateInput>
+  }
+
+  /**
+   * Material delete
+   */
+  export type MaterialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+    /**
+     * Filter which Material to delete.
+     */
+    where: MaterialWhereUniqueInput
+  }
+
+  /**
+   * Material deleteMany
+   */
+  export type MaterialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Materials to delete
+     */
+    where?: MaterialWhereInput
+    /**
+     * Limit how many Materials to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Material without action
+   */
+  export type MaterialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Material
+     */
+    select?: MaterialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Material
+     */
+    omit?: MaterialOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MemberActivityLog
+   */
+
+  export type AggregateMemberActivityLog = {
+    _count: MemberActivityLogCountAggregateOutputType | null
+    _min: MemberActivityLogMinAggregateOutputType | null
+    _max: MemberActivityLogMaxAggregateOutputType | null
+  }
+
+  export type MemberActivityLogMinAggregateOutputType = {
+    id: string | null
+    memberId: string | null
+    deviceIds: string | null
+    description: string | null
+    timeIn: Date | null
+    timeOut: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type MemberActivityLogMaxAggregateOutputType = {
+    id: string | null
+    memberId: string | null
+    deviceIds: string | null
+    description: string | null
+    timeIn: Date | null
+    timeOut: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+  }
+
+  export type MemberActivityLogCountAggregateOutputType = {
+    id: number
+    memberId: number
+    deviceIds: number
+    description: number
+    timeIn: number
+    timeOut: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    _all: number
+  }
+
+
+  export type MemberActivityLogMinAggregateInputType = {
+    id?: true
+    memberId?: true
+    deviceIds?: true
+    description?: true
+    timeIn?: true
+    timeOut?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type MemberActivityLogMaxAggregateInputType = {
+    id?: true
+    memberId?: true
+    deviceIds?: true
+    description?: true
+    timeIn?: true
+    timeOut?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+  }
+
+  export type MemberActivityLogCountAggregateInputType = {
+    id?: true
+    memberId?: true
+    deviceIds?: true
+    description?: true
+    timeIn?: true
+    timeOut?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    _all?: true
+  }
+
+  export type MemberActivityLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberActivityLog to aggregate.
+     */
+    where?: MemberActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberActivityLogs to fetch.
+     */
+    orderBy?: MemberActivityLogOrderByWithRelationInput | MemberActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemberActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberActivityLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MemberActivityLogs
+    **/
+    _count?: true | MemberActivityLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemberActivityLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemberActivityLogMaxAggregateInputType
+  }
+
+  export type GetMemberActivityLogAggregateType<T extends MemberActivityLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateMemberActivityLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMemberActivityLog[P]>
+      : GetScalarType<T[P], AggregateMemberActivityLog[P]>
+  }
+
+
+
+
+  export type MemberActivityLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberActivityLogWhereInput
+    orderBy?: MemberActivityLogOrderByWithAggregationInput | MemberActivityLogOrderByWithAggregationInput[]
+    by: MemberActivityLogScalarFieldEnum[] | MemberActivityLogScalarFieldEnum
+    having?: MemberActivityLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemberActivityLogCountAggregateInputType | true
+    _min?: MemberActivityLogMinAggregateInputType
+    _max?: MemberActivityLogMaxAggregateInputType
+  }
+
+  export type MemberActivityLogGroupByOutputType = {
+    id: string
+    memberId: string
+    deviceIds: string
+    description: string | null
+    timeIn: Date | null
+    timeOut: Date | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    _count: MemberActivityLogCountAggregateOutputType | null
+    _min: MemberActivityLogMinAggregateOutputType | null
+    _max: MemberActivityLogMaxAggregateOutputType | null
+  }
+
+  type GetMemberActivityLogGroupByPayload<T extends MemberActivityLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemberActivityLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemberActivityLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemberActivityLogGroupByOutputType[P]>
+            : GetScalarType<T[P], MemberActivityLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemberActivityLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    memberId?: boolean
+    deviceIds?: boolean
+    description?: boolean
+    timeIn?: boolean
+    timeOut?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberActivityLog"]>
+
+
+
+  export type MemberActivityLogSelectScalar = {
+    id?: boolean
+    memberId?: boolean
+    deviceIds?: boolean
+    description?: boolean
+    timeIn?: boolean
+    timeOut?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+  }
+
+  export type MemberActivityLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "deviceIds" | "description" | "timeIn" | "timeOut" | "createdAt" | "updatedAt" | "active", ExtArgs["result"]["memberActivityLog"]>
+  export type MemberActivityLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }
+
+  export type $MemberActivityLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MemberActivityLog"
+    objects: {
+      member: Prisma.$MemberPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      memberId: string
+      deviceIds: string
+      description: string | null
+      timeIn: Date | null
+      timeOut: Date | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+    }, ExtArgs["result"]["memberActivityLog"]>
+    composites: {}
+  }
+
+  type MemberActivityLogGetPayload<S extends boolean | null | undefined | MemberActivityLogDefaultArgs> = $Result.GetResult<Prisma.$MemberActivityLogPayload, S>
+
+  type MemberActivityLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MemberActivityLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MemberActivityLogCountAggregateInputType | true
+    }
+
+  export interface MemberActivityLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MemberActivityLog'], meta: { name: 'MemberActivityLog' } }
+    /**
+     * Find zero or one MemberActivityLog that matches the filter.
+     * @param {MemberActivityLogFindUniqueArgs} args - Arguments to find a MemberActivityLog
+     * @example
+     * // Get one MemberActivityLog
+     * const memberActivityLog = await prisma.memberActivityLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemberActivityLogFindUniqueArgs>(args: SelectSubset<T, MemberActivityLogFindUniqueArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MemberActivityLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MemberActivityLogFindUniqueOrThrowArgs} args - Arguments to find a MemberActivityLog
+     * @example
+     * // Get one MemberActivityLog
+     * const memberActivityLog = await prisma.memberActivityLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemberActivityLogFindUniqueOrThrowArgs>(args: SelectSubset<T, MemberActivityLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MemberActivityLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogFindFirstArgs} args - Arguments to find a MemberActivityLog
+     * @example
+     * // Get one MemberActivityLog
+     * const memberActivityLog = await prisma.memberActivityLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemberActivityLogFindFirstArgs>(args?: SelectSubset<T, MemberActivityLogFindFirstArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MemberActivityLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogFindFirstOrThrowArgs} args - Arguments to find a MemberActivityLog
+     * @example
+     * // Get one MemberActivityLog
+     * const memberActivityLog = await prisma.memberActivityLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemberActivityLogFindFirstOrThrowArgs>(args?: SelectSubset<T, MemberActivityLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MemberActivityLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MemberActivityLogs
+     * const memberActivityLogs = await prisma.memberActivityLog.findMany()
+     * 
+     * // Get first 10 MemberActivityLogs
+     * const memberActivityLogs = await prisma.memberActivityLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memberActivityLogWithIdOnly = await prisma.memberActivityLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemberActivityLogFindManyArgs>(args?: SelectSubset<T, MemberActivityLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MemberActivityLog.
+     * @param {MemberActivityLogCreateArgs} args - Arguments to create a MemberActivityLog.
+     * @example
+     * // Create one MemberActivityLog
+     * const MemberActivityLog = await prisma.memberActivityLog.create({
+     *   data: {
+     *     // ... data to create a MemberActivityLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemberActivityLogCreateArgs>(args: SelectSubset<T, MemberActivityLogCreateArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MemberActivityLogs.
+     * @param {MemberActivityLogCreateManyArgs} args - Arguments to create many MemberActivityLogs.
+     * @example
+     * // Create many MemberActivityLogs
+     * const memberActivityLog = await prisma.memberActivityLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemberActivityLogCreateManyArgs>(args?: SelectSubset<T, MemberActivityLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MemberActivityLog.
+     * @param {MemberActivityLogDeleteArgs} args - Arguments to delete one MemberActivityLog.
+     * @example
+     * // Delete one MemberActivityLog
+     * const MemberActivityLog = await prisma.memberActivityLog.delete({
+     *   where: {
+     *     // ... filter to delete one MemberActivityLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemberActivityLogDeleteArgs>(args: SelectSubset<T, MemberActivityLogDeleteArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MemberActivityLog.
+     * @param {MemberActivityLogUpdateArgs} args - Arguments to update one MemberActivityLog.
+     * @example
+     * // Update one MemberActivityLog
+     * const memberActivityLog = await prisma.memberActivityLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemberActivityLogUpdateArgs>(args: SelectSubset<T, MemberActivityLogUpdateArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MemberActivityLogs.
+     * @param {MemberActivityLogDeleteManyArgs} args - Arguments to filter MemberActivityLogs to delete.
+     * @example
+     * // Delete a few MemberActivityLogs
+     * const { count } = await prisma.memberActivityLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemberActivityLogDeleteManyArgs>(args?: SelectSubset<T, MemberActivityLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberActivityLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MemberActivityLogs
+     * const memberActivityLog = await prisma.memberActivityLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemberActivityLogUpdateManyArgs>(args: SelectSubset<T, MemberActivityLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MemberActivityLog.
+     * @param {MemberActivityLogUpsertArgs} args - Arguments to update or create a MemberActivityLog.
+     * @example
+     * // Update or create a MemberActivityLog
+     * const memberActivityLog = await prisma.memberActivityLog.upsert({
+     *   create: {
+     *     // ... data to create a MemberActivityLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MemberActivityLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemberActivityLogUpsertArgs>(args: SelectSubset<T, MemberActivityLogUpsertArgs<ExtArgs>>): Prisma__MemberActivityLogClient<$Result.GetResult<Prisma.$MemberActivityLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MemberActivityLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogCountArgs} args - Arguments to filter MemberActivityLogs to count.
+     * @example
+     * // Count the number of MemberActivityLogs
+     * const count = await prisma.memberActivityLog.count({
+     *   where: {
+     *     // ... the filter for the MemberActivityLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemberActivityLogCountArgs>(
+      args?: Subset<T, MemberActivityLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemberActivityLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MemberActivityLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemberActivityLogAggregateArgs>(args: Subset<T, MemberActivityLogAggregateArgs>): Prisma.PrismaPromise<GetMemberActivityLogAggregateType<T>>
+
+    /**
+     * Group by MemberActivityLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberActivityLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemberActivityLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemberActivityLogGroupByArgs['orderBy'] }
+        : { orderBy?: MemberActivityLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemberActivityLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemberActivityLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MemberActivityLog model
+   */
+  readonly fields: MemberActivityLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MemberActivityLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemberActivityLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    member<T extends MemberDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MemberDefaultArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MemberActivityLog model
+   */
+  interface MemberActivityLogFieldRefs {
+    readonly id: FieldRef<"MemberActivityLog", 'String'>
+    readonly memberId: FieldRef<"MemberActivityLog", 'String'>
+    readonly deviceIds: FieldRef<"MemberActivityLog", 'String'>
+    readonly description: FieldRef<"MemberActivityLog", 'String'>
+    readonly timeIn: FieldRef<"MemberActivityLog", 'DateTime'>
+    readonly timeOut: FieldRef<"MemberActivityLog", 'DateTime'>
+    readonly createdAt: FieldRef<"MemberActivityLog", 'DateTime'>
+    readonly updatedAt: FieldRef<"MemberActivityLog", 'DateTime'>
+    readonly active: FieldRef<"MemberActivityLog", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MemberActivityLog findUnique
+   */
+  export type MemberActivityLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberActivityLog to fetch.
+     */
+    where: MemberActivityLogWhereUniqueInput
+  }
+
+  /**
+   * MemberActivityLog findUniqueOrThrow
+   */
+  export type MemberActivityLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberActivityLog to fetch.
+     */
+    where: MemberActivityLogWhereUniqueInput
+  }
+
+  /**
+   * MemberActivityLog findFirst
+   */
+  export type MemberActivityLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberActivityLog to fetch.
+     */
+    where?: MemberActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberActivityLogs to fetch.
+     */
+    orderBy?: MemberActivityLogOrderByWithRelationInput | MemberActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberActivityLogs.
+     */
+    cursor?: MemberActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberActivityLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberActivityLogs.
+     */
+    distinct?: MemberActivityLogScalarFieldEnum | MemberActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * MemberActivityLog findFirstOrThrow
+   */
+  export type MemberActivityLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberActivityLog to fetch.
+     */
+    where?: MemberActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberActivityLogs to fetch.
+     */
+    orderBy?: MemberActivityLogOrderByWithRelationInput | MemberActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberActivityLogs.
+     */
+    cursor?: MemberActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberActivityLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberActivityLogs.
+     */
+    distinct?: MemberActivityLogScalarFieldEnum | MemberActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * MemberActivityLog findMany
+   */
+  export type MemberActivityLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberActivityLogs to fetch.
+     */
+    where?: MemberActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberActivityLogs to fetch.
+     */
+    orderBy?: MemberActivityLogOrderByWithRelationInput | MemberActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MemberActivityLogs.
+     */
+    cursor?: MemberActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberActivityLogs.
+     */
+    skip?: number
+    distinct?: MemberActivityLogScalarFieldEnum | MemberActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * MemberActivityLog create
+   */
+  export type MemberActivityLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MemberActivityLog.
+     */
+    data: XOR<MemberActivityLogCreateInput, MemberActivityLogUncheckedCreateInput>
+  }
+
+  /**
+   * MemberActivityLog createMany
+   */
+  export type MemberActivityLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MemberActivityLogs.
+     */
+    data: MemberActivityLogCreateManyInput | MemberActivityLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberActivityLog update
+   */
+  export type MemberActivityLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MemberActivityLog.
+     */
+    data: XOR<MemberActivityLogUpdateInput, MemberActivityLogUncheckedUpdateInput>
+    /**
+     * Choose, which MemberActivityLog to update.
+     */
+    where: MemberActivityLogWhereUniqueInput
+  }
+
+  /**
+   * MemberActivityLog updateMany
+   */
+  export type MemberActivityLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MemberActivityLogs.
+     */
+    data: XOR<MemberActivityLogUpdateManyMutationInput, MemberActivityLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberActivityLogs to update
+     */
+    where?: MemberActivityLogWhereInput
+    /**
+     * Limit how many MemberActivityLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberActivityLog upsert
+   */
+  export type MemberActivityLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MemberActivityLog to update in case it exists.
+     */
+    where: MemberActivityLogWhereUniqueInput
+    /**
+     * In case the MemberActivityLog found by the `where` argument doesn't exist, create a new MemberActivityLog with this data.
+     */
+    create: XOR<MemberActivityLogCreateInput, MemberActivityLogUncheckedCreateInput>
+    /**
+     * In case the MemberActivityLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemberActivityLogUpdateInput, MemberActivityLogUncheckedUpdateInput>
+  }
+
+  /**
+   * MemberActivityLog delete
+   */
+  export type MemberActivityLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter which MemberActivityLog to delete.
+     */
+    where: MemberActivityLogWhereUniqueInput
+  }
+
+  /**
+   * MemberActivityLog deleteMany
+   */
+  export type MemberActivityLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberActivityLogs to delete
+     */
+    where?: MemberActivityLogWhereInput
+    /**
+     * Limit how many MemberActivityLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberActivityLog without action
+   */
+  export type MemberActivityLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberActivityLog
+     */
+    select?: MemberActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberActivityLog
+     */
+    omit?: MemberActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberActivityLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6014,6 +14641,50 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const MemberScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active',
+    officeId: 'officeId',
+    dojHmoId: 'dojHmoId'
+  };
+
+  export type MemberScalarFieldEnum = (typeof MemberScalarFieldEnum)[keyof typeof MemberScalarFieldEnum]
+
+
+  export const OfficeScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    description: 'description',
+    head: 'head',
+    location: 'location',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active'
+  };
+
+  export type OfficeScalarFieldEnum = (typeof OfficeScalarFieldEnum)[keyof typeof OfficeScalarFieldEnum]
+
+
+  export const DOJHMOScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    description: 'description',
+    type: 'type',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active'
+  };
+
+  export type DOJHMOScalarFieldEnum = (typeof DOJHMOScalarFieldEnum)[keyof typeof DOJHMOScalarFieldEnum]
 
 
   export const RoleScalarFieldEnum: {
@@ -6050,6 +14721,69 @@ export namespace Prisma {
   export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
 
 
+  export const DeviceScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active'
+  };
+
+  export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
+
+
+  export const DeviceDistinctionScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active'
+  };
+
+  export type DeviceDistinctionScalarFieldEnum = (typeof DeviceDistinctionScalarFieldEnum)[keyof typeof DeviceDistinctionScalarFieldEnum]
+
+
+  export const DeviceDeviceDistinctionScalarFieldEnum: {
+    id: 'id',
+    deviceId: 'deviceId',
+    deviceDistinctionId: 'deviceDistinctionId',
+    createdAt: 'createdAt'
+  };
+
+  export type DeviceDeviceDistinctionScalarFieldEnum = (typeof DeviceDeviceDistinctionScalarFieldEnum)[keyof typeof DeviceDeviceDistinctionScalarFieldEnum]
+
+
+  export const MaterialScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    quantity: 'quantity',
+    unit: 'unit',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active'
+  };
+
+  export type MaterialScalarFieldEnum = (typeof MaterialScalarFieldEnum)[keyof typeof MaterialScalarFieldEnum]
+
+
+  export const MemberActivityLogScalarFieldEnum: {
+    id: 'id',
+    memberId: 'memberId',
+    deviceIds: 'deviceIds',
+    description: 'description',
+    timeIn: 'timeIn',
+    timeOut: 'timeOut',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active'
+  };
+
+  export type MemberActivityLogScalarFieldEnum = (typeof MemberActivityLogScalarFieldEnum)[keyof typeof MemberActivityLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6075,6 +14809,41 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const MemberOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    officeId: 'officeId',
+    dojHmoId: 'dojHmoId'
+  };
+
+  export type MemberOrderByRelevanceFieldEnum = (typeof MemberOrderByRelevanceFieldEnum)[keyof typeof MemberOrderByRelevanceFieldEnum]
+
+
+  export const OfficeOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    description: 'description',
+    head: 'head',
+    location: 'location'
+  };
+
+  export type OfficeOrderByRelevanceFieldEnum = (typeof OfficeOrderByRelevanceFieldEnum)[keyof typeof OfficeOrderByRelevanceFieldEnum]
+
+
+  export const DOJHMOOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    description: 'description',
+    type: 'type',
+    status: 'status'
+  };
+
+  export type DOJHMOOrderByRelevanceFieldEnum = (typeof DOJHMOOrderByRelevanceFieldEnum)[keyof typeof DOJHMOOrderByRelevanceFieldEnum]
 
 
   export const RoleOrderByRelevanceFieldEnum: {
@@ -6111,6 +14880,53 @@ export namespace Prisma {
   export type RolePermissionOrderByRelevanceFieldEnum = (typeof RolePermissionOrderByRelevanceFieldEnum)[keyof typeof RolePermissionOrderByRelevanceFieldEnum]
 
 
+  export const DeviceOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description'
+  };
+
+  export type DeviceOrderByRelevanceFieldEnum = (typeof DeviceOrderByRelevanceFieldEnum)[keyof typeof DeviceOrderByRelevanceFieldEnum]
+
+
+  export const DeviceDistinctionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description'
+  };
+
+  export type DeviceDistinctionOrderByRelevanceFieldEnum = (typeof DeviceDistinctionOrderByRelevanceFieldEnum)[keyof typeof DeviceDistinctionOrderByRelevanceFieldEnum]
+
+
+  export const DeviceDeviceDistinctionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    deviceId: 'deviceId',
+    deviceDistinctionId: 'deviceDistinctionId'
+  };
+
+  export type DeviceDeviceDistinctionOrderByRelevanceFieldEnum = (typeof DeviceDeviceDistinctionOrderByRelevanceFieldEnum)[keyof typeof DeviceDeviceDistinctionOrderByRelevanceFieldEnum]
+
+
+  export const MaterialOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    unit: 'unit'
+  };
+
+  export type MaterialOrderByRelevanceFieldEnum = (typeof MaterialOrderByRelevanceFieldEnum)[keyof typeof MaterialOrderByRelevanceFieldEnum]
+
+
+  export const MemberActivityLogOrderByRelevanceFieldEnum: {
+    id: 'id',
+    memberId: 'memberId',
+    deviceIds: 'deviceIds',
+    description: 'description'
+  };
+
+  export type MemberActivityLogOrderByRelevanceFieldEnum = (typeof MemberActivityLogOrderByRelevanceFieldEnum)[keyof typeof MemberActivityLogOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -6141,6 +14957,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
   /**
    * Deep Input Types
@@ -6221,6 +15044,235 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isTemporaryPassword?: BoolWithAggregatesFilter<"User"> | boolean
     isSystemUser?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
+  export type MemberWhereInput = {
+    AND?: MemberWhereInput | MemberWhereInput[]
+    OR?: MemberWhereInput[]
+    NOT?: MemberWhereInput | MemberWhereInput[]
+    id?: StringFilter<"Member"> | string
+    name?: StringFilter<"Member"> | string
+    description?: StringNullableFilter<"Member"> | string | null
+    createdAt?: DateTimeFilter<"Member"> | Date | string
+    updatedAt?: DateTimeFilter<"Member"> | Date | string
+    active?: BoolFilter<"Member"> | boolean
+    officeId?: StringNullableFilter<"Member"> | string | null
+    dojHmoId?: StringNullableFilter<"Member"> | string | null
+    office?: XOR<OfficeNullableScalarRelationFilter, OfficeWhereInput> | null
+    dojHmo?: XOR<DOJHMONullableScalarRelationFilter, DOJHMOWhereInput> | null
+    activityLogs?: MemberActivityLogListRelationFilter
+  }
+
+  export type MemberOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    officeId?: SortOrderInput | SortOrder
+    dojHmoId?: SortOrderInput | SortOrder
+    office?: OfficeOrderByWithRelationInput
+    dojHmo?: DOJHMOOrderByWithRelationInput
+    activityLogs?: MemberActivityLogOrderByRelationAggregateInput
+    _relevance?: MemberOrderByRelevanceInput
+  }
+
+  export type MemberWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: MemberWhereInput | MemberWhereInput[]
+    OR?: MemberWhereInput[]
+    NOT?: MemberWhereInput | MemberWhereInput[]
+    description?: StringNullableFilter<"Member"> | string | null
+    createdAt?: DateTimeFilter<"Member"> | Date | string
+    updatedAt?: DateTimeFilter<"Member"> | Date | string
+    active?: BoolFilter<"Member"> | boolean
+    officeId?: StringNullableFilter<"Member"> | string | null
+    dojHmoId?: StringNullableFilter<"Member"> | string | null
+    office?: XOR<OfficeNullableScalarRelationFilter, OfficeWhereInput> | null
+    dojHmo?: XOR<DOJHMONullableScalarRelationFilter, DOJHMOWhereInput> | null
+    activityLogs?: MemberActivityLogListRelationFilter
+  }, "id" | "name">
+
+  export type MemberOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    officeId?: SortOrderInput | SortOrder
+    dojHmoId?: SortOrderInput | SortOrder
+    _count?: MemberCountOrderByAggregateInput
+    _max?: MemberMaxOrderByAggregateInput
+    _min?: MemberMinOrderByAggregateInput
+  }
+
+  export type MemberScalarWhereWithAggregatesInput = {
+    AND?: MemberScalarWhereWithAggregatesInput | MemberScalarWhereWithAggregatesInput[]
+    OR?: MemberScalarWhereWithAggregatesInput[]
+    NOT?: MemberScalarWhereWithAggregatesInput | MemberScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Member"> | string
+    name?: StringWithAggregatesFilter<"Member"> | string
+    description?: StringNullableWithAggregatesFilter<"Member"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Member"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Member"> | Date | string
+    active?: BoolWithAggregatesFilter<"Member"> | boolean
+    officeId?: StringNullableWithAggregatesFilter<"Member"> | string | null
+    dojHmoId?: StringNullableWithAggregatesFilter<"Member"> | string | null
+  }
+
+  export type OfficeWhereInput = {
+    AND?: OfficeWhereInput | OfficeWhereInput[]
+    OR?: OfficeWhereInput[]
+    NOT?: OfficeWhereInput | OfficeWhereInput[]
+    id?: StringFilter<"Office"> | string
+    name?: StringFilter<"Office"> | string
+    code?: StringFilter<"Office"> | string
+    description?: StringNullableFilter<"Office"> | string | null
+    head?: StringNullableFilter<"Office"> | string | null
+    location?: StringNullableFilter<"Office"> | string | null
+    createdAt?: DateTimeFilter<"Office"> | Date | string
+    updatedAt?: DateTimeFilter<"Office"> | Date | string
+    active?: BoolFilter<"Office"> | boolean
+    members?: MemberListRelationFilter
+  }
+
+  export type OfficeOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrderInput | SortOrder
+    head?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    members?: MemberOrderByRelationAggregateInput
+    _relevance?: OfficeOrderByRelevanceInput
+  }
+
+  export type OfficeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    code?: string
+    AND?: OfficeWhereInput | OfficeWhereInput[]
+    OR?: OfficeWhereInput[]
+    NOT?: OfficeWhereInput | OfficeWhereInput[]
+    description?: StringNullableFilter<"Office"> | string | null
+    head?: StringNullableFilter<"Office"> | string | null
+    location?: StringNullableFilter<"Office"> | string | null
+    createdAt?: DateTimeFilter<"Office"> | Date | string
+    updatedAt?: DateTimeFilter<"Office"> | Date | string
+    active?: BoolFilter<"Office"> | boolean
+    members?: MemberListRelationFilter
+  }, "id" | "name" | "code">
+
+  export type OfficeOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrderInput | SortOrder
+    head?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _count?: OfficeCountOrderByAggregateInput
+    _max?: OfficeMaxOrderByAggregateInput
+    _min?: OfficeMinOrderByAggregateInput
+  }
+
+  export type OfficeScalarWhereWithAggregatesInput = {
+    AND?: OfficeScalarWhereWithAggregatesInput | OfficeScalarWhereWithAggregatesInput[]
+    OR?: OfficeScalarWhereWithAggregatesInput[]
+    NOT?: OfficeScalarWhereWithAggregatesInput | OfficeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Office"> | string
+    name?: StringWithAggregatesFilter<"Office"> | string
+    code?: StringWithAggregatesFilter<"Office"> | string
+    description?: StringNullableWithAggregatesFilter<"Office"> | string | null
+    head?: StringNullableWithAggregatesFilter<"Office"> | string | null
+    location?: StringNullableWithAggregatesFilter<"Office"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Office"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Office"> | Date | string
+    active?: BoolWithAggregatesFilter<"Office"> | boolean
+  }
+
+  export type DOJHMOWhereInput = {
+    AND?: DOJHMOWhereInput | DOJHMOWhereInput[]
+    OR?: DOJHMOWhereInput[]
+    NOT?: DOJHMOWhereInput | DOJHMOWhereInput[]
+    id?: StringFilter<"DOJHMO"> | string
+    name?: StringFilter<"DOJHMO"> | string
+    code?: StringFilter<"DOJHMO"> | string
+    description?: StringNullableFilter<"DOJHMO"> | string | null
+    type?: StringNullableFilter<"DOJHMO"> | string | null
+    status?: StringNullableFilter<"DOJHMO"> | string | null
+    createdAt?: DateTimeFilter<"DOJHMO"> | Date | string
+    updatedAt?: DateTimeFilter<"DOJHMO"> | Date | string
+    active?: BoolFilter<"DOJHMO"> | boolean
+    members?: MemberListRelationFilter
+  }
+
+  export type DOJHMOOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    members?: MemberOrderByRelationAggregateInput
+    _relevance?: DOJHMOOrderByRelevanceInput
+  }
+
+  export type DOJHMOWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    code?: string
+    AND?: DOJHMOWhereInput | DOJHMOWhereInput[]
+    OR?: DOJHMOWhereInput[]
+    NOT?: DOJHMOWhereInput | DOJHMOWhereInput[]
+    description?: StringNullableFilter<"DOJHMO"> | string | null
+    type?: StringNullableFilter<"DOJHMO"> | string | null
+    status?: StringNullableFilter<"DOJHMO"> | string | null
+    createdAt?: DateTimeFilter<"DOJHMO"> | Date | string
+    updatedAt?: DateTimeFilter<"DOJHMO"> | Date | string
+    active?: BoolFilter<"DOJHMO"> | boolean
+    members?: MemberListRelationFilter
+  }, "id" | "name" | "code">
+
+  export type DOJHMOOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _count?: DOJHMOCountOrderByAggregateInput
+    _max?: DOJHMOMaxOrderByAggregateInput
+    _min?: DOJHMOMinOrderByAggregateInput
+  }
+
+  export type DOJHMOScalarWhereWithAggregatesInput = {
+    AND?: DOJHMOScalarWhereWithAggregatesInput | DOJHMOScalarWhereWithAggregatesInput[]
+    OR?: DOJHMOScalarWhereWithAggregatesInput[]
+    NOT?: DOJHMOScalarWhereWithAggregatesInput | DOJHMOScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DOJHMO"> | string
+    name?: StringWithAggregatesFilter<"DOJHMO"> | string
+    code?: StringWithAggregatesFilter<"DOJHMO"> | string
+    description?: StringNullableWithAggregatesFilter<"DOJHMO"> | string | null
+    type?: StringNullableWithAggregatesFilter<"DOJHMO"> | string | null
+    status?: StringNullableWithAggregatesFilter<"DOJHMO"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DOJHMO"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DOJHMO"> | Date | string
+    active?: BoolWithAggregatesFilter<"DOJHMO"> | boolean
   }
 
   export type RoleWhereInput = {
@@ -6408,6 +15460,329 @@ export namespace Prisma {
     permissionId?: StringWithAggregatesFilter<"RolePermission"> | string
   }
 
+  export type DeviceWhereInput = {
+    AND?: DeviceWhereInput | DeviceWhereInput[]
+    OR?: DeviceWhereInput[]
+    NOT?: DeviceWhereInput | DeviceWhereInput[]
+    id?: StringFilter<"Device"> | string
+    name?: StringFilter<"Device"> | string
+    description?: StringNullableFilter<"Device"> | string | null
+    createdAt?: DateTimeFilter<"Device"> | Date | string
+    updatedAt?: DateTimeFilter<"Device"> | Date | string
+    active?: BoolFilter<"Device"> | boolean
+    deviceDistinctions?: DeviceDeviceDistinctionListRelationFilter
+  }
+
+  export type DeviceOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    deviceDistinctions?: DeviceDeviceDistinctionOrderByRelationAggregateInput
+    _relevance?: DeviceOrderByRelevanceInput
+  }
+
+  export type DeviceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: DeviceWhereInput | DeviceWhereInput[]
+    OR?: DeviceWhereInput[]
+    NOT?: DeviceWhereInput | DeviceWhereInput[]
+    description?: StringNullableFilter<"Device"> | string | null
+    createdAt?: DateTimeFilter<"Device"> | Date | string
+    updatedAt?: DateTimeFilter<"Device"> | Date | string
+    active?: BoolFilter<"Device"> | boolean
+    deviceDistinctions?: DeviceDeviceDistinctionListRelationFilter
+  }, "id" | "name">
+
+  export type DeviceOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _count?: DeviceCountOrderByAggregateInput
+    _max?: DeviceMaxOrderByAggregateInput
+    _min?: DeviceMinOrderByAggregateInput
+  }
+
+  export type DeviceScalarWhereWithAggregatesInput = {
+    AND?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
+    OR?: DeviceScalarWhereWithAggregatesInput[]
+    NOT?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Device"> | string
+    name?: StringWithAggregatesFilter<"Device"> | string
+    description?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+    active?: BoolWithAggregatesFilter<"Device"> | boolean
+  }
+
+  export type DeviceDistinctionWhereInput = {
+    AND?: DeviceDistinctionWhereInput | DeviceDistinctionWhereInput[]
+    OR?: DeviceDistinctionWhereInput[]
+    NOT?: DeviceDistinctionWhereInput | DeviceDistinctionWhereInput[]
+    id?: StringFilter<"DeviceDistinction"> | string
+    name?: StringFilter<"DeviceDistinction"> | string
+    description?: StringNullableFilter<"DeviceDistinction"> | string | null
+    createdAt?: DateTimeFilter<"DeviceDistinction"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceDistinction"> | Date | string
+    active?: BoolFilter<"DeviceDistinction"> | boolean
+    devices?: DeviceDeviceDistinctionListRelationFilter
+  }
+
+  export type DeviceDistinctionOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    devices?: DeviceDeviceDistinctionOrderByRelationAggregateInput
+    _relevance?: DeviceDistinctionOrderByRelevanceInput
+  }
+
+  export type DeviceDistinctionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: DeviceDistinctionWhereInput | DeviceDistinctionWhereInput[]
+    OR?: DeviceDistinctionWhereInput[]
+    NOT?: DeviceDistinctionWhereInput | DeviceDistinctionWhereInput[]
+    description?: StringNullableFilter<"DeviceDistinction"> | string | null
+    createdAt?: DateTimeFilter<"DeviceDistinction"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceDistinction"> | Date | string
+    active?: BoolFilter<"DeviceDistinction"> | boolean
+    devices?: DeviceDeviceDistinctionListRelationFilter
+  }, "id" | "name">
+
+  export type DeviceDistinctionOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _count?: DeviceDistinctionCountOrderByAggregateInput
+    _max?: DeviceDistinctionMaxOrderByAggregateInput
+    _min?: DeviceDistinctionMinOrderByAggregateInput
+  }
+
+  export type DeviceDistinctionScalarWhereWithAggregatesInput = {
+    AND?: DeviceDistinctionScalarWhereWithAggregatesInput | DeviceDistinctionScalarWhereWithAggregatesInput[]
+    OR?: DeviceDistinctionScalarWhereWithAggregatesInput[]
+    NOT?: DeviceDistinctionScalarWhereWithAggregatesInput | DeviceDistinctionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeviceDistinction"> | string
+    name?: StringWithAggregatesFilter<"DeviceDistinction"> | string
+    description?: StringNullableWithAggregatesFilter<"DeviceDistinction"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DeviceDistinction"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DeviceDistinction"> | Date | string
+    active?: BoolWithAggregatesFilter<"DeviceDistinction"> | boolean
+  }
+
+  export type DeviceDeviceDistinctionWhereInput = {
+    AND?: DeviceDeviceDistinctionWhereInput | DeviceDeviceDistinctionWhereInput[]
+    OR?: DeviceDeviceDistinctionWhereInput[]
+    NOT?: DeviceDeviceDistinctionWhereInput | DeviceDeviceDistinctionWhereInput[]
+    id?: StringFilter<"DeviceDeviceDistinction"> | string
+    deviceId?: StringFilter<"DeviceDeviceDistinction"> | string
+    deviceDistinctionId?: StringFilter<"DeviceDeviceDistinction"> | string
+    createdAt?: DateTimeFilter<"DeviceDeviceDistinction"> | Date | string
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+    deviceDistinction?: XOR<DeviceDistinctionScalarRelationFilter, DeviceDistinctionWhereInput>
+  }
+
+  export type DeviceDeviceDistinctionOrderByWithRelationInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceDistinctionId?: SortOrder
+    createdAt?: SortOrder
+    device?: DeviceOrderByWithRelationInput
+    deviceDistinction?: DeviceDistinctionOrderByWithRelationInput
+    _relevance?: DeviceDeviceDistinctionOrderByRelevanceInput
+  }
+
+  export type DeviceDeviceDistinctionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    deviceId_deviceDistinctionId?: DeviceDeviceDistinctionDeviceIdDeviceDistinctionIdCompoundUniqueInput
+    AND?: DeviceDeviceDistinctionWhereInput | DeviceDeviceDistinctionWhereInput[]
+    OR?: DeviceDeviceDistinctionWhereInput[]
+    NOT?: DeviceDeviceDistinctionWhereInput | DeviceDeviceDistinctionWhereInput[]
+    deviceId?: StringFilter<"DeviceDeviceDistinction"> | string
+    deviceDistinctionId?: StringFilter<"DeviceDeviceDistinction"> | string
+    createdAt?: DateTimeFilter<"DeviceDeviceDistinction"> | Date | string
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+    deviceDistinction?: XOR<DeviceDistinctionScalarRelationFilter, DeviceDistinctionWhereInput>
+  }, "id" | "deviceId_deviceDistinctionId">
+
+  export type DeviceDeviceDistinctionOrderByWithAggregationInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceDistinctionId?: SortOrder
+    createdAt?: SortOrder
+    _count?: DeviceDeviceDistinctionCountOrderByAggregateInput
+    _max?: DeviceDeviceDistinctionMaxOrderByAggregateInput
+    _min?: DeviceDeviceDistinctionMinOrderByAggregateInput
+  }
+
+  export type DeviceDeviceDistinctionScalarWhereWithAggregatesInput = {
+    AND?: DeviceDeviceDistinctionScalarWhereWithAggregatesInput | DeviceDeviceDistinctionScalarWhereWithAggregatesInput[]
+    OR?: DeviceDeviceDistinctionScalarWhereWithAggregatesInput[]
+    NOT?: DeviceDeviceDistinctionScalarWhereWithAggregatesInput | DeviceDeviceDistinctionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeviceDeviceDistinction"> | string
+    deviceId?: StringWithAggregatesFilter<"DeviceDeviceDistinction"> | string
+    deviceDistinctionId?: StringWithAggregatesFilter<"DeviceDeviceDistinction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DeviceDeviceDistinction"> | Date | string
+  }
+
+  export type MaterialWhereInput = {
+    AND?: MaterialWhereInput | MaterialWhereInput[]
+    OR?: MaterialWhereInput[]
+    NOT?: MaterialWhereInput | MaterialWhereInput[]
+    id?: StringFilter<"Material"> | string
+    name?: StringFilter<"Material"> | string
+    description?: StringNullableFilter<"Material"> | string | null
+    quantity?: IntFilter<"Material"> | number
+    unit?: StringNullableFilter<"Material"> | string | null
+    createdAt?: DateTimeFilter<"Material"> | Date | string
+    updatedAt?: DateTimeFilter<"Material"> | Date | string
+    active?: BoolFilter<"Material"> | boolean
+  }
+
+  export type MaterialOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    unit?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _relevance?: MaterialOrderByRelevanceInput
+  }
+
+  export type MaterialWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: MaterialWhereInput | MaterialWhereInput[]
+    OR?: MaterialWhereInput[]
+    NOT?: MaterialWhereInput | MaterialWhereInput[]
+    description?: StringNullableFilter<"Material"> | string | null
+    quantity?: IntFilter<"Material"> | number
+    unit?: StringNullableFilter<"Material"> | string | null
+    createdAt?: DateTimeFilter<"Material"> | Date | string
+    updatedAt?: DateTimeFilter<"Material"> | Date | string
+    active?: BoolFilter<"Material"> | boolean
+  }, "id" | "name">
+
+  export type MaterialOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    unit?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _count?: MaterialCountOrderByAggregateInput
+    _avg?: MaterialAvgOrderByAggregateInput
+    _max?: MaterialMaxOrderByAggregateInput
+    _min?: MaterialMinOrderByAggregateInput
+    _sum?: MaterialSumOrderByAggregateInput
+  }
+
+  export type MaterialScalarWhereWithAggregatesInput = {
+    AND?: MaterialScalarWhereWithAggregatesInput | MaterialScalarWhereWithAggregatesInput[]
+    OR?: MaterialScalarWhereWithAggregatesInput[]
+    NOT?: MaterialScalarWhereWithAggregatesInput | MaterialScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Material"> | string
+    name?: StringWithAggregatesFilter<"Material"> | string
+    description?: StringNullableWithAggregatesFilter<"Material"> | string | null
+    quantity?: IntWithAggregatesFilter<"Material"> | number
+    unit?: StringNullableWithAggregatesFilter<"Material"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Material"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Material"> | Date | string
+    active?: BoolWithAggregatesFilter<"Material"> | boolean
+  }
+
+  export type MemberActivityLogWhereInput = {
+    AND?: MemberActivityLogWhereInput | MemberActivityLogWhereInput[]
+    OR?: MemberActivityLogWhereInput[]
+    NOT?: MemberActivityLogWhereInput | MemberActivityLogWhereInput[]
+    id?: StringFilter<"MemberActivityLog"> | string
+    memberId?: StringFilter<"MemberActivityLog"> | string
+    deviceIds?: StringFilter<"MemberActivityLog"> | string
+    description?: StringNullableFilter<"MemberActivityLog"> | string | null
+    timeIn?: DateTimeNullableFilter<"MemberActivityLog"> | Date | string | null
+    timeOut?: DateTimeNullableFilter<"MemberActivityLog"> | Date | string | null
+    createdAt?: DateTimeFilter<"MemberActivityLog"> | Date | string
+    updatedAt?: DateTimeFilter<"MemberActivityLog"> | Date | string
+    active?: BoolFilter<"MemberActivityLog"> | boolean
+    member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
+  }
+
+  export type MemberActivityLogOrderByWithRelationInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    deviceIds?: SortOrder
+    description?: SortOrderInput | SortOrder
+    timeIn?: SortOrderInput | SortOrder
+    timeOut?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    member?: MemberOrderByWithRelationInput
+    _relevance?: MemberActivityLogOrderByRelevanceInput
+  }
+
+  export type MemberActivityLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MemberActivityLogWhereInput | MemberActivityLogWhereInput[]
+    OR?: MemberActivityLogWhereInput[]
+    NOT?: MemberActivityLogWhereInput | MemberActivityLogWhereInput[]
+    memberId?: StringFilter<"MemberActivityLog"> | string
+    deviceIds?: StringFilter<"MemberActivityLog"> | string
+    description?: StringNullableFilter<"MemberActivityLog"> | string | null
+    timeIn?: DateTimeNullableFilter<"MemberActivityLog"> | Date | string | null
+    timeOut?: DateTimeNullableFilter<"MemberActivityLog"> | Date | string | null
+    createdAt?: DateTimeFilter<"MemberActivityLog"> | Date | string
+    updatedAt?: DateTimeFilter<"MemberActivityLog"> | Date | string
+    active?: BoolFilter<"MemberActivityLog"> | boolean
+    member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
+  }, "id">
+
+  export type MemberActivityLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    deviceIds?: SortOrder
+    description?: SortOrderInput | SortOrder
+    timeIn?: SortOrderInput | SortOrder
+    timeOut?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    _count?: MemberActivityLogCountOrderByAggregateInput
+    _max?: MemberActivityLogMaxOrderByAggregateInput
+    _min?: MemberActivityLogMinOrderByAggregateInput
+  }
+
+  export type MemberActivityLogScalarWhereWithAggregatesInput = {
+    AND?: MemberActivityLogScalarWhereWithAggregatesInput | MemberActivityLogScalarWhereWithAggregatesInput[]
+    OR?: MemberActivityLogScalarWhereWithAggregatesInput[]
+    NOT?: MemberActivityLogScalarWhereWithAggregatesInput | MemberActivityLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MemberActivityLog"> | string
+    memberId?: StringWithAggregatesFilter<"MemberActivityLog"> | string
+    deviceIds?: StringWithAggregatesFilter<"MemberActivityLog"> | string
+    description?: StringNullableWithAggregatesFilter<"MemberActivityLog"> | string | null
+    timeIn?: DateTimeNullableWithAggregatesFilter<"MemberActivityLog"> | Date | string | null
+    timeOut?: DateTimeNullableWithAggregatesFilter<"MemberActivityLog"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MemberActivityLog"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MemberActivityLog"> | Date | string
+    active?: BoolWithAggregatesFilter<"MemberActivityLog"> | boolean
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -6494,6 +15869,261 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isTemporaryPassword?: BoolFieldUpdateOperationsInput | boolean
     isSystemUser?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    office?: OfficeCreateNestedOneWithoutMembersInput
+    dojHmo?: DOJHMOCreateNestedOneWithoutMembersInput
+    activityLogs?: MemberActivityLogCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    officeId?: string | null
+    dojHmoId?: string | null
+    activityLogs?: MemberActivityLogUncheckedCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    office?: OfficeUpdateOneWithoutMembersNestedInput
+    dojHmo?: DOJHMOUpdateOneWithoutMembersNestedInput
+    activityLogs?: MemberActivityLogUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    officeId?: NullableStringFieldUpdateOperationsInput | string | null
+    dojHmoId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLogs?: MemberActivityLogUncheckedUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    officeId?: string | null
+    dojHmoId?: string | null
+  }
+
+  export type MemberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    officeId?: NullableStringFieldUpdateOperationsInput | string | null
+    dojHmoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OfficeCreateInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    head?: string | null
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    members?: MemberCreateNestedManyWithoutOfficeInput
+  }
+
+  export type OfficeUncheckedCreateInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    head?: string | null
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    members?: MemberUncheckedCreateNestedManyWithoutOfficeInput
+  }
+
+  export type OfficeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    head?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    members?: MemberUpdateManyWithoutOfficeNestedInput
+  }
+
+  export type OfficeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    head?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    members?: MemberUncheckedUpdateManyWithoutOfficeNestedInput
+  }
+
+  export type OfficeCreateManyInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    head?: string | null
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type OfficeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    head?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type OfficeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    head?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DOJHMOCreateInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    type?: string | null
+    status?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    members?: MemberCreateNestedManyWithoutDojHmoInput
+  }
+
+  export type DOJHMOUncheckedCreateInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    type?: string | null
+    status?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    members?: MemberUncheckedCreateNestedManyWithoutDojHmoInput
+  }
+
+  export type DOJHMOUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    members?: MemberUpdateManyWithoutDojHmoNestedInput
+  }
+
+  export type DOJHMOUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    members?: MemberUncheckedUpdateManyWithoutDojHmoNestedInput
+  }
+
+  export type DOJHMOCreateManyInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    type?: string | null
+    status?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DOJHMOUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DOJHMOUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type RoleCreateInput = {
@@ -6660,6 +16290,347 @@ export namespace Prisma {
     permissionId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type DeviceCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    deviceDistinctions?: DeviceDeviceDistinctionCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    deviceDistinctions?: DeviceDeviceDistinctionUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deviceDistinctions?: DeviceDeviceDistinctionUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    deviceDistinctions?: DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DeviceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceDistinctionCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    devices?: DeviceDeviceDistinctionCreateNestedManyWithoutDeviceDistinctionInput
+  }
+
+  export type DeviceDistinctionUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    devices?: DeviceDeviceDistinctionUncheckedCreateNestedManyWithoutDeviceDistinctionInput
+  }
+
+  export type DeviceDistinctionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    devices?: DeviceDeviceDistinctionUpdateManyWithoutDeviceDistinctionNestedInput
+  }
+
+  export type DeviceDistinctionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    devices?: DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceDistinctionNestedInput
+  }
+
+  export type DeviceDistinctionCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DeviceDistinctionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceDistinctionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceDeviceDistinctionCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    device: DeviceCreateNestedOneWithoutDeviceDistinctionsInput
+    deviceDistinction: DeviceDistinctionCreateNestedOneWithoutDevicesInput
+  }
+
+  export type DeviceDeviceDistinctionUncheckedCreateInput = {
+    id?: string
+    deviceId: string
+    deviceDistinctionId: string
+    createdAt?: Date | string
+  }
+
+  export type DeviceDeviceDistinctionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUpdateOneRequiredWithoutDeviceDistinctionsNestedInput
+    deviceDistinction?: DeviceDistinctionUpdateOneRequiredWithoutDevicesNestedInput
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceDistinctionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceDeviceDistinctionCreateManyInput = {
+    id?: string
+    deviceId: string
+    deviceDistinctionId: string
+    createdAt?: Date | string
+  }
+
+  export type DeviceDeviceDistinctionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceDistinctionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaterialCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    quantity?: number
+    unit?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MaterialUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    quantity?: number
+    unit?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MaterialUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MaterialUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MaterialCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    quantity?: number
+    unit?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MaterialUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MaterialUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberActivityLogCreateInput = {
+    id?: string
+    deviceIds: string
+    description?: string | null
+    timeIn?: Date | string | null
+    timeOut?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    member: MemberCreateNestedOneWithoutActivityLogsInput
+  }
+
+  export type MemberActivityLogUncheckedCreateInput = {
+    id?: string
+    memberId: string
+    deviceIds: string
+    description?: string | null
+    timeIn?: Date | string | null
+    timeOut?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MemberActivityLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    member?: MemberUpdateOneRequiredWithoutActivityLogsNestedInput
+  }
+
+  export type MemberActivityLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    memberId?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberActivityLogCreateManyInput = {
+    id?: string
+    memberId: string
+    deviceIds: string
+    description?: string | null
+    timeIn?: Date | string | null
+    timeOut?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MemberActivityLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberActivityLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    memberId?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -6798,15 +16769,186 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type RolePermissionListRelationFilter = {
-    every?: RolePermissionWhereInput
-    some?: RolePermissionWhereInput
-    none?: RolePermissionWhereInput
+  export type OfficeNullableScalarRelationFilter = {
+    is?: OfficeWhereInput | null
+    isNot?: OfficeWhereInput | null
+  }
+
+  export type DOJHMONullableScalarRelationFilter = {
+    is?: DOJHMOWhereInput | null
+    isNot?: DOJHMOWhereInput | null
+  }
+
+  export type MemberActivityLogListRelationFilter = {
+    every?: MemberActivityLogWhereInput
+    some?: MemberActivityLogWhereInput
+    none?: MemberActivityLogWhereInput
   }
 
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type MemberActivityLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MemberOrderByRelevanceInput = {
+    fields: MemberOrderByRelevanceFieldEnum | MemberOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type MemberCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    officeId?: SortOrder
+    dojHmoId?: SortOrder
+  }
+
+  export type MemberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    officeId?: SortOrder
+    dojHmoId?: SortOrder
+  }
+
+  export type MemberMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    officeId?: SortOrder
+    dojHmoId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type MemberListRelationFilter = {
+    every?: MemberWhereInput
+    some?: MemberWhereInput
+    none?: MemberWhereInput
+  }
+
+  export type MemberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OfficeOrderByRelevanceInput = {
+    fields: OfficeOrderByRelevanceFieldEnum | OfficeOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type OfficeCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    head?: SortOrder
+    location?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type OfficeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    head?: SortOrder
+    location?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type OfficeMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    head?: SortOrder
+    location?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DOJHMOOrderByRelevanceInput = {
+    fields: DOJHMOOrderByRelevanceFieldEnum | DOJHMOOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type DOJHMOCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DOJHMOMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DOJHMOMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type RolePermissionListRelationFilter = {
+    every?: RolePermissionWhereInput
+    some?: RolePermissionWhereInput
+    none?: RolePermissionWhereInput
   }
 
   export type RolePermissionOrderByRelationAggregateInput = {
@@ -6835,24 +16977,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type PermissionOrderByRelevanceInput = {
@@ -6946,6 +17070,270 @@ export namespace Prisma {
     permissionId?: SortOrder
   }
 
+  export type DeviceDeviceDistinctionListRelationFilter = {
+    every?: DeviceDeviceDistinctionWhereInput
+    some?: DeviceDeviceDistinctionWhereInput
+    none?: DeviceDeviceDistinctionWhereInput
+  }
+
+  export type DeviceDeviceDistinctionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceOrderByRelevanceInput = {
+    fields: DeviceOrderByRelevanceFieldEnum | DeviceOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type DeviceCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DeviceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DeviceMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DeviceDistinctionOrderByRelevanceInput = {
+    fields: DeviceDistinctionOrderByRelevanceFieldEnum | DeviceDistinctionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type DeviceDistinctionCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DeviceDistinctionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DeviceDistinctionMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DeviceScalarRelationFilter = {
+    is?: DeviceWhereInput
+    isNot?: DeviceWhereInput
+  }
+
+  export type DeviceDistinctionScalarRelationFilter = {
+    is?: DeviceDistinctionWhereInput
+    isNot?: DeviceDistinctionWhereInput
+  }
+
+  export type DeviceDeviceDistinctionOrderByRelevanceInput = {
+    fields: DeviceDeviceDistinctionOrderByRelevanceFieldEnum | DeviceDeviceDistinctionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type DeviceDeviceDistinctionDeviceIdDeviceDistinctionIdCompoundUniqueInput = {
+    deviceId: string
+    deviceDistinctionId: string
+  }
+
+  export type DeviceDeviceDistinctionCountOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceDistinctionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeviceDeviceDistinctionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceDistinctionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeviceDeviceDistinctionMinOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceDistinctionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type MaterialOrderByRelevanceInput = {
+    fields: MaterialOrderByRelevanceFieldEnum | MaterialOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type MaterialCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type MaterialAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+  }
+
+  export type MaterialMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type MaterialMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type MaterialSumOrderByAggregateInput = {
+    quantity?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type MemberScalarRelationFilter = {
+    is?: MemberWhereInput
+    isNot?: MemberWhereInput
+  }
+
+  export type MemberActivityLogOrderByRelevanceInput = {
+    fields: MemberActivityLogOrderByRelevanceFieldEnum | MemberActivityLogOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type MemberActivityLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    deviceIds?: SortOrder
+    description?: SortOrder
+    timeIn?: SortOrder
+    timeOut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type MemberActivityLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    deviceIds?: SortOrder
+    description?: SortOrder
+    timeIn?: SortOrder
+    timeOut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type MemberActivityLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    deviceIds?: SortOrder
+    description?: SortOrder
+    timeIn?: SortOrder
+    timeOut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type UserRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput> | UserRoleCreateWithoutUserInput[] | UserRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput | UserRoleCreateOrConnectWithoutUserInput[]
@@ -7000,6 +17388,168 @@ export namespace Prisma {
     deleteMany?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
   }
 
+  export type OfficeCreateNestedOneWithoutMembersInput = {
+    create?: XOR<OfficeCreateWithoutMembersInput, OfficeUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: OfficeCreateOrConnectWithoutMembersInput
+    connect?: OfficeWhereUniqueInput
+  }
+
+  export type DOJHMOCreateNestedOneWithoutMembersInput = {
+    create?: XOR<DOJHMOCreateWithoutMembersInput, DOJHMOUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: DOJHMOCreateOrConnectWithoutMembersInput
+    connect?: DOJHMOWhereUniqueInput
+  }
+
+  export type MemberActivityLogCreateNestedManyWithoutMemberInput = {
+    create?: XOR<MemberActivityLogCreateWithoutMemberInput, MemberActivityLogUncheckedCreateWithoutMemberInput> | MemberActivityLogCreateWithoutMemberInput[] | MemberActivityLogUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberActivityLogCreateOrConnectWithoutMemberInput | MemberActivityLogCreateOrConnectWithoutMemberInput[]
+    createMany?: MemberActivityLogCreateManyMemberInputEnvelope
+    connect?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+  }
+
+  export type MemberActivityLogUncheckedCreateNestedManyWithoutMemberInput = {
+    create?: XOR<MemberActivityLogCreateWithoutMemberInput, MemberActivityLogUncheckedCreateWithoutMemberInput> | MemberActivityLogCreateWithoutMemberInput[] | MemberActivityLogUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberActivityLogCreateOrConnectWithoutMemberInput | MemberActivityLogCreateOrConnectWithoutMemberInput[]
+    createMany?: MemberActivityLogCreateManyMemberInputEnvelope
+    connect?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type OfficeUpdateOneWithoutMembersNestedInput = {
+    create?: XOR<OfficeCreateWithoutMembersInput, OfficeUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: OfficeCreateOrConnectWithoutMembersInput
+    upsert?: OfficeUpsertWithoutMembersInput
+    disconnect?: OfficeWhereInput | boolean
+    delete?: OfficeWhereInput | boolean
+    connect?: OfficeWhereUniqueInput
+    update?: XOR<XOR<OfficeUpdateToOneWithWhereWithoutMembersInput, OfficeUpdateWithoutMembersInput>, OfficeUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type DOJHMOUpdateOneWithoutMembersNestedInput = {
+    create?: XOR<DOJHMOCreateWithoutMembersInput, DOJHMOUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: DOJHMOCreateOrConnectWithoutMembersInput
+    upsert?: DOJHMOUpsertWithoutMembersInput
+    disconnect?: DOJHMOWhereInput | boolean
+    delete?: DOJHMOWhereInput | boolean
+    connect?: DOJHMOWhereUniqueInput
+    update?: XOR<XOR<DOJHMOUpdateToOneWithWhereWithoutMembersInput, DOJHMOUpdateWithoutMembersInput>, DOJHMOUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type MemberActivityLogUpdateManyWithoutMemberNestedInput = {
+    create?: XOR<MemberActivityLogCreateWithoutMemberInput, MemberActivityLogUncheckedCreateWithoutMemberInput> | MemberActivityLogCreateWithoutMemberInput[] | MemberActivityLogUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberActivityLogCreateOrConnectWithoutMemberInput | MemberActivityLogCreateOrConnectWithoutMemberInput[]
+    upsert?: MemberActivityLogUpsertWithWhereUniqueWithoutMemberInput | MemberActivityLogUpsertWithWhereUniqueWithoutMemberInput[]
+    createMany?: MemberActivityLogCreateManyMemberInputEnvelope
+    set?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    disconnect?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    delete?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    connect?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    update?: MemberActivityLogUpdateWithWhereUniqueWithoutMemberInput | MemberActivityLogUpdateWithWhereUniqueWithoutMemberInput[]
+    updateMany?: MemberActivityLogUpdateManyWithWhereWithoutMemberInput | MemberActivityLogUpdateManyWithWhereWithoutMemberInput[]
+    deleteMany?: MemberActivityLogScalarWhereInput | MemberActivityLogScalarWhereInput[]
+  }
+
+  export type MemberActivityLogUncheckedUpdateManyWithoutMemberNestedInput = {
+    create?: XOR<MemberActivityLogCreateWithoutMemberInput, MemberActivityLogUncheckedCreateWithoutMemberInput> | MemberActivityLogCreateWithoutMemberInput[] | MemberActivityLogUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberActivityLogCreateOrConnectWithoutMemberInput | MemberActivityLogCreateOrConnectWithoutMemberInput[]
+    upsert?: MemberActivityLogUpsertWithWhereUniqueWithoutMemberInput | MemberActivityLogUpsertWithWhereUniqueWithoutMemberInput[]
+    createMany?: MemberActivityLogCreateManyMemberInputEnvelope
+    set?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    disconnect?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    delete?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    connect?: MemberActivityLogWhereUniqueInput | MemberActivityLogWhereUniqueInput[]
+    update?: MemberActivityLogUpdateWithWhereUniqueWithoutMemberInput | MemberActivityLogUpdateWithWhereUniqueWithoutMemberInput[]
+    updateMany?: MemberActivityLogUpdateManyWithWhereWithoutMemberInput | MemberActivityLogUpdateManyWithWhereWithoutMemberInput[]
+    deleteMany?: MemberActivityLogScalarWhereInput | MemberActivityLogScalarWhereInput[]
+  }
+
+  export type MemberCreateNestedManyWithoutOfficeInput = {
+    create?: XOR<MemberCreateWithoutOfficeInput, MemberUncheckedCreateWithoutOfficeInput> | MemberCreateWithoutOfficeInput[] | MemberUncheckedCreateWithoutOfficeInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutOfficeInput | MemberCreateOrConnectWithoutOfficeInput[]
+    createMany?: MemberCreateManyOfficeInputEnvelope
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+  }
+
+  export type MemberUncheckedCreateNestedManyWithoutOfficeInput = {
+    create?: XOR<MemberCreateWithoutOfficeInput, MemberUncheckedCreateWithoutOfficeInput> | MemberCreateWithoutOfficeInput[] | MemberUncheckedCreateWithoutOfficeInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutOfficeInput | MemberCreateOrConnectWithoutOfficeInput[]
+    createMany?: MemberCreateManyOfficeInputEnvelope
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+  }
+
+  export type MemberUpdateManyWithoutOfficeNestedInput = {
+    create?: XOR<MemberCreateWithoutOfficeInput, MemberUncheckedCreateWithoutOfficeInput> | MemberCreateWithoutOfficeInput[] | MemberUncheckedCreateWithoutOfficeInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutOfficeInput | MemberCreateOrConnectWithoutOfficeInput[]
+    upsert?: MemberUpsertWithWhereUniqueWithoutOfficeInput | MemberUpsertWithWhereUniqueWithoutOfficeInput[]
+    createMany?: MemberCreateManyOfficeInputEnvelope
+    set?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    disconnect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    delete?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    update?: MemberUpdateWithWhereUniqueWithoutOfficeInput | MemberUpdateWithWhereUniqueWithoutOfficeInput[]
+    updateMany?: MemberUpdateManyWithWhereWithoutOfficeInput | MemberUpdateManyWithWhereWithoutOfficeInput[]
+    deleteMany?: MemberScalarWhereInput | MemberScalarWhereInput[]
+  }
+
+  export type MemberUncheckedUpdateManyWithoutOfficeNestedInput = {
+    create?: XOR<MemberCreateWithoutOfficeInput, MemberUncheckedCreateWithoutOfficeInput> | MemberCreateWithoutOfficeInput[] | MemberUncheckedCreateWithoutOfficeInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutOfficeInput | MemberCreateOrConnectWithoutOfficeInput[]
+    upsert?: MemberUpsertWithWhereUniqueWithoutOfficeInput | MemberUpsertWithWhereUniqueWithoutOfficeInput[]
+    createMany?: MemberCreateManyOfficeInputEnvelope
+    set?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    disconnect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    delete?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    update?: MemberUpdateWithWhereUniqueWithoutOfficeInput | MemberUpdateWithWhereUniqueWithoutOfficeInput[]
+    updateMany?: MemberUpdateManyWithWhereWithoutOfficeInput | MemberUpdateManyWithWhereWithoutOfficeInput[]
+    deleteMany?: MemberScalarWhereInput | MemberScalarWhereInput[]
+  }
+
+  export type MemberCreateNestedManyWithoutDojHmoInput = {
+    create?: XOR<MemberCreateWithoutDojHmoInput, MemberUncheckedCreateWithoutDojHmoInput> | MemberCreateWithoutDojHmoInput[] | MemberUncheckedCreateWithoutDojHmoInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutDojHmoInput | MemberCreateOrConnectWithoutDojHmoInput[]
+    createMany?: MemberCreateManyDojHmoInputEnvelope
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+  }
+
+  export type MemberUncheckedCreateNestedManyWithoutDojHmoInput = {
+    create?: XOR<MemberCreateWithoutDojHmoInput, MemberUncheckedCreateWithoutDojHmoInput> | MemberCreateWithoutDojHmoInput[] | MemberUncheckedCreateWithoutDojHmoInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutDojHmoInput | MemberCreateOrConnectWithoutDojHmoInput[]
+    createMany?: MemberCreateManyDojHmoInputEnvelope
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+  }
+
+  export type MemberUpdateManyWithoutDojHmoNestedInput = {
+    create?: XOR<MemberCreateWithoutDojHmoInput, MemberUncheckedCreateWithoutDojHmoInput> | MemberCreateWithoutDojHmoInput[] | MemberUncheckedCreateWithoutDojHmoInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutDojHmoInput | MemberCreateOrConnectWithoutDojHmoInput[]
+    upsert?: MemberUpsertWithWhereUniqueWithoutDojHmoInput | MemberUpsertWithWhereUniqueWithoutDojHmoInput[]
+    createMany?: MemberCreateManyDojHmoInputEnvelope
+    set?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    disconnect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    delete?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    update?: MemberUpdateWithWhereUniqueWithoutDojHmoInput | MemberUpdateWithWhereUniqueWithoutDojHmoInput[]
+    updateMany?: MemberUpdateManyWithWhereWithoutDojHmoInput | MemberUpdateManyWithWhereWithoutDojHmoInput[]
+    deleteMany?: MemberScalarWhereInput | MemberScalarWhereInput[]
+  }
+
+  export type MemberUncheckedUpdateManyWithoutDojHmoNestedInput = {
+    create?: XOR<MemberCreateWithoutDojHmoInput, MemberUncheckedCreateWithoutDojHmoInput> | MemberCreateWithoutDojHmoInput[] | MemberUncheckedCreateWithoutDojHmoInput[]
+    connectOrCreate?: MemberCreateOrConnectWithoutDojHmoInput | MemberCreateOrConnectWithoutDojHmoInput[]
+    upsert?: MemberUpsertWithWhereUniqueWithoutDojHmoInput | MemberUpsertWithWhereUniqueWithoutDojHmoInput[]
+    createMany?: MemberCreateManyDojHmoInputEnvelope
+    set?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    disconnect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    delete?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    connect?: MemberWhereUniqueInput | MemberWhereUniqueInput[]
+    update?: MemberUpdateWithWhereUniqueWithoutDojHmoInput | MemberUpdateWithWhereUniqueWithoutDojHmoInput[]
+    updateMany?: MemberUpdateManyWithWhereWithoutDojHmoInput | MemberUpdateManyWithWhereWithoutDojHmoInput[]
+    deleteMany?: MemberScalarWhereInput | MemberScalarWhereInput[]
+  }
+
   export type UserRoleCreateNestedManyWithoutRoleInput = {
     create?: XOR<UserRoleCreateWithoutRoleInput, UserRoleUncheckedCreateWithoutRoleInput> | UserRoleCreateWithoutRoleInput[] | UserRoleUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: UserRoleCreateOrConnectWithoutRoleInput | UserRoleCreateOrConnectWithoutRoleInput[]
@@ -7026,10 +17576,6 @@ export namespace Prisma {
     connectOrCreate?: RolePermissionCreateOrConnectWithoutRoleInput | RolePermissionCreateOrConnectWithoutRoleInput[]
     createMany?: RolePermissionCreateManyRoleInputEnvelope
     connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type UserRoleUpdateManyWithoutRoleNestedInput = {
@@ -7186,6 +17732,144 @@ export namespace Prisma {
     update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutRolePermissionsInput, PermissionUpdateWithoutRolePermissionsInput>, PermissionUncheckedUpdateWithoutRolePermissionsInput>
   }
 
+  export type DeviceDeviceDistinctionCreateNestedManyWithoutDeviceInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput> | DeviceDeviceDistinctionCreateWithoutDeviceInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceInputEnvelope
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+  }
+
+  export type DeviceDeviceDistinctionUncheckedCreateNestedManyWithoutDeviceInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput> | DeviceDeviceDistinctionCreateWithoutDeviceInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceInputEnvelope
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+  }
+
+  export type DeviceDeviceDistinctionUpdateManyWithoutDeviceNestedInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput> | DeviceDeviceDistinctionCreateWithoutDeviceInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput[]
+    upsert?: DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceInput | DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceInputEnvelope
+    set?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    disconnect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    delete?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    update?: DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceInput | DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceInput[]
+    updateMany?: DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceInput | DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceInput[]
+    deleteMany?: DeviceDeviceDistinctionScalarWhereInput | DeviceDeviceDistinctionScalarWhereInput[]
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceNestedInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput> | DeviceDeviceDistinctionCreateWithoutDeviceInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput[]
+    upsert?: DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceInput | DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceInputEnvelope
+    set?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    disconnect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    delete?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    update?: DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceInput | DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceInput[]
+    updateMany?: DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceInput | DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceInput[]
+    deleteMany?: DeviceDeviceDistinctionScalarWhereInput | DeviceDeviceDistinctionScalarWhereInput[]
+  }
+
+  export type DeviceDeviceDistinctionCreateNestedManyWithoutDeviceDistinctionInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput> | DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceDistinctionInputEnvelope
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+  }
+
+  export type DeviceDeviceDistinctionUncheckedCreateNestedManyWithoutDeviceDistinctionInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput> | DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceDistinctionInputEnvelope
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+  }
+
+  export type DeviceDeviceDistinctionUpdateManyWithoutDeviceDistinctionNestedInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput> | DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput[]
+    upsert?: DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceDistinctionInput | DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceDistinctionInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceDistinctionInputEnvelope
+    set?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    disconnect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    delete?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    update?: DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceDistinctionInput | DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceDistinctionInput[]
+    updateMany?: DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceDistinctionInput | DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceDistinctionInput[]
+    deleteMany?: DeviceDeviceDistinctionScalarWhereInput | DeviceDeviceDistinctionScalarWhereInput[]
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceDistinctionNestedInput = {
+    create?: XOR<DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput> | DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput[] | DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput[]
+    connectOrCreate?: DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput | DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput[]
+    upsert?: DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceDistinctionInput | DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceDistinctionInput[]
+    createMany?: DeviceDeviceDistinctionCreateManyDeviceDistinctionInputEnvelope
+    set?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    disconnect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    delete?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    connect?: DeviceDeviceDistinctionWhereUniqueInput | DeviceDeviceDistinctionWhereUniqueInput[]
+    update?: DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceDistinctionInput | DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceDistinctionInput[]
+    updateMany?: DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceDistinctionInput | DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceDistinctionInput[]
+    deleteMany?: DeviceDeviceDistinctionScalarWhereInput | DeviceDeviceDistinctionScalarWhereInput[]
+  }
+
+  export type DeviceCreateNestedOneWithoutDeviceDistinctionsInput = {
+    create?: XOR<DeviceCreateWithoutDeviceDistinctionsInput, DeviceUncheckedCreateWithoutDeviceDistinctionsInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutDeviceDistinctionsInput
+    connect?: DeviceWhereUniqueInput
+  }
+
+  export type DeviceDistinctionCreateNestedOneWithoutDevicesInput = {
+    create?: XOR<DeviceDistinctionCreateWithoutDevicesInput, DeviceDistinctionUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: DeviceDistinctionCreateOrConnectWithoutDevicesInput
+    connect?: DeviceDistinctionWhereUniqueInput
+  }
+
+  export type DeviceUpdateOneRequiredWithoutDeviceDistinctionsNestedInput = {
+    create?: XOR<DeviceCreateWithoutDeviceDistinctionsInput, DeviceUncheckedCreateWithoutDeviceDistinctionsInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutDeviceDistinctionsInput
+    upsert?: DeviceUpsertWithoutDeviceDistinctionsInput
+    connect?: DeviceWhereUniqueInput
+    update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutDeviceDistinctionsInput, DeviceUpdateWithoutDeviceDistinctionsInput>, DeviceUncheckedUpdateWithoutDeviceDistinctionsInput>
+  }
+
+  export type DeviceDistinctionUpdateOneRequiredWithoutDevicesNestedInput = {
+    create?: XOR<DeviceDistinctionCreateWithoutDevicesInput, DeviceDistinctionUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: DeviceDistinctionCreateOrConnectWithoutDevicesInput
+    upsert?: DeviceDistinctionUpsertWithoutDevicesInput
+    connect?: DeviceDistinctionWhereUniqueInput
+    update?: XOR<XOR<DeviceDistinctionUpdateToOneWithWhereWithoutDevicesInput, DeviceDistinctionUpdateWithoutDevicesInput>, DeviceDistinctionUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type MemberCreateNestedOneWithoutActivityLogsInput = {
+    create?: XOR<MemberCreateWithoutActivityLogsInput, MemberUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: MemberCreateOrConnectWithoutActivityLogsInput
+    connect?: MemberWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type MemberUpdateOneRequiredWithoutActivityLogsNestedInput = {
+    create?: XOR<MemberCreateWithoutActivityLogsInput, MemberUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: MemberCreateOrConnectWithoutActivityLogsInput
+    upsert?: MemberUpsertWithoutActivityLogsInput
+    connect?: MemberWhereUniqueInput
+    update?: XOR<XOR<MemberUpdateToOneWithWhereWithoutActivityLogsInput, MemberUpdateWithoutActivityLogsInput>, MemberUncheckedUpdateWithoutActivityLogsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -7312,6 +17996,58 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type UserRoleCreateWithoutUserInput = {
     role: RoleCreateNestedOneWithoutUserRolesInput
   }
@@ -7352,6 +18088,307 @@ export namespace Prisma {
     NOT?: UserRoleScalarWhereInput | UserRoleScalarWhereInput[]
     userId?: StringFilter<"UserRole"> | string
     roleId?: StringFilter<"UserRole"> | string
+  }
+
+  export type OfficeCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    head?: string | null
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type OfficeUncheckedCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    head?: string | null
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type OfficeCreateOrConnectWithoutMembersInput = {
+    where: OfficeWhereUniqueInput
+    create: XOR<OfficeCreateWithoutMembersInput, OfficeUncheckedCreateWithoutMembersInput>
+  }
+
+  export type DOJHMOCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    type?: string | null
+    status?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DOJHMOUncheckedCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    code: string
+    description?: string | null
+    type?: string | null
+    status?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DOJHMOCreateOrConnectWithoutMembersInput = {
+    where: DOJHMOWhereUniqueInput
+    create: XOR<DOJHMOCreateWithoutMembersInput, DOJHMOUncheckedCreateWithoutMembersInput>
+  }
+
+  export type MemberActivityLogCreateWithoutMemberInput = {
+    id?: string
+    deviceIds: string
+    description?: string | null
+    timeIn?: Date | string | null
+    timeOut?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MemberActivityLogUncheckedCreateWithoutMemberInput = {
+    id?: string
+    deviceIds: string
+    description?: string | null
+    timeIn?: Date | string | null
+    timeOut?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MemberActivityLogCreateOrConnectWithoutMemberInput = {
+    where: MemberActivityLogWhereUniqueInput
+    create: XOR<MemberActivityLogCreateWithoutMemberInput, MemberActivityLogUncheckedCreateWithoutMemberInput>
+  }
+
+  export type MemberActivityLogCreateManyMemberInputEnvelope = {
+    data: MemberActivityLogCreateManyMemberInput | MemberActivityLogCreateManyMemberInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OfficeUpsertWithoutMembersInput = {
+    update: XOR<OfficeUpdateWithoutMembersInput, OfficeUncheckedUpdateWithoutMembersInput>
+    create: XOR<OfficeCreateWithoutMembersInput, OfficeUncheckedCreateWithoutMembersInput>
+    where?: OfficeWhereInput
+  }
+
+  export type OfficeUpdateToOneWithWhereWithoutMembersInput = {
+    where?: OfficeWhereInput
+    data: XOR<OfficeUpdateWithoutMembersInput, OfficeUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type OfficeUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    head?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type OfficeUncheckedUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    head?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DOJHMOUpsertWithoutMembersInput = {
+    update: XOR<DOJHMOUpdateWithoutMembersInput, DOJHMOUncheckedUpdateWithoutMembersInput>
+    create: XOR<DOJHMOCreateWithoutMembersInput, DOJHMOUncheckedCreateWithoutMembersInput>
+    where?: DOJHMOWhereInput
+  }
+
+  export type DOJHMOUpdateToOneWithWhereWithoutMembersInput = {
+    where?: DOJHMOWhereInput
+    data: XOR<DOJHMOUpdateWithoutMembersInput, DOJHMOUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type DOJHMOUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DOJHMOUncheckedUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberActivityLogUpsertWithWhereUniqueWithoutMemberInput = {
+    where: MemberActivityLogWhereUniqueInput
+    update: XOR<MemberActivityLogUpdateWithoutMemberInput, MemberActivityLogUncheckedUpdateWithoutMemberInput>
+    create: XOR<MemberActivityLogCreateWithoutMemberInput, MemberActivityLogUncheckedCreateWithoutMemberInput>
+  }
+
+  export type MemberActivityLogUpdateWithWhereUniqueWithoutMemberInput = {
+    where: MemberActivityLogWhereUniqueInput
+    data: XOR<MemberActivityLogUpdateWithoutMemberInput, MemberActivityLogUncheckedUpdateWithoutMemberInput>
+  }
+
+  export type MemberActivityLogUpdateManyWithWhereWithoutMemberInput = {
+    where: MemberActivityLogScalarWhereInput
+    data: XOR<MemberActivityLogUpdateManyMutationInput, MemberActivityLogUncheckedUpdateManyWithoutMemberInput>
+  }
+
+  export type MemberActivityLogScalarWhereInput = {
+    AND?: MemberActivityLogScalarWhereInput | MemberActivityLogScalarWhereInput[]
+    OR?: MemberActivityLogScalarWhereInput[]
+    NOT?: MemberActivityLogScalarWhereInput | MemberActivityLogScalarWhereInput[]
+    id?: StringFilter<"MemberActivityLog"> | string
+    memberId?: StringFilter<"MemberActivityLog"> | string
+    deviceIds?: StringFilter<"MemberActivityLog"> | string
+    description?: StringNullableFilter<"MemberActivityLog"> | string | null
+    timeIn?: DateTimeNullableFilter<"MemberActivityLog"> | Date | string | null
+    timeOut?: DateTimeNullableFilter<"MemberActivityLog"> | Date | string | null
+    createdAt?: DateTimeFilter<"MemberActivityLog"> | Date | string
+    updatedAt?: DateTimeFilter<"MemberActivityLog"> | Date | string
+    active?: BoolFilter<"MemberActivityLog"> | boolean
+  }
+
+  export type MemberCreateWithoutOfficeInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    dojHmo?: DOJHMOCreateNestedOneWithoutMembersInput
+    activityLogs?: MemberActivityLogCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberUncheckedCreateWithoutOfficeInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    dojHmoId?: string | null
+    activityLogs?: MemberActivityLogUncheckedCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberCreateOrConnectWithoutOfficeInput = {
+    where: MemberWhereUniqueInput
+    create: XOR<MemberCreateWithoutOfficeInput, MemberUncheckedCreateWithoutOfficeInput>
+  }
+
+  export type MemberCreateManyOfficeInputEnvelope = {
+    data: MemberCreateManyOfficeInput | MemberCreateManyOfficeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MemberUpsertWithWhereUniqueWithoutOfficeInput = {
+    where: MemberWhereUniqueInput
+    update: XOR<MemberUpdateWithoutOfficeInput, MemberUncheckedUpdateWithoutOfficeInput>
+    create: XOR<MemberCreateWithoutOfficeInput, MemberUncheckedCreateWithoutOfficeInput>
+  }
+
+  export type MemberUpdateWithWhereUniqueWithoutOfficeInput = {
+    where: MemberWhereUniqueInput
+    data: XOR<MemberUpdateWithoutOfficeInput, MemberUncheckedUpdateWithoutOfficeInput>
+  }
+
+  export type MemberUpdateManyWithWhereWithoutOfficeInput = {
+    where: MemberScalarWhereInput
+    data: XOR<MemberUpdateManyMutationInput, MemberUncheckedUpdateManyWithoutOfficeInput>
+  }
+
+  export type MemberScalarWhereInput = {
+    AND?: MemberScalarWhereInput | MemberScalarWhereInput[]
+    OR?: MemberScalarWhereInput[]
+    NOT?: MemberScalarWhereInput | MemberScalarWhereInput[]
+    id?: StringFilter<"Member"> | string
+    name?: StringFilter<"Member"> | string
+    description?: StringNullableFilter<"Member"> | string | null
+    createdAt?: DateTimeFilter<"Member"> | Date | string
+    updatedAt?: DateTimeFilter<"Member"> | Date | string
+    active?: BoolFilter<"Member"> | boolean
+    officeId?: StringNullableFilter<"Member"> | string | null
+    dojHmoId?: StringNullableFilter<"Member"> | string | null
+  }
+
+  export type MemberCreateWithoutDojHmoInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    office?: OfficeCreateNestedOneWithoutMembersInput
+    activityLogs?: MemberActivityLogCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberUncheckedCreateWithoutDojHmoInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    officeId?: string | null
+    activityLogs?: MemberActivityLogUncheckedCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberCreateOrConnectWithoutDojHmoInput = {
+    where: MemberWhereUniqueInput
+    create: XOR<MemberCreateWithoutDojHmoInput, MemberUncheckedCreateWithoutDojHmoInput>
+  }
+
+  export type MemberCreateManyDojHmoInputEnvelope = {
+    data: MemberCreateManyDojHmoInput | MemberCreateManyDojHmoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MemberUpsertWithWhereUniqueWithoutDojHmoInput = {
+    where: MemberWhereUniqueInput
+    update: XOR<MemberUpdateWithoutDojHmoInput, MemberUncheckedUpdateWithoutDojHmoInput>
+    create: XOR<MemberCreateWithoutDojHmoInput, MemberUncheckedCreateWithoutDojHmoInput>
+  }
+
+  export type MemberUpdateWithWhereUniqueWithoutDojHmoInput = {
+    where: MemberWhereUniqueInput
+    data: XOR<MemberUpdateWithoutDojHmoInput, MemberUncheckedUpdateWithoutDojHmoInput>
+  }
+
+  export type MemberUpdateManyWithWhereWithoutDojHmoInput = {
+    where: MemberScalarWhereInput
+    data: XOR<MemberUpdateManyMutationInput, MemberUncheckedUpdateManyWithoutDojHmoInput>
   }
 
   export type UserRoleCreateWithoutRoleInput = {
@@ -7656,6 +18693,256 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type DeviceDeviceDistinctionCreateWithoutDeviceInput = {
+    id?: string
+    createdAt?: Date | string
+    deviceDistinction: DeviceDistinctionCreateNestedOneWithoutDevicesInput
+  }
+
+  export type DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput = {
+    id?: string
+    deviceDistinctionId: string
+    createdAt?: Date | string
+  }
+
+  export type DeviceDeviceDistinctionCreateOrConnectWithoutDeviceInput = {
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    create: XOR<DeviceDeviceDistinctionCreateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type DeviceDeviceDistinctionCreateManyDeviceInputEnvelope = {
+    data: DeviceDeviceDistinctionCreateManyDeviceInput | DeviceDeviceDistinctionCreateManyDeviceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceInput = {
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    update: XOR<DeviceDeviceDistinctionUpdateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedUpdateWithoutDeviceInput>
+    create: XOR<DeviceDeviceDistinctionCreateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceInput = {
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    data: XOR<DeviceDeviceDistinctionUpdateWithoutDeviceInput, DeviceDeviceDistinctionUncheckedUpdateWithoutDeviceInput>
+  }
+
+  export type DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceInput = {
+    where: DeviceDeviceDistinctionScalarWhereInput
+    data: XOR<DeviceDeviceDistinctionUpdateManyMutationInput, DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceInput>
+  }
+
+  export type DeviceDeviceDistinctionScalarWhereInput = {
+    AND?: DeviceDeviceDistinctionScalarWhereInput | DeviceDeviceDistinctionScalarWhereInput[]
+    OR?: DeviceDeviceDistinctionScalarWhereInput[]
+    NOT?: DeviceDeviceDistinctionScalarWhereInput | DeviceDeviceDistinctionScalarWhereInput[]
+    id?: StringFilter<"DeviceDeviceDistinction"> | string
+    deviceId?: StringFilter<"DeviceDeviceDistinction"> | string
+    deviceDistinctionId?: StringFilter<"DeviceDeviceDistinction"> | string
+    createdAt?: DateTimeFilter<"DeviceDeviceDistinction"> | Date | string
+  }
+
+  export type DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput = {
+    id?: string
+    createdAt?: Date | string
+    device: DeviceCreateNestedOneWithoutDeviceDistinctionsInput
+  }
+
+  export type DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput = {
+    id?: string
+    deviceId: string
+    createdAt?: Date | string
+  }
+
+  export type DeviceDeviceDistinctionCreateOrConnectWithoutDeviceDistinctionInput = {
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    create: XOR<DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput>
+  }
+
+  export type DeviceDeviceDistinctionCreateManyDeviceDistinctionInputEnvelope = {
+    data: DeviceDeviceDistinctionCreateManyDeviceDistinctionInput | DeviceDeviceDistinctionCreateManyDeviceDistinctionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeviceDeviceDistinctionUpsertWithWhereUniqueWithoutDeviceDistinctionInput = {
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    update: XOR<DeviceDeviceDistinctionUpdateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedUpdateWithoutDeviceDistinctionInput>
+    create: XOR<DeviceDeviceDistinctionCreateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedCreateWithoutDeviceDistinctionInput>
+  }
+
+  export type DeviceDeviceDistinctionUpdateWithWhereUniqueWithoutDeviceDistinctionInput = {
+    where: DeviceDeviceDistinctionWhereUniqueInput
+    data: XOR<DeviceDeviceDistinctionUpdateWithoutDeviceDistinctionInput, DeviceDeviceDistinctionUncheckedUpdateWithoutDeviceDistinctionInput>
+  }
+
+  export type DeviceDeviceDistinctionUpdateManyWithWhereWithoutDeviceDistinctionInput = {
+    where: DeviceDeviceDistinctionScalarWhereInput
+    data: XOR<DeviceDeviceDistinctionUpdateManyMutationInput, DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceDistinctionInput>
+  }
+
+  export type DeviceCreateWithoutDeviceDistinctionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DeviceUncheckedCreateWithoutDeviceDistinctionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DeviceCreateOrConnectWithoutDeviceDistinctionsInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutDeviceDistinctionsInput, DeviceUncheckedCreateWithoutDeviceDistinctionsInput>
+  }
+
+  export type DeviceDistinctionCreateWithoutDevicesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DeviceDistinctionUncheckedCreateWithoutDevicesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type DeviceDistinctionCreateOrConnectWithoutDevicesInput = {
+    where: DeviceDistinctionWhereUniqueInput
+    create: XOR<DeviceDistinctionCreateWithoutDevicesInput, DeviceDistinctionUncheckedCreateWithoutDevicesInput>
+  }
+
+  export type DeviceUpsertWithoutDeviceDistinctionsInput = {
+    update: XOR<DeviceUpdateWithoutDeviceDistinctionsInput, DeviceUncheckedUpdateWithoutDeviceDistinctionsInput>
+    create: XOR<DeviceCreateWithoutDeviceDistinctionsInput, DeviceUncheckedCreateWithoutDeviceDistinctionsInput>
+    where?: DeviceWhereInput
+  }
+
+  export type DeviceUpdateToOneWithWhereWithoutDeviceDistinctionsInput = {
+    where?: DeviceWhereInput
+    data: XOR<DeviceUpdateWithoutDeviceDistinctionsInput, DeviceUncheckedUpdateWithoutDeviceDistinctionsInput>
+  }
+
+  export type DeviceUpdateWithoutDeviceDistinctionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceUncheckedUpdateWithoutDeviceDistinctionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceDistinctionUpsertWithoutDevicesInput = {
+    update: XOR<DeviceDistinctionUpdateWithoutDevicesInput, DeviceDistinctionUncheckedUpdateWithoutDevicesInput>
+    create: XOR<DeviceDistinctionCreateWithoutDevicesInput, DeviceDistinctionUncheckedCreateWithoutDevicesInput>
+    where?: DeviceDistinctionWhereInput
+  }
+
+  export type DeviceDistinctionUpdateToOneWithWhereWithoutDevicesInput = {
+    where?: DeviceDistinctionWhereInput
+    data: XOR<DeviceDistinctionUpdateWithoutDevicesInput, DeviceDistinctionUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type DeviceDistinctionUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DeviceDistinctionUncheckedUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberCreateWithoutActivityLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    office?: OfficeCreateNestedOneWithoutMembersInput
+    dojHmo?: DOJHMOCreateNestedOneWithoutMembersInput
+  }
+
+  export type MemberUncheckedCreateWithoutActivityLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    officeId?: string | null
+    dojHmoId?: string | null
+  }
+
+  export type MemberCreateOrConnectWithoutActivityLogsInput = {
+    where: MemberWhereUniqueInput
+    create: XOR<MemberCreateWithoutActivityLogsInput, MemberUncheckedCreateWithoutActivityLogsInput>
+  }
+
+  export type MemberUpsertWithoutActivityLogsInput = {
+    update: XOR<MemberUpdateWithoutActivityLogsInput, MemberUncheckedUpdateWithoutActivityLogsInput>
+    create: XOR<MemberCreateWithoutActivityLogsInput, MemberUncheckedCreateWithoutActivityLogsInput>
+    where?: MemberWhereInput
+  }
+
+  export type MemberUpdateToOneWithWhereWithoutActivityLogsInput = {
+    where?: MemberWhereInput
+    data: XOR<MemberUpdateWithoutActivityLogsInput, MemberUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type MemberUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    office?: OfficeUpdateOneWithoutMembersNestedInput
+    dojHmo?: DOJHMOUpdateOneWithoutMembersNestedInput
+  }
+
+  export type MemberUncheckedUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    officeId?: NullableStringFieldUpdateOperationsInput | string | null
+    dojHmoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type UserRoleCreateManyUserInput = {
     roleId: string
   }
@@ -7670,6 +18957,134 @@ export namespace Prisma {
 
   export type UserRoleUncheckedUpdateManyWithoutUserInput = {
     roleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MemberActivityLogCreateManyMemberInput = {
+    id?: string
+    deviceIds: string
+    description?: string | null
+    timeIn?: Date | string | null
+    timeOut?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+  }
+
+  export type MemberActivityLogUpdateWithoutMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberActivityLogUncheckedUpdateWithoutMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberActivityLogUncheckedUpdateManyWithoutMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceIds?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    timeIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MemberCreateManyOfficeInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    dojHmoId?: string | null
+  }
+
+  export type MemberUpdateWithoutOfficeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    dojHmo?: DOJHMOUpdateOneWithoutMembersNestedInput
+    activityLogs?: MemberActivityLogUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberUncheckedUpdateWithoutOfficeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    dojHmoId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLogs?: MemberActivityLogUncheckedUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberUncheckedUpdateManyWithoutOfficeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    dojHmoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MemberCreateManyDojHmoInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active?: boolean
+    officeId?: string | null
+  }
+
+  export type MemberUpdateWithoutDojHmoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    office?: OfficeUpdateOneWithoutMembersNestedInput
+    activityLogs?: MemberActivityLogUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberUncheckedUpdateWithoutDojHmoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    officeId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLogs?: MemberActivityLogUncheckedUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberUncheckedUpdateManyWithoutDojHmoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    officeId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserRoleCreateManyRoleInput = {
@@ -7718,6 +19133,54 @@ export namespace Prisma {
 
   export type RolePermissionUncheckedUpdateManyWithoutPermissionInput = {
     roleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DeviceDeviceDistinctionCreateManyDeviceInput = {
+    id?: string
+    deviceDistinctionId: string
+    createdAt?: Date | string
+  }
+
+  export type DeviceDeviceDistinctionUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deviceDistinction?: DeviceDistinctionUpdateOneRequiredWithoutDevicesNestedInput
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceDistinctionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceDistinctionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceDeviceDistinctionCreateManyDeviceDistinctionInput = {
+    id?: string
+    deviceId: string
+    createdAt?: Date | string
+  }
+
+  export type DeviceDeviceDistinctionUpdateWithoutDeviceDistinctionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUpdateOneRequiredWithoutDeviceDistinctionsNestedInput
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateWithoutDeviceDistinctionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceDeviceDistinctionUncheckedUpdateManyWithoutDeviceDistinctionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
