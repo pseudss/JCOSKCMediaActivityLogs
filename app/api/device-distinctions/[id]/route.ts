@@ -4,9 +4,9 @@ import { prisma } from "@/lib/prisma";
 // PUT - Update a device distinction
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
-  const { id } = context.params;
+  const id = context?.params?.id;
 
   try {
     const { name, description } = await request.json();
@@ -54,9 +54,9 @@ export async function PUT(
 // DELETE - Soft delete a device distinction (set active to false)
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
-  const { id } = context.params;
+  const id = context?.params?.id;
 
   try {
     const deviceDistinction = await prisma.deviceDistinction.update({
