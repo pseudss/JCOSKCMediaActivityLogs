@@ -10,7 +10,6 @@ export async function GET() {
       },
       include: {
         member: true,
-        // Remove this line: device: true
       },
       orderBy: {
         createdAt: 'desc',
@@ -32,8 +31,6 @@ export async function POST(request: NextRequest) {
   try {
     const { memberId, deviceIds, description, timeIn, timeOut } = await request.json();
 
-    console.log("Received data:", { memberId, deviceIds, description, timeIn, timeOut }); // Debug log
-
     if (!memberId) {
       return NextResponse.json(
         { error: "Member is required" },
@@ -41,7 +38,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate member exists
     const member = await prisma.member.findUnique({
       where: { id: memberId, active: true },
     });
@@ -56,23 +52,19 @@ export async function POST(request: NextRequest) {
     const activityLog = await prisma.memberActivityLog.create({
       data: {
         memberId,
-        deviceIds: JSON.stringify(deviceIds || []), // Store as JSON string
+        deviceIds: JSON.stringify(deviceIds || []),
         description: description?.trim() || null,
         timeIn: timeIn ? new Date(timeIn) : null,
         timeOut: timeOut ? new Date(timeOut) : null,
       },
       include: {
         member: true,
-        // Remove this line: device: true
       },
     });
-
-    console.log("Created activity log:", activityLog); // Debug log
 
     return NextResponse.json(activityLog, { status: 201 });
   } catch (error: any) {
     console.error("Error creating member activity log:", error);
-    
     return NextResponse.json(
       { error: error.message || "Failed to create member activity log" },
       { status: 500 }
@@ -83,11 +75,12 @@ export async function POST(request: NextRequest) {
 // PUT - Update a member activity log
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
+  const id = context.params?.id;
+
   try {
     const { memberId, deviceIds, description, timeIn, timeOut } = await request.json();
-    const { id } = params;
 
     if (!memberId) {
       return NextResponse.json(
@@ -96,7 +89,6 @@ export async function PUT(
       );
     }
 
-    // Check if activity log exists
     const existingLog = await prisma.memberActivityLog.findUnique({
       where: { id },
     });
@@ -108,7 +100,6 @@ export async function PUT(
       );
     }
 
-    // Validate member exists
     const member = await prisma.member.findUnique({
       where: { id: memberId, active: true },
     });
@@ -124,21 +115,20 @@ export async function PUT(
       where: { id },
       data: {
         memberId,
-        deviceIds: JSON.stringify(deviceIds || []), // Store as JSON string
+        deviceIds: JSON.stringify(deviceIds || []),
         description: description?.trim() || null,
         timeIn: timeIn ? new Date(timeIn) : null,
         timeOut: timeOut ? new Date(timeOut) : null,
       },
       include: {
         member: true,
-        // Remove this line: device: true
       },
     });
 
     return NextResponse.json(activityLog);
   } catch (error: any) {
     console.error("Error updating member activity log:", error);
-    
+
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Activity log not found" },
@@ -156,24 +146,23 @@ export async function PUT(
 // DELETE - Soft delete a member activity log
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
-  try {
-    const { id } = params;
+  const id = context.params?.id;
 
+  try {
     const activityLog = await prisma.memberActivityLog.update({
       where: { id },
       data: { active: false },
       include: {
         member: true,
-        // Remove this line: device: true
       },
     });
 
     return NextResponse.json(activityLog);
   } catch (error: any) {
     console.error("Error deleting member activity log:", error);
-    
+
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Activity log not found" },
@@ -186,4 +175,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-} 
+}
