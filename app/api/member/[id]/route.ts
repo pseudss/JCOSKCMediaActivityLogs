@@ -1,16 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// GET - Fetch a member by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
+  const { id } = context.params;
+
   try {
     const member = await prisma.member.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
-        office: true
-      }
+        office: true,
+      },
     });
 
     if (!member) {
@@ -30,15 +33,17 @@ export async function GET(
   }
 }
 
+// PATCH - Update a member
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
+  const { id } = context.params;
+
   try {
     const body = await request.json();
     const { name, description } = body;
 
-    // Validate required fields
     if (!name || !name.trim()) {
       return NextResponse.json(
         { message: "Name is required" },
@@ -46,9 +51,8 @@ export async function PATCH(
       );
     }
 
-    // Check if member exists
     const existingMember = await prisma.member.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existingMember) {
@@ -58,7 +62,6 @@ export async function PATCH(
       );
     }
 
-    // Check if name is being changed and if it conflicts with another member
     if (name.trim() !== existingMember.name) {
       const nameConflict = await prisma.member.findUnique({
         where: { name: name.trim() },
@@ -72,17 +75,16 @@ export async function PATCH(
       }
     }
 
-    // Update member with provided fields
     const updatedMember = await prisma.member.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name: name.trim(),
-        description: description?.trim() || null
+        description: description?.trim() || null,
       },
       include: {
         office: true,
-        dojHmo: true
-      }
+        dojHmo: true,
+      },
     });
 
     return NextResponse.json(updatedMember);
@@ -95,14 +97,16 @@ export async function PATCH(
   }
 }
 
+// DELETE - Soft delete a member
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
+  const { id } = context.params;
+
   try {
-    // Check if member exists
     const existingMember = await prisma.member.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existingMember) {
@@ -112,16 +116,15 @@ export async function DELETE(
       );
     }
 
-    // Soft delete: Set status to inactive instead of actually deleting
     const softDeletedMember = await prisma.member.update({
-      where: { id: params.id },
+      where: { id },
       data: { active: false },
     });
 
     return NextResponse.json(
-      { 
+      {
         message: "Member deactivated successfully",
-        member: softDeletedMember 
+        member: softDeletedMember,
       },
       { status: 200 }
     );
